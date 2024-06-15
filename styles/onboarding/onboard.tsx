@@ -5,6 +5,7 @@ import {
 } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
+  gradient: {},
   firstContainer: {
     alignItems: "center",
     marginTop: 250,
@@ -14,7 +15,7 @@ export const styles = StyleSheet.create({
     height: hp("12%"),
   },
   titleText: {
-    fontSize: hp("4%"),
+    fontSize: hp("3%"),
     textAlign: "center",
     color: "#000",
   },
@@ -28,17 +29,19 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     color: "#575757",
     fontSize: hp("2%"),
+    marginTop: 10,
   },
   buttonWrapper: {
-    backgroundColor: "#2467EC",
-    width: wp("80%"),
-    paddingVertical: 18,
+    backgroundColor: "#FFE202",
+    width: wp("70%"),
+    paddingVertical: 10,
     borderRadius: 5,
-    marginTop: 50,
+    marginTop: 100,
   },
   buttonText: {
-    color: "white",
+    color: "black",
     textAlign: "center",
-    fontWeight:"bold"
+    fontSize: hp("2%"),
+    fontWeight: "bold",
   },
 });
