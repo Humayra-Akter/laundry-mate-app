@@ -1,18 +1,22 @@
-import { useFonts } from "expo-font";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import "react-native-reanimated";
 import OnBoarding from "./(routes)/onboarding";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
 
-  if (!loaded) {
-    return null;
-  }
-
-  return <View>{isLoggedIn ? <View></View> : <OnBoarding />}</View>;
+  return (
+    <>
+      {isLoggedIn ? (
+        <View></View>
+      ) : (
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="/(routes)/welcome-intro/index" />
+        </Stack>
+      )}
+    </>
+  );
 }

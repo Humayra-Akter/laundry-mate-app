@@ -1,5 +1,6 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { router } from "expo-router";
 import { useFonts, Raleway_700Bold } from "@expo-google-fonts/raleway";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
@@ -29,7 +30,10 @@ export default function OnboardingScreen() {
         <Text style={[styles.dscpText, { fontFamily: "Nunito_400Regular" }]}>
           Let's explore the process
         </Text>
-        <TouchableOpacity style={styles.buttonWrapper}>
+        <TouchableOpacity
+          onPress={() => router.push("/(routes)/welcome-intro")}
+          style={styles.buttonWrapper}
+        >
           <Text style={[styles.buttonText, { fontFamily: "Nunito_700Bold" }]}>
             Getting Started
           </Text>
