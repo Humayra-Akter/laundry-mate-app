@@ -53,4 +53,13 @@ export const commonStyles = StyleSheet.create({
     color: "#000",
     marginTop: 10,
   },
+  input: {
+    height: 40,
+    marginHorizontal: 16,
+    borderRadius: 8,
+    paddingLeft: 36,
+    fontSize: 16,
+    backgroundColor: "white",
+    color: "#A1A1A1",
+  },
 });
