@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonWrapper: {
-    backgroundColor: "#FFE202",
+    backgroundColor: "#FF725E",
     width: wp("70%"),
     paddingVertical: 10,
     borderRadius: 5,

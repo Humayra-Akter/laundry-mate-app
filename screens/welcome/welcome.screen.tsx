@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useFonts, Raleway_700Bold } from "@expo-google-fonts/raleway";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
@@ -19,14 +19,57 @@ export default function WelcomeScreen() {
     return null;
   }
 
-  const renderItem = ({ item }: { item: onboardingSwiperDataType }) => {
+  const renderItem = ({ item }: { item: onboardingSwiperDataType }) => (
     <LinearGradient
       colors={["#E5ECF9", "#F6F7F9"]}
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      style={{ flex: 1, paddingHorizontal: 16 }}
     >
-      <View></View>
-    </LinearGradient>;
-  };
+      <View style={{ marginTop: 80 }}>
+        <Image
+          source={item.image}
+          style={{
+            alignSelf: "center",
+            marginBottom: 30,
+            width: 200,
+            height: 250,
+          }}
+        />
+        <Text
+          style={[commonStyles.titleText, { fontFamily: "Raleway_700Bold" }]}
+        >
+          {item?.title}
+        </Text>
+        <Text
+          style={[
+            commonStyles.description,
+            { fontFamily: "Nunito_400Regular" },
+          ]}
+        >
+          {item?.description}
+        </Text>
+        <Text
+          style={[
+            commonStyles.shortDescription,
+            { fontFamily: "Nunito_400Regular" },
+          ]}
+        >
+          {item?.shortDescription}
+        </Text>
+      </View>
+    </LinearGradient>
+  );
+
+  const renderNextButton = () => (
+    <View style={commonStyles.buttonContainer}>
+      <Text style={commonStyles.buttonText}>NEXT</Text>
+    </View>
+  );
+
+  const renderDoneButton = () => (
+    <View style={commonStyles.buttonContainer}>
+      <Text style={commonStyles.buttonText}>DONE</Text>
+    </View>
+  );
 
   return (
     <AppIntroSlider
@@ -38,16 +81,8 @@ export default function WelcomeScreen() {
       onSkip={() => {
         router.push("/login");
       }}
-      senderNextButton={() => {
-        <View style={commonStyles.buttonContainer}>
-          <Text style={commonStyles.buttonText}>NEXT</Text>
-        </View>;
-      }}
-      senderDoneButton={() => {
-        <View style={commonStyles.buttonContainer}>
-          <Text style={commonStyles.buttonText}>DONE</Text>
-        </View>;
-      }}
+      renderNextButton={renderNextButton}
+      renderDoneButton={renderDoneButton}
       showSkipButton={false}
       dotStyle={commonStyles.dotStyle}
       bottomButton={true}

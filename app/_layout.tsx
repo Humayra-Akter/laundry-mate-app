@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import "react-native-reanimated";
-import OnBoarding from "./(routes)/onboarding";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {

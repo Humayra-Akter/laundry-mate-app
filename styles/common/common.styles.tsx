@@ -11,8 +11,8 @@ export const commonStyles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonContainer: {
-    backgroundColor: "#FFE202",
-    width: wp("70%"),
+    backgroundColor: "#FF725E",
+    width: wp("90%"),
     paddingVertical: 10,
     borderRadius: 5,
     marginHorizontal: 5,
@@ -36,5 +36,21 @@ export const commonStyles = StyleSheet.create({
     height: hp("1%"),
     borderRadius: 5,
     marginHorizontal: 5,
+  },
+  titleText: {
+    fontSize: hp("3.5%"),
+    textAlign: "center",
+  },
+  description: {
+    fontSize: hp("1.5%"),
+    textAlign: "center",
+    color: "#FF725E",
+    marginTop: 10,
+  },
+  shortDescription: {
+    fontSize: hp("2%"),
+    textAlign: "center",
+    color: "#000",
+    marginTop: 10,
   },
 });
