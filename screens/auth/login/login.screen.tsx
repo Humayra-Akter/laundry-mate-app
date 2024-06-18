@@ -16,6 +16,8 @@ import { useFonts, Raleway_700Bold } from "@expo-google-fonts/raleway";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import { commonStyles } from "@/styles/common/common.styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function LoginScreen() {
   let [fontsLoaded, fontError] = useFonts({
@@ -25,7 +27,9 @@ export default function LoginScreen() {
   });
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [required, setRequired] = useState("");
   const [buttonSpinner, setButtonSpinner] = useState(false);
+  const [error, setError] = useState({ password: "" });
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -34,6 +38,33 @@ export default function LoginScreen() {
   if (!fontError && !fontsLoaded) {
     return null;
   }
+
+  const handlePasswordValidation = (value: string) => {
+    const password = value;
+    const passwordSpecialCharacter = /(?=.*[!@#$&*])/;
+    const passwordOneNumber = /(?=.*[0-9])/;
+    const passwordSixValue = /(?=.*[6,])/;
+
+    if (!passwordSpecialCharacter.test(password)) {
+      setError({
+        ...error,
+        password: "Write at least one Character",
+      });
+      setUserInfo({ ...userInfo, password: "" });
+    } else if (!passwordOneNumber.test(password)) {
+      setError({
+        ...error,
+        password: "Write at least one Number",
+      });
+      setUserInfo({ ...userInfo, password: "" });
+    } else if (!passwordSixValue.test(password)) {
+      setError({
+        ...error,
+        password: "Write at least six digits",
+      });
+      setUserInfo({ ...userInfo, password: "" });
+    }
+  };
 
   return (
     <LinearGradient
@@ -60,6 +91,48 @@ export default function LoginScreen() {
                 setUserInfo({ ...userInfo, email: value });
               }}
             />
+            <Fontisto
+              style={{ position: "absolute", left: 36, top: 10 }}
+              name="email"
+              size={20}
+              color={"#A1A1A1"}
+            />
+            {required && (
+              <View style={commonStyles.errorContainer}>
+                <Entypo name="cross" size={18} color={"#A1A1A1"} />
+              </View>
+            )}
+          </View>
+          <View>
+            <TextInput
+              style={styles.input}
+              keyboardType="default"
+              value={userInfo.password}
+              defaultValue=""
+              placeholder="********"
+              secureTextEntry={!isPasswordVisible}
+              onChangeText={(value) => {
+                setUserInfo({ ...userInfo, email: value });
+              }}
+            />
+            <TouchableOpacity
+              style={styles.visibleIcon}
+              onPress={() => {
+                setIsPasswordVisible(!isPasswordVisible);
+              }}
+            ></TouchableOpacity>
+
+            {/* <Fontisto
+              style={{ position: "absolute", left: 36, top: 10 }}
+              name="email"
+              size={20}
+              color={"#A1A1A1"}
+            />
+            {required && (
+              <View style={commonStyles.errorContainer}>
+                <Entypo name="cross" size={18} color={"red"} />
+              </View>
+            )} */}
           </View>
         </View>
       </ScrollView>
@@ -100,5 +173,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "white",
     color: "#A1A1A1",
+  },
+  visibleIcon: {
+    position: "absolute",
+    right: 30,
+    top: 15,
   },
 });
