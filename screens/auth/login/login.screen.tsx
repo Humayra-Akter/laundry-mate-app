@@ -107,7 +107,6 @@ export default function LoginScreen() {
             <TextInput
               style={styles.input}
               keyboardType="default"
-              value={userInfo.password}
               defaultValue=""
               placeholder="********"
               secureTextEntry={!isPasswordVisible}
@@ -120,19 +119,27 @@ export default function LoginScreen() {
               onPress={() => {
                 setIsPasswordVisible(!isPasswordVisible);
               }}
-            ></TouchableOpacity>
-
-            {/* <Fontisto
-              style={{ position: "absolute", left: 36, top: 10 }}
-              name="email"
+            >
+              {isPasswordVisible ? (
+                <Ionicons name="eye-off-outline" size={24} color={"#747474"} />
+              ) : (
+                <Ionicons name="eye-outline" size={24} color={"#747474"} />
+              )}
+            </TouchableOpacity>
+            <SimpleLineIcons
+              style={styles.icon2}
+              name="lock"
               size={20}
               color={"#A1A1A1"}
             />
-            {required && (
+            {error.password && (
               <View style={commonStyles.errorContainer}>
                 <Entypo name="cross" size={18} color={"red"} />
+                <Text style={{ color: "red", fontSize: 12, marginTop: -1  }}>
+                  {error?.password}
+                </Text>
               </View>
-            )} */}
+            )}
           </View>
         </View>
       </ScrollView>
@@ -178,5 +185,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 30,
     top: 15,
+  },
+  icon2: {
+    position: "absolute",
+    left: 24,
+    top: 15,
+    marginTop: -2,
   },
 });
