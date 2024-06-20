@@ -10,11 +10,16 @@ import {
 } from "react-native";
 import {
   Entypo,
+  FontAwesome,
   Fontisto,
   Ionicons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
-import { useFonts, Raleway_700Bold } from "@expo-google-fonts/raleway";
+import {
+  useFonts,
+  Raleway_700Bold,
+  Raleway_600SemiBold,
+} from "@expo-google-fonts/raleway";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
@@ -24,6 +29,7 @@ import { router } from "expo-router";
 export default function LoginScreen() {
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
+    Raleway_600SemiBold,
     Nunito_400Regular,
     Nunito_700Bold,
   });
@@ -177,6 +183,49 @@ export default function LoginScreen() {
                 </Text>
               )}
             </TouchableOpacity>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 20,
+                gap: 16,
+              }}
+            >
+              <TouchableOpacity>
+                <FontAwesome
+                  name="google"
+                  size={30}
+                  style={{ color: "#FF725E" }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesome
+                  name="github"
+                  size={30}
+                  style={{ color: "#FF725E" }}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.signUpRedirect}>
+              <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
+                Don't have an account?
+              </Text>
+              <TouchableOpacity onPress={() => router.push("/sign-up")}>
+                <Text
+                  style={{
+                    fontFamily: "Raleway_600SemiBold",
+                    fontSize: 18,
+                    marginLeft: 4,
+                    color: "#FF725E",
+                  }}
+                >
+                  Signup
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -200,13 +249,13 @@ const styles = StyleSheet.create({
   },
   welcome2Text: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "semibold",
     marginTop: 5,
   },
   inputContainer: {
     marginHorizontal: 16,
-    marginTop: 30,
+    marginTop: 40,
     rowGap: 30,
   },
   input: {
@@ -241,5 +290,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 16,
     marginTop: 16,
+  },
+  signUpRedirect: {
+    flexDirection: "row",
+    marginHorizontal: 22,
+    justifyContent: "center",
+    marginBottom: 20,
+    marginTop: 20,
   },
 });
