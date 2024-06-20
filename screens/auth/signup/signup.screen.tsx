@@ -26,7 +26,7 @@ import { useState } from "react";
 import { commonStyles } from "@/styles/common/common.styles";
 import { router } from "expo-router";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
     Raleway_600SemiBold,
@@ -80,7 +80,9 @@ export default function LoginScreen() {
     }
   };
 
-  const handleSignIn = () => {};
+  const handleSignUp = () => {
+    router.push("(routes)/verifyAccount");
+  };
 
   return (
     <LinearGradient
@@ -89,12 +91,12 @@ export default function LoginScreen() {
     >
       <ScrollView>
         <Image
-          source={require("@/assets/signin/signin.png")}
+          source={require("@/assets/signin/signup.png")}
           style={styles.signInImage}
         />
-        <Text style={styles.welcomeText}>WELCOME BACK!</Text>
+        <Text style={styles.welcomeText}>Let's Get Started</Text>
         <Text style={styles.welcome2Text}>
-          Login to your existing account of LAUNDRY MATE
+          Create an account to LAUNDRY MATE to get all features
         </Text>
         <View style={styles.inputContainer}>
           <View>
@@ -166,17 +168,10 @@ export default function LoginScreen() {
               )}
             </View>
 
-            {/* forget password  */}
-            <TouchableOpacity
-              onPress={() => router.push("/(routes)/forgot-password")}
-            >
-              <Text style={styles.forgetSection}>Forgot Password?</Text>
-            </TouchableOpacity>
-
             {/* sign in button  */}
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={handleSignIn}
+              onPress={handleSignUp}
             >
               {buttonSpinner ? (
                 <ActivityIndicator size="small" color={"white"} />
@@ -189,7 +184,7 @@ export default function LoginScreen() {
                     fontFamily: "Raleway_700Bold",
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </Text>
               )}
             </TouchableOpacity>
@@ -215,10 +210,10 @@ export default function LoginScreen() {
             {/* redirect button  */}
             <View style={styles.signUpRedirect}>
               <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-                Don't have an account?
+                Already have an account?
               </Text>
               <TouchableOpacity
-                onPress={() => router.push("/(routes)/sign-up")}
+                onPress={() => router.push("/(routes)/sign-in")}
               >
                 <Text
                   style={{
@@ -228,7 +223,7 @@ export default function LoginScreen() {
                     color: "#FF725E",
                   }}
                 >
-                  Signup
+                  Sign In
                 </Text>
               </TouchableOpacity>
             </View>
