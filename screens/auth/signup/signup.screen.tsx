@@ -81,7 +81,7 @@ export default function SignupScreen() {
   };
 
   const handleSignUp = () => {
-    router.push("(routes)/verifyAccount");
+    router.push("/(routes)/verifyAccount");
   };
 
   return (
