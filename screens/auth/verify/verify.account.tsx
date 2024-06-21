@@ -1,5 +1,12 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useRef, useState } from "react";
+import Button from "@/components/button/button";
 
 export default function VerifyAccountScreen() {
   const [code, setCode] = useState(new Array(4).fill(""));
@@ -20,6 +27,8 @@ export default function VerifyAccountScreen() {
     }
   };
 
+  const handleSubmit = () => {};
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Verification Code</Text>
@@ -39,9 +48,9 @@ export default function VerifyAccountScreen() {
           />
         ))}
       </View>
-      <TouchableOpacity>
-        
-      </TouchableOpacity>
+      <View>
+        <Button title="Submit" onPress={handleSubmit} />
+      </View>
     </View>
   );
 }
