@@ -21,10 +21,19 @@ export default function VerifyAccountScreen() {
   };
 
   return (
-    <View>
-      <Text>VerifyAccountScreen</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Verification Code</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  headerText: {},
+});
