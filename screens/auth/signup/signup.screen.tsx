@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import {
+  AntDesign,
   Entypo,
   FontAwesome,
   Fontisto,
@@ -39,6 +40,7 @@ export default function SignupScreen() {
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [error, setError] = useState({ password: "" });
   const [userInfo, setUserInfo] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -100,8 +102,31 @@ export default function SignupScreen() {
         </Text>
         <View style={styles.inputContainer}>
           <View>
-            {/* email input  */}
+            {/* name input  */}
             <View>
+              <TextInput
+                style={styles.input}
+                keyboardType="default"
+                value={userInfo.name}
+                placeholder="your name"
+                onChangeText={(value) => {
+                  setUserInfo({ ...userInfo, name: value });
+                }}
+              />
+              <AntDesign
+                style={{ position: "absolute", left: 36, top: 10 }}
+                name="user"
+                size={20}
+                color={"#A1A1A1"}
+              />
+              {required && (
+                <View style={commonStyles.errorContainer}>
+                  <Entypo name="cross" size={18} color={"#A1A1A1"} />
+                </View>
+              )}
+            </View>
+            {/* email input  */}
+            <View style={{ marginTop: 16 }}>
               <TextInput
                 style={styles.input}
                 keyboardType="email-address"
@@ -212,9 +237,7 @@ export default function SignupScreen() {
               <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
                 Already have an account?
               </Text>
-              <TouchableOpacity
-                onPress={() => router.push("/(routes)/sign-in")}
-              >
+              <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
                 <Text
                   style={{
                     fontFamily: "Raleway_600SemiBold",

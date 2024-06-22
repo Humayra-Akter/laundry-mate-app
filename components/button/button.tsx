@@ -23,14 +23,15 @@ export default function Button({
         commonStyles.buttonContainer,
         {
           height: 40,
-          width: width * 1 - 150,
+          width: width * 1 - 120,
           alignItems: "center",
           flexDirection: "row",
           justifyContent: "center",
+          padding: 10,
         },
       ]}
     >
-      <Text style={{ color: "#fff", fontSize: 20, fontWeight: "700" }}>
+      <Text style={{ color: "#fff", fontSize: 18, fontWeight: "700" }}>
         {title}
       </Text>
     </TouchableOpacity>

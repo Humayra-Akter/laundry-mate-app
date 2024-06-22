@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import Button from "@/components/button/button";
+import { router } from "expo-router";
 
 export default function VerifyAccountScreen() {
   const [code, setCode] = useState(new Array(4).fill(""));
@@ -51,6 +52,12 @@ export default function VerifyAccountScreen() {
       <View>
         <Button title="Submit" onPress={handleSubmit} />
       </View>
+
+      <TouchableOpacity onPress={() => router.back()}>
+        <Text style={{ fontSize: 18, fontWeight: "600", paddingTop: 20 }}>
+          Go back to Sign In
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -79,8 +86,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputBox: {
-    width: 90,
-    height: 90,
+    width: 60,
+    height: 60,
     borderWidth: 1,
     borderColor: "#ddd",
     textAlign: "center",
