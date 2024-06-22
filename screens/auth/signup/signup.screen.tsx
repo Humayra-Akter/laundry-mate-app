@@ -82,9 +82,39 @@ export default function SignupScreen() {
     }
   };
 
-  const handleSignUp = () => {
-    router.push("/(routes)/verifyAccount");
-  };
+  // const handleSignUp = () => {
+  //   router.push("/(routes)/verifyAccount");
+  // };
+    const handleSignUp = async () => {
+      if (!userInfo.name || !userInfo.email || !userInfo.password) {
+        setRequired("All fields are required");
+        return;
+      }
+
+      setButtonSpinner(true);
+
+      try {
+        const response = await fetch("http://localhost:5000/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 201) {
+          router.push("/(routes)/verifyAccount");
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setButtonSpinner(false);
+      }
+    };
 
   return (
     <LinearGradient
