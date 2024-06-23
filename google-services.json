@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "571055662569",
+    "project_id": "laundry-mate-6bde8",
+    "storage_bucket": "laundry-mate-6bde8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571055662569:android:47b910023e09662f3d9778",
+        "android_client_info": {
+          "package_name": "com.humayra.laundryMate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsGBgJoHqethDxE3ITS7wAnKioYJPApT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
