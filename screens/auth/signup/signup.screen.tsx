@@ -85,36 +85,36 @@ export default function SignupScreen() {
   // const handleSignUp = () => {
   //   router.push("/(routes)/verifyAccount");
   // };
-  const handleSignUp = async () => {
-    if (!userInfo.name || !userInfo.email || !userInfo.password) {
-      setRequired("All fields are required");
-      return;
-    }
-
-    setButtonSpinner(true);
-
-    try {
-      const response = await fetch("http://192.168.1.170:5000/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      });
-
-      const data = await response.json();
-
-      if (response.status === 201) {
-        router.push("/(routes)/verifyAccount");
-      } else {
-        console.error(data.message);
+    const handleSignUp = async () => {
+      if (!userInfo.name || !userInfo.email || !userInfo.password) {
+        setRequired("All fields are required");
+        return;
       }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setButtonSpinner(false);
-    }
-  };
+
+      setButtonSpinner(true);
+
+      try {
+        const response = await fetch("http://localhost:5000/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 201) {
+          router.push("/(routes)/verifyAccount");
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setButtonSpinner(false);
+      }
+    };
 
   return (
     <LinearGradient
@@ -187,7 +187,7 @@ export default function SignupScreen() {
                 placeholder="********"
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, password: value });
+                  setUserInfo({ ...userInfo, email: value });
                 }}
               />
               <TouchableOpacity
