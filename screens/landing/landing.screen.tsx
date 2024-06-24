@@ -144,6 +144,7 @@ export default function LandingScreen() {
             )}
           />
         </View>
+       
 
         <Text style={styles.categoryTitle}>Categories</Text>
         <View style={styles.categoryContainer}>
@@ -178,9 +179,6 @@ export default function LandingScreen() {
         </View>
 
         <View style={styles.signUpRedirect}>
-          <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-            View Details
-          </Text>
           <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
             <Text
               style={{
@@ -190,7 +188,7 @@ export default function LandingScreen() {
                 color: "#FF725E",
               }}
             >
-              Sign In
+              SEE ALL
             </Text>
           </TouchableOpacity>
         </View>
@@ -242,8 +240,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginHorizontal: 5,
     width: width * 0.8,
-    borderWidth: 0.3,
-    borderColor: "#FF725E",
     marginTop: 10,
   },
   carouselImage: {
@@ -328,13 +324,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 2,
   },
-  cardButton: {
+  cardButton2: {
     backgroundColor: "#FF725E",
     borderRadius: 10,
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginTop: 5,
     alignSelf: "flex-start",
+  },
+  cardButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "#FF725E",
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   cardButtonText: {
     color: "#fff",

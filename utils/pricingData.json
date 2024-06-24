@@ -1,0 +1,740 @@
+[
+  {
+    "ItemName": "Apron (kitchen)",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Apron (like shirt)",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Baby Blanket",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 300
+  },
+  {
+    "ItemName": "Baby Dress 1 pieces",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "Baby Suit 2 pc",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 200
+  },
+  {
+    "ItemName": "Baby Suit 3 pc",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 280
+  },
+  {
+    "ItemName": "Back Pack",
+    "IronPrice": null,
+    "WashIronPrice": 150,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Bath Robe",
+    "IronPrice": null,
+    "WashIronPrice": 100,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Bath Towel",
+    "IronPrice": null,
+    "WashIronPrice": 60,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Bazar Bag (Fabric)",
+    "IronPrice": null,
+    "WashIronPrice": 80,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Bed Cover",
+    "IronPrice": 30,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Bed Sheet",
+    "IronPrice": 30,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Bed Spread",
+    "IronPrice": 30,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Blanket (Duvet)",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 500
+  },
+  {
+    "ItemName": "Blanket (K/SK/Q/SQ)",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 500
+  },
+  {
+    "ItemName": "Blanket (T/Single)",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 400
+  },
+  {
+    "ItemName": "Blazer/Coat",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 280
+  },
+  {
+    "ItemName": "Blouse",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Burkha/Borka",
+    "IronPrice": 20,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 180
+  },
+  {
+    "ItemName": "Cap",
+    "IronPrice": null,
+    "WashIronPrice": 50,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Car Seat Cover (Fabric)",
+    "IronPrice": null,
+    "WashIronPrice": 80,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Cardigan",
+    "IronPrice": null,
+    "WashIronPrice": 100,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Chador / Body Scarf",
+    "IronPrice": 20,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Comforter",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": "350-400"
+  },
+  {
+    "ItemName": "Curtain Belt",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "Curtain Palmet (Per SQ Feet)",
+    "IronPrice": 3,
+    "WashIronPrice": 7,
+    "DryCleanPrice": 7
+  },
+  {
+    "ItemName": "Curtain Regular (Per SQ Feet)",
+    "IronPrice": 3,
+    "WashIronPrice": 6,
+    "DryCleanPrice": 6
+  },
+  {
+    "ItemName": "Curtain Special (Per SQ Feet)",
+    "IronPrice": 3,
+    "WashIronPrice": 7,
+    "DryCleanPrice": 7
+  },
+  {
+    "ItemName": "Cushion Cover",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "Dressing Gown",
+    "IronPrice": 12,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Dupatta / Orna",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Duvet / Comforter / Blanket / Mattress Cover",
+    "IronPrice": null,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 180
+  },
+  {
+    "ItemName": "Face Towel",
+    "IronPrice": null,
+    "WashIronPrice": 40,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Fatua",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Fiber Cushion",
+    "IronPrice": null,
+    "WashIronPrice": 150,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Floor Mat",
+    "IronPrice": null,
+    "WashIronPrice": 120,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Frock",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Half / Three quarter - Pant",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Hand Gloves",
+    "IronPrice": 12,
+    "WashIronPrice": 40,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Hand Towel / Gamcha",
+    "IronPrice": null,
+    "WashIronPrice": 50,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Handkerchief",
+    "IronPrice": 12,
+    "WashIronPrice": 40,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Hat",
+    "IronPrice": null,
+    "WashIronPrice": 60,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Hijab",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Hoodie",
+    "IronPrice": 12,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Jacket (Non leather)",
+    "IronPrice": null,
+    "WashIronPrice": 180,
+    "DryCleanPrice": 260
+  },
+  {
+    "ItemName": "Jumpsuit",
+    "IronPrice": 20,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 200
+  },
+  {
+    "ItemName": "Kabli Panjabi / Arabian Jubba",
+    "IronPrice": 12,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Kabuli Suit 2 pieces",
+    "IronPrice": 25,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 180
+  },
+  {
+    "ItemName": "Kameez - Cotton",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Kameez - Non Cotton",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Kameez Heavywork",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 220
+  },
+  {
+    "ItemName": "Katha / Nakshi Katha - Double",
+    "IronPrice": null,
+    "WashIronPrice": 180,
+    "DryCleanPrice": 250
+  },
+  {
+    "ItemName": "Katha / Nakshi Katha - Single",
+    "IronPrice": null,
+    "WashIronPrice": 160,
+    "DryCleanPrice": 220
+  },
+  {
+    "ItemName": "Ladies Top",
+    "IronPrice": 12,
+    "WashIronPrice": "30-50",
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Lehenga (Gown /2 pieces)",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 400
+  },
+  {
+    "ItemName": "Lehenga Top",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 220
+  },
+  {
+    "ItemName": "Lehenga with Dupatta - 3 pieces",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 450
+  },
+  {
+    "ItemName": "Lungi",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Maxi / Night Gown",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Mosquito Net",
+    "IronPrice": null,
+    "WashIronPrice": 120,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Napkin",
+    "IronPrice": 12,
+    "WashIronPrice": 40,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Overcoat / Overall",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 300
+  },
+  {
+    "ItemName": "Pajama",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Pajama slik",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Panjabi Cotton",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Panjabi Gorgeous",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Panjabi Silk",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Pant - Regular",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Peticoat",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Pillow Cover",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "Place Mat",
+    "IronPrice": null,
+    "WashIronPrice": 50,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Prayer Rug / Mat",
+    "IronPrice": null,
+    "WashIronPrice": 200,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Prince Coat",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Pullover",
+    "IronPrice": null,
+    "WashIronPrice": 100,
+    "DryCleanPrice": 160
+  },
+  {
+    "ItemName": "Quilt",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 500
+  },
+  {
+    "ItemName": "Quilt Cover",
+    "IronPrice": 40,
+    "WashIronPrice": 100,
+    "DryCleanPrice": 160
+  },
+  {
+    "ItemName": "Rain Coat/Light Jacket",
+    "IronPrice": 12,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Safari Suit 2pcs",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 220
+  },
+  {
+    "ItemName": "Safari Top",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Salwar",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Salwar Kameez 2 Pieces",
+    "IronPrice": 20,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 180
+  },
+  {
+    "ItemName": "Salwar Kameez Dupatta 3 Pieces",
+    "IronPrice": 30,
+    "WashIronPrice": 180,
+    "DryCleanPrice": 270
+  },
+  {
+    "ItemName": "Saree - Banarasi",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 350
+  },
+  {
+    "ItemName": "Saree - Banarasi Katan",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 400
+  },
+  {
+    "ItemName": "Saree - Chiffon/Georgette",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 400
+  },
+  {
+    "ItemName": "Saree - Cotton",
+    "IronPrice": 80,
+    "WashIronPrice": 200,
+    "DryCleanPrice": 300
+  },
+  {
+    "ItemName": "Saree - Gorgeous / party",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 500
+  },
+  {
+    "ItemName": "Saree - Jamdani",
+    "IronPrice": 80,
+    "WashIronPrice": 220,
+    "DryCleanPrice": 350
+  },
+  {
+    "ItemName": "Saree - Silk Jamdani",
+    "IronPrice": 80,
+    "WashIronPrice": null,
+    "DryCleanPrice": 350
+  },
+  {
+    "ItemName": "Saree - Silk Katan",
+    "IronPrice": 80,
+    "WashIronPrice": null,
+    "DryCleanPrice": 350
+  },
+  {
+    "ItemName": "Saree - Silk Plain",
+    "IronPrice": 80,
+    "WashIronPrice": null,
+    "DryCleanPrice": 300
+  },
+  {
+    "ItemName": "Scarf(Neck or Head) / Mafler",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "School Pant / Trouser / Frock",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "School Shirt / Top",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "School/College Bag",
+    "IronPrice": null,
+    "WashIronPrice": 150,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "School/College Uniform (2 pc max)",
+    "IronPrice": 20,
+    "WashIronPrice": 100,
+    "DryCleanPrice": 160
+  },
+  {
+    "ItemName": "Shawl",
+    "IronPrice": 30,
+    "WashIronPrice": 120,
+    "DryCleanPrice": 180
+  },
+  {
+    "ItemName": "Sherwani",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 350
+  },
+  {
+    "ItemName": "Shirt (Full/Half)",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Shorts",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Shower Towel / Wrapping bath long towel",
+    "IronPrice": null,
+    "WashIronPrice": 80,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Skirt",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Slacks",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Sleeping Suit",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Sofa Cover - L/M",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Sofa Cover - S",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Sofa Foam Cover",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Stuffed Toy (L/XL)",
+    "IronPrice": null,
+    "WashIronPrice": 650,
+    "DryCleanPrice": 650
+  },
+  {
+    "ItemName": "Stuffed Toy (S/M)",
+    "IronPrice": null,
+    "WashIronPrice": 250,
+    "DryCleanPrice": 250
+  },
+  {
+    "ItemName": "Suit 2 Pieces",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 320
+  },
+  {
+    "ItemName": "Suit 3 Pieces",
+    "IronPrice": null,
+    "WashIronPrice": null,
+    "DryCleanPrice": 360
+  },
+  {
+    "ItemName": "Sweat Shirt",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Sweater Full Sleeve",
+    "IronPrice": null,
+    "WashIronPrice": 100,
+    "DryCleanPrice": 160
+  },
+  {
+    "ItemName": "Sweater Short Sleeve",
+    "IronPrice": null,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "T-Shirt",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "T-vest (Sando Genji)",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Table Cloth M/S",
+    "IronPrice": 20,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Table Cloth XL/L",
+    "IronPrice": 20,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Table Runner",
+    "IronPrice": 20,
+    "WashIronPrice": 80,
+    "DryCleanPrice": 140
+  },
+  {
+    "ItemName": "Table Top",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Tie",
+    "IronPrice": 12,
+    "WashIronPrice": 50,
+    "DryCleanPrice": 80
+  },
+  {
+    "ItemName": "Track Suit",
+    "IronPrice": null,
+    "WashIronPrice": 90,
+    "DryCleanPrice": 150
+  },
+  {
+    "ItemName": "Travel Bag (Fabric)",
+    "IronPrice": null,
+    "WashIronPrice": 220,
+    "DryCleanPrice": null
+  }
+]
