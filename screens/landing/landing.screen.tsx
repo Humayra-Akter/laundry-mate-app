@@ -21,6 +21,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
+// Dummy JSON Data
 const services = [
   {
     id: 1,
@@ -56,8 +57,53 @@ const services = [
 
 const categories = [
   { id: 1, name: "Washing", icon: "tint" },
-  { id: 2, name: "Ironing", icon: "steam" },
-  { id: 3, name: "Dry Cleaning", icon: "cloud" },
+  { id: 2, name: "Ironing", icon: "cloud" },
+  { id: 3, name: "Dry Cleaning", icon: "magic" },
+];
+
+const items = [
+  {
+    id: 1,
+    name: "Shirt",
+    image: require("@/assets/landing/shirt.png"),
+    prices: { washing: "50tk", iron: "20tk", dryClean: "60tk" },
+  },
+  {
+    id: 2,
+    name: "Jacket",
+    image: require("@/assets/landing/jacket.png"),
+    prices: { washing: "100tk", iron: "50tk", dryClean: "150tk" },
+  },
+  {
+    id: 3,
+    name: "Saree",
+    image: require("@/assets/landing/saree.png"),
+    prices: { washing: "80tk", iron: "30tk", dryClean: "120tk" },
+  },
+  {
+    id: 4,
+    name: "Trousers",
+    image: require("@/assets/landing/trousers.png"),
+    prices: { washing: "70tk", iron: "25tk", dryClean: "90tk" },
+  },
+  {
+    id: 5,
+    name: "Blanket",
+    image: require("@/assets/landing/blanket.png"),
+    prices: { washing: "150tk", iron: "70tk", dryClean: "200tk" },
+  },
+  {
+    id: 6,
+    name: "T-shirt",
+    image: require("@/assets/landing/tshirt.png"),
+    prices: { washing: "40tk", iron: "15tk", dryClean: "50tk" },
+  },
+  {
+    id: 7,
+    name: "Dress",
+    image: require("@/assets/landing/dress.png"),
+    prices: { washing: "90tk", iron: "35tk", dryClean: "110tk" },
+  },
 ];
 
 export default function LandingScreen() {
@@ -109,7 +155,32 @@ export default function LandingScreen() {
           ))}
         </View>
 
+        <Text style={styles.sectionTitle}>Services</Text>
+        <View style={styles.cardsContainer}>
+          {items.map((item) => (
+            <View key={item.id} style={styles.card}>
+              <Image source={item.image} style={styles.cardImage} />
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.name}</Text>
+                <Text style={styles.cardText}>
+                  Washing: {item.prices.washing}
+                </Text>
+                <Text style={styles.cardText}>Iron: {item.prices.iron}</Text>
+                <Text style={styles.cardText}>
+                  Dry Clean: {item.prices.dryClean}
+                </Text>
+                <TouchableOpacity style={styles.cardButton}>
+                  <Text style={styles.cardButtonText}>Set Pickup Date</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+        </View>
+
         <View style={styles.signUpRedirect}>
+          <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
+            View Details
+          </Text>
           <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
             <Text
               style={{
@@ -119,7 +190,7 @@ export default function LandingScreen() {
                 color: "#FF725E",
               }}
             >
-              View Details
+              Sign In
             </Text>
           </TouchableOpacity>
         </View>
@@ -147,6 +218,7 @@ const styles = StyleSheet.create({
     borderColor: "#FF725E",
     borderWidth: 1,
   },
+
   searchInput: {
     marginLeft: 10,
     flex: 1,
@@ -157,6 +229,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 220,
   },
+
   carouselItem: {
     backgroundColor: "#faf0eb",
     borderRadius: 10,
@@ -181,7 +254,7 @@ const styles = StyleSheet.create({
   carouselText: {
     marginTop: 10,
     fontFamily: "Raleway_700Bold",
-    fontSize: 18,
+    fontSize: 16,
   },
   categoryTitle: {
     fontSize: 22,
@@ -191,6 +264,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: "center",
   },
+
   categoryContainer: {
     flexDirection: "row",
     // flexWrap: "wrap",
@@ -206,11 +280,66 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     alignItems: "center",
   },
+
   categoryText: {
     color: "#fff",
     fontFamily: "Raleway_600SemiBold",
     fontSize: 16,
     marginLeft: 10,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontFamily: "Raleway_700Bold",
+    marginLeft: 10,
+    marginTop: 20,
+  },
+  cardsContainer: {
+    marginTop: 10,
+  },
+  card: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  cardImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+  cardContent: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  cardTitle: {
+    fontFamily: "Raleway_700Bold",
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  cardText: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  cardButton: {
+    backgroundColor: "#FF725E",
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 5,
+    alignSelf: "flex-start",
+  },
+  cardButtonText: {
+    color: "#fff",
+    fontFamily: "Raleway_600SemiBold",
+    fontSize: 14,
   },
   signUpRedirect: {
     flexDirection: "row",
