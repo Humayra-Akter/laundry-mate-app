@@ -165,14 +165,13 @@ export default function LoginScreen() {
                 </View>
               )}
             </View>
-
             {/* forget password  */}
             <TouchableOpacity
               onPress={() => router.push("/(routes)/forgot-password")}
             >
               <Text style={styles.forgetSection}>Forgot Password?</Text>
             </TouchableOpacity>
-
+           
             {/* sign in button  */}
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -193,7 +192,6 @@ export default function LoginScreen() {
                 </Text>
               )}
             </TouchableOpacity>
-
             {/* google login  */}
             <View
               style={{
@@ -211,7 +209,6 @@ export default function LoginScreen() {
                 />
               </TouchableOpacity>
             </View>
-
             {/* redirect button  */}
             <View style={styles.signUpRedirect}>
               <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>

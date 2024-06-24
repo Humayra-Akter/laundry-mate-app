@@ -26,6 +26,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { commonStyles } from "@/styles/common/common.styles";
 import { router } from "expo-router";
+import { useToast } from "react-native-toast-notifications";
 
 export default function SignupScreen() {
   let [fontsLoaded, fontError] = useFonts({
@@ -34,6 +35,8 @@ export default function SignupScreen() {
     Nunito_400Regular,
     Nunito_700Bold,
   });
+
+  const toast = useToast();
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [required, setRequired] = useState("");
@@ -82,39 +85,34 @@ export default function SignupScreen() {
     }
   };
 
-  // const handleSignUp = () => {
-  //   router.push("/(routes)/verifyAccount");
+  const handleSignUp = () => {
+    router.push("/(routes)/landing");
+  };
+  // const handleSignUp = async () => {
+  //   if (!userInfo.name || !userInfo.email || !userInfo.password) {
+  //     setRequired("All fields are required");
+  //     return;
+  //   }
+
+  //   setButtonSpinner(true);
+
+  //   try {
+  //     await fetch("http://10.103.132.142:5000/user", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(userInfo),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         router.push("/(routes)/verifyAccount");
+  //       });
+  //   } finally {
+  //     setButtonSpinner(false);
+  //   }
   // };
-    const handleSignUp = async () => {
-      if (!userInfo.name || !userInfo.email || !userInfo.password) {
-        setRequired("All fields are required");
-        return;
-      }
-
-      setButtonSpinner(true);
-
-      try {
-        const response = await fetch("http://localhost:5000/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        });
-
-        const data = await response.json();
-
-        if (response.status === 201) {
-          router.push("/(routes)/verifyAccount");
-        } else {
-          console.error(data.message);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setButtonSpinner(false);
-      }
-    };
 
   return (
     <LinearGradient
@@ -187,7 +185,7 @@ export default function SignupScreen() {
                 placeholder="********"
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, email: value });
+                  setUserInfo({ ...userInfo, password: value });
                 }}
               />
               <TouchableOpacity
@@ -222,7 +220,6 @@ export default function SignupScreen() {
                 </View>
               )}
             </View>
-
             {/* sign in button  */}
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -243,7 +240,6 @@ export default function SignupScreen() {
                 </Text>
               )}
             </TouchableOpacity>
-
             {/* google login  */}
             <View
               style={{
@@ -261,7 +257,6 @@ export default function SignupScreen() {
                 />
               </TouchableOpacity>
             </View>
-
             {/* redirect button  */}
             <View style={styles.signUpRedirect}>
               <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
