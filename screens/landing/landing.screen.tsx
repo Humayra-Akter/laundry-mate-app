@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   Dimensions,
   ActivityIndicator,
+  TextInput,
+  FlatList,
 } from "react-native";
-import PagerView from "react-native-pager-view";
 import {
   useFonts,
   Raleway_700Bold,
@@ -18,8 +19,8 @@ import {
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
-// Dummy JSON Data
 const services = [
   {
     id: 1,
@@ -36,12 +37,27 @@ const services = [
     title: "Ironing",
     image: require("@/assets/landing/ironing.png"),
   },
+  {
+    id: 4,
+    title: "Shirt Iron",
+    image: require("@/assets/landing/shirt_iron.png"),
+  },
+  {
+    id: 5,
+    title: "Jacket Wash",
+    image: require("@/assets/landing/jacket_wash.png"),
+  },
+  {
+    id: 6,
+    title: "Saree Dry Clean",
+    image: require("@/assets/landing/saree_dry_clean.png"),
+  },
 ];
 
 const categories = [
-  { id: 1, name: "Washing" },
-  { id: 2, name: "Ironing" },
-  { id: 3, name: "Dry Cleaning" },
+  { id: 1, name: "Washing", icon: "tint" },
+  { id: 2, name: "Ironing", icon: "steam" },
+  { id: 3, name: "Dry Cleaning", icon: "cloud" },
 ];
 
 export default function LandingScreen() {
@@ -63,31 +79,37 @@ export default function LandingScreen() {
     >
       <ScrollView>
         <Text style={styles.welcomeText}>Welcome to Laundry-Mate</Text>
-
+        {/* search bar */}
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={24} color="gray" />
+          <TextInput placeholder="Search" style={styles.searchInput} />
+        </View>
         <View style={styles.carouselContainer}>
-          <PagerView style={styles.carousel} initialPage={0} useNext={true}>
-            {services.map((service, index) => (
-              <View key={service.id} style={styles.carouselItem}>
-                <Image source={service.image} style={styles.carouselImage} />
-                <Text style={styles.carouselText}>{service.title}</Text>
+          <FlatList
+            data={services}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.carouselItem}>
+                <Image source={item.image} style={styles.carouselImage} />
+                <Text style={styles.carouselText}>{item.title}</Text>
               </View>
-            ))}
-          </PagerView>
+            )}
+          />
         </View>
 
         <Text style={styles.categoryTitle}>Categories</Text>
         <View style={styles.categoryContainer}>
           {categories.map((category) => (
             <TouchableOpacity key={category.id} style={styles.categoryItem}>
+              <FontAwesome name={category.icon} size={24} color="#fff" />
               <Text style={styles.categoryText}>{category.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
 
         <View style={styles.signUpRedirect}>
-          <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-            View Details
-          </Text>
           <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
             <Text
               style={{
@@ -97,7 +119,7 @@ export default function LandingScreen() {
                 color: "#FF725E",
               }}
             >
-              Sign In
+              View Details
             </Text>
           </TouchableOpacity>
         </View>
@@ -115,44 +137,63 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FF725E",
   },
+  searchContainer: {
+    padding: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    marginTop: 18,
+    borderColor: "#FF725E",
+    borderWidth: 1,
+  },
+  searchInput: {
+    marginLeft: 10,
+    flex: 1,
+  },
   carouselContainer: {
     alignItems: "center",
     marginVertical: 20,
-  },
-  carousel: {
-    width: width * 0.8,
-    height: 300,
+    justifyContent: "center",
+    height: 220,
   },
   carouselItem: {
-    backgroundColor: "#fff",
+    backgroundColor: "#faf0eb",
     borderRadius: 10,
     padding: 10,
     alignItems: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 5,
-    elevation: 3,
+    elevation: 5,
+    marginHorizontal: 5,
+    width: width * 0.8,
+    borderWidth: 0.3,
+    borderColor: "#FF725E",
+    marginTop: 10,
   },
   carouselImage: {
-    width: "70%",
-    height: 200,
+    width: "50%",
+    height: 140,
     borderRadius: 10,
   },
   carouselText: {
     marginTop: 10,
     fontFamily: "Raleway_700Bold",
-    fontSize: 16,
+    fontSize: 18,
   },
   categoryTitle: {
-    fontSize: 20,
+    fontSize: 22,
+    color: "#FF725E",
     fontFamily: "Raleway_700Bold",
     marginLeft: 10,
     marginTop: 20,
+    textAlign: "center",
   },
   categoryContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     justifyContent: "center",
     marginVertical: 10,
   },
@@ -162,11 +203,14 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     margin: 5,
+    // flexDirection: "row",
+    alignItems: "center",
   },
   categoryText: {
     color: "#fff",
     fontFamily: "Raleway_600SemiBold",
     fontSize: 16,
+    marginLeft: 10,
   },
   signUpRedirect: {
     flexDirection: "row",
