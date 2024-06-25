@@ -736,5 +736,41 @@
     "IronPrice": null,
     "WashIronPrice": 220,
     "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Trouser - Jeans",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Trouser - Regular",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
+  },
+  {
+    "ItemName": "Tv Cover (Fabric)",
+    "IronPrice": null,
+    "WashIronPrice": 60,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Vanity Bag (Fabric)",
+    "IronPrice": null,
+    "WashIronPrice": 220,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Vehicle (Bike/Car/Micro) Cover",
+    "IronPrice": null,
+    "WashIronPrice": 320,
+    "DryCleanPrice": null
+  },
+  {
+    "ItemName": "Waist Coat / Koti / Vest",
+    "IronPrice": 12,
+    "WashIronPrice": 60,
+    "DryCleanPrice": 90
   }
 ]

@@ -19,7 +19,7 @@ import {
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
 
 // Dummy JSON Data
 const services = [
@@ -130,6 +130,8 @@ export default function LandingScreen() {
           <Ionicons name="search" size={24} color="gray" />
           <TextInput placeholder="Search" style={styles.searchInput} />
         </View>
+
+        {/* carousel  */}
         <View style={styles.carouselContainer}>
           <FlatList
             data={services}
@@ -144,8 +146,8 @@ export default function LandingScreen() {
             )}
           />
         </View>
-       
 
+        {/* categories  */}
         <Text style={styles.categoryTitle}>Categories</Text>
         <View style={styles.categoryContainer}>
           {categories.map((category) => (
@@ -156,6 +158,7 @@ export default function LandingScreen() {
           ))}
         </View>
 
+        {/* services  */}
         <Text style={styles.sectionTitle}>Services</Text>
         <View style={styles.cardsContainer}>
           {items.map((item) => (
@@ -178,18 +181,23 @@ export default function LandingScreen() {
           ))}
         </View>
 
+        {/* pricing pg route  */}
         <View style={styles.signUpRedirect}>
-          <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
+          <TouchableOpacity
+            onPress={() => router.push("/(routes)/pricing")}
+            style={{ flexDirection: "row", gap: 10, marginTop: 10 }}
+          >
             <Text
               style={{
-                fontFamily: "Raleway_600SemiBold",
+                fontFamily: "Raleway_700Bold",
                 fontSize: 18,
                 marginLeft: 4,
-                color: "#FF725E",
+                color: "#000",
               }}
             >
-              SEE ALL
+              See all price list
             </Text>
+            <Entypo name="arrow-with-circle-right" size={24} color="#FF725E" />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -284,10 +292,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: "Raleway_700Bold",
     marginLeft: 10,
     marginTop: 20,
+    textAlign: "center",
+    color: "#FF725E",
   },
   cardsContainer: {
     marginTop: 10,
