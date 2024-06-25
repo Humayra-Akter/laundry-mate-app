@@ -173,7 +173,10 @@ export default function LandingScreen() {
                 <Text style={styles.cardText}>
                   Dry Clean: {item.prices.dryClean}
                 </Text>
-                <TouchableOpacity style={styles.cardButton}>
+                <TouchableOpacity
+                  onPress={() => router.push("/(routes)/pickup-date")}
+                  style={styles.cardButton}
+                >
                   <Text style={styles.cardButtonText}>Set Pickup Date</Text>
                 </TouchableOpacity>
               </View>
