@@ -10,6 +10,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import { router } from "expo-router";
 
 export default function PickupDateScreen() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -109,6 +110,7 @@ export default function PickupDateScreen() {
         {/* Proceed Button */}
         <TouchableOpacity
           disabled={!selectedDate || !selectedTimeSlot}
+          onPress={() => router.push("/(routes)/items")}
           style={[
             styles.buttonContainer,
             {

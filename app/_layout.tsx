@@ -21,6 +21,7 @@ export default function RootLayout() {
           <Stack.Screen name="/(routes)/verifyAccount/index" />
           <Stack.Screen name="/(routes)/pricing/index" />
           <Stack.Screen name="/(routes)/pickup-date/index" />
+          <Stack.Screen name="/(routes)/items/index" />
         </Stack>
       )}
     </>
