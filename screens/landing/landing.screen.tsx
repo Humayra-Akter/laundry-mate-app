@@ -21,7 +21,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
 
-// Dummy JSON Data
 const services = [
   {
     id: 1,
