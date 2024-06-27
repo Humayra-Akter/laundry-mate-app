@@ -141,7 +141,7 @@
     "ItemName": "Comforter",
     "IronPrice": null,
     "WashIronPrice": null,
-    "DryCleanPrice": "350-400"
+    "DryCleanPrice": 350
   },
   {
     "ItemName": "Curtain Belt",
@@ -320,7 +320,7 @@
   {
     "ItemName": "Ladies Top",
     "IronPrice": 12,
-    "WashIronPrice": "30-50",
+    "WashIronPrice": 30,
     "DryCleanPrice": 90
   },
   {
