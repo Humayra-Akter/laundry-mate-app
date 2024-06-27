@@ -1,8 +1,15 @@
+import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import pricingData from "../../utils/pricingData.json";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import pricingData from "../../utils/pricingData.json";
 
 interface Item {
   ItemName: string;
@@ -14,13 +21,7 @@ interface Item {
   DryCleanCount: number;
 }
 
-const initializeItems = (
-  data: (Omit<Item, "IronCount" | "WashIronCount" | "DryCleanCount"> & {
-    IronPrice: number | null;
-    WashIronPrice: number | null;
-    DryCleanPrice: number | null;
-  })[]
-): Item[] => {
+const initializeItems = (data: any[]): Item[] => {
   return data.map((item) => ({
     ...item,
     IronPrice: item.IronPrice !== null ? Number(item.IronPrice) : null,
@@ -37,31 +38,33 @@ const initializeItems = (
 export default function ItemsScreen() {
   const [items, setItems] = useState<Item[]>(initializeItems(pricingData));
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isAnyItemAdded, setIsAnyItemAdded] = useState<boolean>(false);
 
   const handleAddItem = (
     index: number,
-    serviceType: keyof Omit<
-      Item,
-      "ItemName" | "IronPrice" | "WashIronPrice" | "DryCleanPrice"
-    >
+    serviceType: "IronCount" | "WashIronCount" | "DryCleanCount"
   ) => {
     const updatedItems = [...items];
     updatedItems[index][serviceType] += 1;
     setItems(updatedItems);
+    setIsAnyItemAdded(true); // Set state to true when an item is added
   };
 
   const handleRemoveItem = (
     index: number,
-    serviceType: keyof Omit<
-      Item,
-      "ItemName" | "IronPrice" | "WashIronPrice" | "DryCleanPrice"
-    >
+    serviceType: "IronCount" | "WashIronCount" | "DryCleanCount"
   ) => {
     const updatedItems = [...items];
     if (updatedItems[index][serviceType] > 0) {
       updatedItems[index][serviceType] -= 1;
       setItems(updatedItems);
     }
+    // Check if any item count is greater than zero
+    const anyItemAdded = updatedItems.some(
+      (item) =>
+        item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
+    );
+    setIsAnyItemAdded(anyItemAdded);
   };
 
   const handleSearch = (query: string) => {
@@ -88,7 +91,7 @@ export default function ItemsScreen() {
             onChangeText={handleSearch}
           />
         </View>
-        {filteredItems.map((item:any, index:any) => (
+        {filteredItems.map((item, index) => (
           <View key={index} style={styles.itemCard}>
             <Text style={styles.itemName}>{item.ItemName}</Text>
             <View style={styles.pricingContainer}>
@@ -159,6 +162,11 @@ export default function ItemsScreen() {
             </View>
           </View>
         ))}
+        {isAnyItemAdded && (
+          <TouchableOpacity style={styles.checkoutButton}>
+            <Text style={styles.checkoutText}>Checkout</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </LinearGradient>
   );
@@ -232,5 +240,17 @@ const styles = StyleSheet.create({
   searchInput: {
     marginLeft: 10,
     flex: 1,
+  },
+  checkoutButton: {
+    backgroundColor: "#FF725E",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  checkoutText: {
+    color: "#FFF",
+    fontSize: 18,
+    fontFamily: "Raleway_700Bold",
   },
 });
