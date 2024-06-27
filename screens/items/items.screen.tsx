@@ -16,9 +16,9 @@ interface Item {
   IronPrice: number | null;
   WashIronPrice: number | null;
   DryCleanPrice: number | null;
-  IronCount: number;
-  WashIronCount: number;
-  DryCleanCount: number;
+  IronCount?: number;
+  WashIronCount?: number;
+  DryCleanCount?: number;
 }
 
 const initializeItems = (data: Item[]): Item[] => {
@@ -31,36 +31,19 @@ const initializeItems = (data: Item[]): Item[] => {
 };
 
 export default function ItemsScreen() {
-  const [items, setItems] = useState(initializeItems(pricingData));
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState(
-    initializeItems(pricingData)
-  );
+  const [items, setItems] = useState(pricingData);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    if (query) {
-      const filtered = items.filter((item) =>
-        item.ItemName.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(items);
-    }
-  };
-
-
-  const handleAddItem = (index: number, serviceType: keyof Item) => {
+  const handleAddItem = (index: any, serviceType: any) => {
     const updatedItems: any = [...items];
-    updatedItems[index][serviceType] =
-      (updatedItems[index][serviceType] || 0) + 1;
+    updatedItems[index][`${serviceType}Count`] =
+      (updatedItems[index][`${serviceType}Count`] || 0) + 1;
     setItems(updatedItems);
   };
 
-  const handleRemoveItem = (index: number, serviceType: keyof Item) => {
+  const handleRemoveItem = (index: any, serviceType: any) => {
     const updatedItems: any = [...items];
-    if (updatedItems[index][serviceType] > 0) {
-      updatedItems[index][serviceType] -= 1;
+    if (updatedItems[index][`${serviceType}Count`] > 0) {
+      updatedItems[index][`${serviceType}Count`] -= 1;
       setItems(updatedItems);
     }
   };
@@ -72,18 +55,14 @@ export default function ItemsScreen() {
     >
       <ScrollView style={styles.container}>
         <Text style={styles.title}>Proceed to Select Items</Text>
-
         <View style={styles.searchContainer}>
           <Ionicons name="search" size={24} color="gray" />
           <TextInput
             placeholder="Search by cloth type"
             style={styles.searchInput}
-            value={searchQuery}
-            onChangeText={handleSearch}
           />
         </View>
-
-        {filteredData.map((item, index) => (
+        {items.map((item, index) => (
           <View key={index} style={styles.itemCard}>
             <Text style={styles.itemName}>{item.ItemName}</Text>
             <View style={styles.pricingContainer}>
@@ -92,14 +71,14 @@ export default function ItemsScreen() {
                   <Text style={styles.priceText}>Iron: ${item.IronPrice}</Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                      onPress={() => handleRemoveItem(index, "IronCount")}
+                      onPress={() => handleRemoveItem(index, "Iron")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>-</Text>
                     </TouchableOpacity>
                     <Text style={styles.countText}>{item.IronCount || 0}</Text>
                     <TouchableOpacity
-                      onPress={() => handleAddItem(index, "IronCount")}
+                      onPress={() => handleAddItem(index, "Iron")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>+</Text>
@@ -114,7 +93,7 @@ export default function ItemsScreen() {
                   </Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                      onPress={() => handleRemoveItem(index, "WashIronCount")}
+                      onPress={() => handleRemoveItem(index, "WashIron")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>-</Text>
@@ -123,7 +102,7 @@ export default function ItemsScreen() {
                       {item.WashIronCount || 0}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => handleAddItem(index, "WashIronCount")}
+                      onPress={() => handleAddItem(index, "WashIron")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>+</Text>
@@ -138,7 +117,7 @@ export default function ItemsScreen() {
                   </Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                      onPress={() => handleRemoveItem(index, "DryCleanCount")}
+                      onPress={() => handleRemoveItem(index, "DryClean")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>-</Text>
@@ -147,7 +126,7 @@ export default function ItemsScreen() {
                       {item.DryCleanCount || 0}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => handleAddItem(index, "DryCleanCount")}
+                      onPress={() => handleAddItem(index, "DryClean")}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>+</Text>
@@ -179,15 +158,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   itemName: {
     fontSize: 16,
     fontFamily: "Raleway_700Bold",
     color: "#333",
-    flexShrink: 1,
   },
   pricingContainer: {
-    marginTop: 10,
+    flex: 1,
+    marginLeft: 10,
   },
   serviceContainer: {
     flexDirection: "row",
@@ -198,7 +180,6 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: 14,
     color: "#555",
-    flex: 1,
   },
   buttonContainer: {
     flexDirection: "row",
