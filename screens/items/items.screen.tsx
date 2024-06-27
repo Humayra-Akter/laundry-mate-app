@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import pricingData from "../../utils/pricingData.json";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,9 +16,9 @@ interface Item {
   IronPrice: number | null;
   WashIronPrice: number | null;
   DryCleanPrice: number | null;
-  IronCount?: number;
-  WashIronCount?: number;
-  DryCleanCount?: number;
+  IronCount: number;
+  WashIronCount: number;
+  DryCleanCount: number;
 }
 
 const initializeItems = (data: Item[]): Item[] => {
@@ -31,22 +31,30 @@ const initializeItems = (data: Item[]): Item[] => {
 };
 
 export default function ItemsScreen() {
-  const [items, setItems] = useState(pricingData);
+  const [items, setItems] = useState<Item[]>(initializeItems(pricingData));
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const handleAddItem = (index: any, serviceType: any) => {
+  const handleAddItem = (index: number, serviceType: string) => {
     const updatedItems: any = [...items];
-    updatedItems[index][`${serviceType}Count`] =
-      (updatedItems[index][`${serviceType}Count`] || 0) + 1;
+    updatedItems[index][`${serviceType}Count`] += 1;
     setItems(updatedItems);
   };
 
-  const handleRemoveItem = (index: any, serviceType: any) => {
+  const handleRemoveItem = (index: number, serviceType: string) => {
     const updatedItems: any = [...items];
     if (updatedItems[index][`${serviceType}Count`] > 0) {
       updatedItems[index][`${serviceType}Count`] -= 1;
       setItems(updatedItems);
     }
   };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.ItemName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <LinearGradient
@@ -60,9 +68,11 @@ export default function ItemsScreen() {
           <TextInput
             placeholder="Search by cloth type"
             style={styles.searchInput}
+            value={searchQuery}
+            onChangeText={handleSearch}
           />
         </View>
-        {items.map((item, index) => (
+        {filteredItems.map((item, index) => (
           <View key={index} style={styles.itemCard}>
             <Text style={styles.itemName}>{item.ItemName}</Text>
             <View style={styles.pricingContainer}>
@@ -76,7 +86,7 @@ export default function ItemsScreen() {
                     >
                       <Text style={styles.buttonText}>-</Text>
                     </TouchableOpacity>
-                    <Text style={styles.countText}>{item.IronCount || 0}</Text>
+                    <Text style={styles.countText}>{item.IronCount}</Text>
                     <TouchableOpacity
                       onPress={() => handleAddItem(index, "Iron")}
                       style={styles.button}
@@ -98,9 +108,7 @@ export default function ItemsScreen() {
                     >
                       <Text style={styles.buttonText}>-</Text>
                     </TouchableOpacity>
-                    <Text style={styles.countText}>
-                      {item.WashIronCount || 0}
-                    </Text>
+                    <Text style={styles.countText}>{item.WashIronCount}</Text>
                     <TouchableOpacity
                       onPress={() => handleAddItem(index, "WashIron")}
                       style={styles.button}
@@ -122,9 +130,7 @@ export default function ItemsScreen() {
                     >
                       <Text style={styles.buttonText}>-</Text>
                     </TouchableOpacity>
-                    <Text style={styles.countText}>
-                      {item.DryCleanCount || 0}
-                    </Text>
+                    <Text style={styles.countText}>{item.DryCleanCount}</Text>
                     <TouchableOpacity
                       onPress={() => handleAddItem(index, "DryClean")}
                       style={styles.button}
@@ -158,9 +164,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginVertical: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   itemName: {
     fontSize: 16,
@@ -168,8 +171,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   pricingContainer: {
-    flex: 1,
-    marginLeft: 10,
+    marginTop: 10,
   },
   serviceContainer: {
     flexDirection: "row",
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: 14,
     color: "#555",
+    flex: 1,
   },
   buttonContainer: {
     flexDirection: "row",
