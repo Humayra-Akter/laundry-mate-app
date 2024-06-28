@@ -19,8 +19,12 @@
     "@expo-google-fonts/raleway": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
     "@react-native-community/datetimepicker": "^8.1.1",
+    "@react-navigation/native": "^6.1.17",
     "expo": "~51.0.14",
+    "expo-application": "~5.9.1",
+    "expo-auth-session": "~5.5.2",
     "expo-constants": "~16.0.2",
+    "expo-crypto": "~13.0.2",
     "expo-font": "~12.0.7",
     "expo-linear-gradient": "^13.0.2",
     "expo-linking": "~6.3.1",
@@ -48,9 +52,7 @@
     "react-native-screens": "3.31.1",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-toast-notifications": "^3.4.0",
-    "react-native-web": "~0.19.10",
-    "expo-auth-session": "~5.5.2",
-    "expo-crypto": "~13.0.2"
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

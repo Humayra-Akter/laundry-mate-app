@@ -25,8 +25,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { commonStyles } from "@/styles/common/common.styles";
 import { router } from "expo-router";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
 
 export default function LoginScreen() {
+  WebBrowser.maybeCompleteAuthSession();
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId:
+      "21780219897-splopostp1up19th1t16ar1on1lj2e2j.apps.googleusercontent.com",
+    clientId:
+      "21780219897-i9b9gav5v9161e544ocleush006an9lm.apps.googleusercontent.com",
+  });
+
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
     Raleway_600SemiBold,
@@ -171,7 +182,7 @@ export default function LoginScreen() {
             >
               <Text style={styles.forgetSection}>Forgot Password?</Text>
             </TouchableOpacity>
-           
+
             {/* sign in button  */}
             <TouchableOpacity
               style={styles.buttonContainer}
@@ -206,6 +217,7 @@ export default function LoginScreen() {
                   name="google"
                   size={30}
                   style={{ color: "#FF725E" }}
+                  onPress={() => promptAsync()}
                 />
               </TouchableOpacity>
             </View>

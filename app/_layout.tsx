@@ -3,6 +3,7 @@ import { View } from "react-native";
 import "react-native-reanimated";
 import { Stack } from "expo-router";
 
+
 export default function RootLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
