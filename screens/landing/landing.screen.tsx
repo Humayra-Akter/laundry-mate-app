@@ -156,10 +156,10 @@ export default function LandingScreen({ navigation }: RouterProps) {
         </Text>
 
         {/* search bar */}
-        <View style={styles.searchContainer}>
+        {/* <View style={styles.searchContainer}>
           <Ionicons name="search" size={24} color="gray" />
           <TextInput placeholder="Search" style={styles.searchInput} />
-        </View>
+        </View> */}
 
         {/* carousel  */}
         <View style={styles.carouselContainer}>
@@ -266,11 +266,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 20,
     justifyContent: "center",
-    height: 220,
   },
 
   carouselItem: {
-    backgroundColor: "#faf0eb",
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
     alignItems: "center",

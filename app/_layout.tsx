@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
 import "react-native-reanimated";
 import { Stack } from "expo-router";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { StyleSheet } from "react-native";
 
 export default function RootLayout() {
   const [user, setUser] = useState<User | null>(null);
@@ -18,7 +18,7 @@ export default function RootLayout() {
   return (
     <>
       {user ? (
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack  screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="/(routes)/welcome-intro/index" />
           <Stack.Screen name="/(routes)/landing/index" />
@@ -40,3 +40,9 @@ export default function RootLayout() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#000",
+  },
+});

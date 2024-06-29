@@ -248,7 +248,7 @@ export default function SignupScreen() {
                 )}
               </TouchableOpacity>
               {/* google login  */}
-              <View
+              {/* <View
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
@@ -263,7 +263,7 @@ export default function SignupScreen() {
                     style={{ color: "#FF725E" }}
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
               {/* redirect button  */}
               <View style={styles.signUpRedirect}>
                 <Text
