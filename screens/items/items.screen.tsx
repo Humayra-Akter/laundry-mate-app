@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import pricingData from "../../utils/pricingData.json";
@@ -47,7 +48,7 @@ export default function ItemsScreen() {
     const updatedItems = [...items];
     updatedItems[index][serviceType] += 1;
     setItems(updatedItems);
-    setIsAnyItemAdded(true); // Set state to true when an item is added
+    setIsAnyItemAdded(true);
   };
 
   const handleRemoveItem = (
@@ -69,6 +70,21 @@ export default function ItemsScreen() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+  };
+
+  const handleCheckout = () => {
+    const selectedItems = items.filter(
+      (item) =>
+        item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
+    );
+
+    if (selectedItems.length === 0) {
+      Alert.alert("No items selected", "Please select at least one item.");
+      return;
+    }
+
+    // Handle checkout process here (e.g., navigate to checkout screen or trigger API call)
+    Alert.alert("Checkout", "Proceeding to checkout with selected items.");
   };
 
   const filteredItems = items.filter((item) =>
@@ -162,12 +178,15 @@ export default function ItemsScreen() {
             </View>
           </View>
         ))}
-        {isAnyItemAdded && (
-          <TouchableOpacity style={styles.checkoutButton}>
-            <Text style={styles.checkoutText}>Checkout</Text>
-          </TouchableOpacity>
-        )}
       </ScrollView>
+      {isAnyItemAdded && (
+        <TouchableOpacity
+          style={styles.checkoutButton}
+          onPress={handleCheckout}
+        >
+          <Text style={styles.checkoutText}>Checkout</Text>
+        </TouchableOpacity>
+      )}
     </LinearGradient>
   );
 }
@@ -243,10 +262,11 @@ const styles = StyleSheet.create({
   },
   checkoutButton: {
     backgroundColor: "#FF725E",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
     alignItems: "center",
     marginVertical: 10,
+    marginHorizontal: 10,
   },
   checkoutText: {
     color: "#FFF",

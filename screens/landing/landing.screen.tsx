@@ -113,9 +113,7 @@ interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
-
 export default function LandingScreen({ navigation }: RouterProps) {
-
   const handleLogout = async () => {
     try {
       await signOut(FIREBASE_AUTH);
@@ -124,7 +122,6 @@ export default function LandingScreen({ navigation }: RouterProps) {
       console.error("Error signing out: ", error);
     }
   };
-
 
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
@@ -203,11 +200,17 @@ export default function LandingScreen({ navigation }: RouterProps) {
                 <Text style={styles.cardText}>
                   Dry Clean: {item.prices.dryClean}
                 </Text>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => router.push("/(routes)/pickup-date")}
                   style={styles.cardButton}
                 >
                   <Text style={styles.cardButtonText}>Set Pickup Date</Text>
+                </TouchableOpacity> */}
+                <TouchableOpacity
+                  onPress={() => router.push("/(routes)/pickup-date")}
+                  style={styles.cardButton}
+                >
+                  <Text style={styles.cardButtonText}>View More</Text>
                 </TouchableOpacity>
               </View>
             </View>
