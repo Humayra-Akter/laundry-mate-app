@@ -61,39 +61,6 @@ export default function LoginScreen() {
     return null;
   }
 
-  const handlePasswordValidation = (value: string) => {
-    const password = value;
-    const passwordSpecialCharacter = /(?=.*[!@#$&*])/;
-    const passwordOneNumber = /(?=.*[0-9])/;
-    const passwordSixValue = /(?=.*[6,])/;
-
-    if (!passwordSpecialCharacter.test(password)) {
-      setError({
-        ...error,
-        password: "Write at least one Character",
-      });
-      setUserInfo({ ...userInfo, password: "" });
-    } else if (!passwordOneNumber.test(password)) {
-      setError({
-        ...error,
-        password: "Write at least one Number",
-      });
-      setUserInfo({ ...userInfo, password: "" });
-    } else if (!passwordSixValue.test(password)) {
-      setError({
-        ...error,
-        password: "Write at least six digits",
-      });
-      setUserInfo({ ...userInfo, password: "" });
-    } else {
-      setError({
-        ...error,
-        password: "",
-      });
-      setUserInfo({ ...userInfo, password: value });
-    }
-  };
-
   const handleSignIn = async () => {
     try {
       const response = await signInWithEmailAndPassword(
@@ -158,7 +125,7 @@ export default function LoginScreen() {
                 placeholder="********"
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, email: value });
+                  setUserInfo({ ...userInfo, password: value });
                 }}
               />
               <TouchableOpacity

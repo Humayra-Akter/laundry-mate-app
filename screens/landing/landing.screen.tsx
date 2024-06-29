@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   TextInput,
   FlatList,
+  Button,
 } from "react-native";
 import {
   useFonts,
@@ -20,6 +21,8 @@ import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
+import { NavigationProp } from "@react-navigation/native";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
 
 const services = [
   {
@@ -105,7 +108,11 @@ const items = [
   },
 ];
 
-export default function LandingScreen() {
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
+}
+
+export default function LandingScreen({ navigation }: RouterProps) {
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
     Raleway_600SemiBold,
@@ -124,6 +131,7 @@ export default function LandingScreen() {
     >
       <ScrollView>
         <Text style={styles.welcomeText}>Welcome to Laundry-Mate</Text>
+        <Button title="Logout" onPress={() => FIREBASE_AUTH.signOut()} />
         {/* search bar */}
         <View style={styles.searchContainer}>
           <Ionicons name="search" size={24} color="gray" />

@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import {
   AntDesign,
@@ -27,6 +28,8 @@ import { useState } from "react";
 import { commonStyles } from "@/styles/common/common.styles";
 import { router } from "expo-router";
 import { useToast } from "react-native-toast-notifications";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
 
 export default function SignupScreen() {
   let [fontsLoaded, fontError] = useFonts({
@@ -51,6 +54,7 @@ export default function SignupScreen() {
   if (!fontError && !fontsLoaded) {
     return null;
   }
+  const auth = FIREBASE_AUTH;
 
   const handlePasswordValidation = (value: string) => {
     const password = value;
@@ -85,34 +89,36 @@ export default function SignupScreen() {
     }
   };
 
-  const handleSignUp = () => {
-    router.push("/(routes)/landing");
+  const handleSignUp = async () => {
+    try {
+      if (!userInfo.name || !userInfo.email || !userInfo.password) {
+        setRequired("All fields are required");
+        return;
+      }
+      setButtonSpinner(true);
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        userInfo?.email,
+        userInfo?.password
+      );
+      console.log(response);
+      await fetch("http://192.168.1.170:5000/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(response),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          router.push("/(routes)/landing");
+        });
+    } catch (error: any) {
+      console.log(error);
+      alert("Login failed " + error.message);
+    }
   };
-  // const handleSignUp = async () => {
-  //   if (!userInfo.name || !userInfo.email || !userInfo.password) {
-  //     setRequired("All fields are required");
-  //     return;
-  //   }
-
-  //   setButtonSpinner(true);
-
-  //   try {
-  //     await fetch("http://10.103.132.142:5000/user", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(userInfo),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         router.push("/(routes)/verifyAccount");
-  //       });
-  //   } finally {
-  //     setButtonSpinner(false);
-  //   }
-  // };
 
   return (
     <LinearGradient
@@ -128,155 +134,161 @@ export default function SignupScreen() {
         <Text style={styles.welcome2Text}>
           Create an account to LAUNDRY MATE to get all features
         </Text>
-        <View style={styles.inputContainer}>
-          <View>
-            {/* name input  */}
+        <KeyboardAvoidingView behavior="padding">
+          <View style={styles.inputContainer}>
             <View>
-              <TextInput
-                style={styles.input}
-                keyboardType="default"
-                value={userInfo.name}
-                placeholder="your name"
-                onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, name: value });
-                }}
-              />
-              <AntDesign
-                style={{ position: "absolute", left: 36, top: 10 }}
-                name="user"
-                size={20}
-                color={"#A1A1A1"}
-              />
-              {required && (
-                <View style={commonStyles.errorContainer}>
-                  <Entypo name="cross" size={18} color={"#A1A1A1"} />
-                </View>
-              )}
-            </View>
-            {/* email input  */}
-            <View style={{ marginTop: 16 }}>
-              <TextInput
-                style={styles.input}
-                keyboardType="email-address"
-                value={userInfo.email}
-                placeholder="example@gmail.com"
-                onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, email: value });
-                }}
-              />
-              <Fontisto
-                style={{ position: "absolute", left: 36, top: 10 }}
-                name="email"
-                size={20}
-                color={"#A1A1A1"}
-              />
-              {required && (
-                <View style={commonStyles.errorContainer}>
-                  <Entypo name="cross" size={18} color={"#A1A1A1"} />
-                </View>
-              )}
-            </View>
-            {/* password input  */}
-            <View style={{ marginTop: 16 }}>
-              <TextInput
-                style={styles.input}
-                keyboardType="default"
-                defaultValue=""
-                placeholder="********"
-                secureTextEntry={!isPasswordVisible}
-                onChangeText={(value) => {
-                  setUserInfo({ ...userInfo, password: value });
-                }}
-              />
+              {/* name input  */}
+              <View>
+                <TextInput
+                  style={styles.input}
+                  keyboardType="default"
+                  value={userInfo.name}
+                  placeholder="your name"
+                  onChangeText={(value) => {
+                    setUserInfo({ ...userInfo, name: value });
+                  }}
+                />
+                <AntDesign
+                  style={{ position: "absolute", left: 36, top: 10 }}
+                  name="user"
+                  size={20}
+                  color={"#A1A1A1"}
+                />
+                {required && (
+                  <View style={commonStyles.errorContainer}>
+                    <Entypo name="cross" size={18} color={"#A1A1A1"} />
+                  </View>
+                )}
+              </View>
+              {/* email input  */}
+              <View style={{ marginTop: 16 }}>
+                <TextInput
+                  style={styles.input}
+                  keyboardType="email-address"
+                  value={userInfo.email}
+                  placeholder="example@gmail.com"
+                  onChangeText={(value) => {
+                    setUserInfo({ ...userInfo, email: value });
+                  }}
+                />
+                <Fontisto
+                  style={{ position: "absolute", left: 36, top: 10 }}
+                  name="email"
+                  size={20}
+                  color={"#A1A1A1"}
+                />
+                {required && (
+                  <View style={commonStyles.errorContainer}>
+                    <Entypo name="cross" size={18} color={"#A1A1A1"} />
+                  </View>
+                )}
+              </View>
+              {/* password input  */}
+              <View style={{ marginTop: 16 }}>
+                <TextInput
+                  style={styles.input}
+                  keyboardType="default"
+                  defaultValue=""
+                  placeholder="********"
+                  secureTextEntry={!isPasswordVisible}
+                  onChangeText={(value) => {
+                    setUserInfo({ ...userInfo, password: value });
+                  }}
+                />
+                <TouchableOpacity
+                  style={styles.visibleIcon}
+                  onPress={() => {
+                    setIsPasswordVisible(!isPasswordVisible);
+                  }}
+                >
+                  {isPasswordVisible ? (
+                    <Ionicons
+                      name="eye-off-outline"
+                      size={24}
+                      color={"#747474"}
+                    />
+                  ) : (
+                    <Ionicons name="eye-outline" size={24} color={"#747474"} />
+                  )}
+                </TouchableOpacity>
+
+                <SimpleLineIcons
+                  style={styles.icon2}
+                  name="lock"
+                  size={20}
+                  color={"#A1A1A1"}
+                />
+                {error.password && (
+                  <View style={commonStyles.errorContainer}>
+                    <Entypo name="cross" size={18} color={"red"} />
+                    <Text style={{ color: "red", fontSize: 12, marginTop: -1 }}>
+                      {error?.password}
+                    </Text>
+                  </View>
+                )}
+              </View>
+              {/* sign in button  */}
               <TouchableOpacity
-                style={styles.visibleIcon}
-                onPress={() => {
-                  setIsPasswordVisible(!isPasswordVisible);
-                }}
+                style={styles.buttonContainer}
+                onPress={handleSignUp}
               >
-                {isPasswordVisible ? (
-                  <Ionicons
-                    name="eye-off-outline"
-                    size={24}
-                    color={"#747474"}
-                  />
+                {buttonSpinner ? (
+                  <ActivityIndicator size="small" color={"white"} />
                 ) : (
-                  <Ionicons name="eye-outline" size={24} color={"#747474"} />
+                  <Text
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      fontSize: 16,
+                      fontFamily: "Raleway_700Bold",
+                    }}
+                  >
+                    Sign Up
+                  </Text>
                 )}
               </TouchableOpacity>
-
-              <SimpleLineIcons
-                style={styles.icon2}
-                name="lock"
-                size={20}
-                color={"#A1A1A1"}
-              />
-              {error.password && (
-                <View style={commonStyles.errorContainer}>
-                  <Entypo name="cross" size={18} color={"red"} />
-                  <Text style={{ color: "red", fontSize: 12, marginTop: -1 }}>
-                    {error?.password}
+              {/* google login  */}
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  gap: 16,
+                }}
+              >
+                <TouchableOpacity>
+                  <FontAwesome
+                    name="google"
+                    size={30}
+                    style={{ color: "#FF725E" }}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* redirect button  */}
+              <View style={styles.signUpRedirect}>
+                <Text
+                  style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}
+                >
+                  Already have an account?
+                </Text>
+                <TouchableOpacity
+                  onPress={() => router.push("/(routes)/login")}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Raleway_600SemiBold",
+                      fontSize: 18,
+                      marginLeft: 4,
+                      color: "#FF725E",
+                    }}
+                  >
+                    Sign In
                   </Text>
-                </View>
-              )}
-            </View>
-            {/* sign in button  */}
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={handleSignUp}
-            >
-              {buttonSpinner ? (
-                <ActivityIndicator size="small" color={"white"} />
-              ) : (
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: 16,
-                    fontFamily: "Raleway_700Bold",
-                  }}
-                >
-                  Sign Up
-                </Text>
-              )}
-            </TouchableOpacity>
-            {/* google login  */}
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 20,
-                gap: 16,
-              }}
-            >
-              <TouchableOpacity>
-                <FontAwesome
-                  name="google"
-                  size={30}
-                  style={{ color: "#FF725E" }}
-                />
-              </TouchableOpacity>
-            </View>
-            {/* redirect button  */}
-            <View style={styles.signUpRedirect}>
-              <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-                Already have an account?
-              </Text>
-              <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
-                <Text
-                  style={{
-                    fontFamily: "Raleway_600SemiBold",
-                    fontSize: 18,
-                    marginLeft: 4,
-                    color: "#FF725E",
-                  }}
-                >
-                  Sign In
-                </Text>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </LinearGradient>
   );
