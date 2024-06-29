@@ -61,17 +61,46 @@ export default function LoginScreen() {
     return null;
   }
 
+  // const handleSignIn = async () => {
+  //   try {
+  //     const response = await signInWithEmailAndPassword(
+  //       auth,
+  //       userInfo?.email,
+  //       userInfo?.password
+  //     );
+  //     console.log(response);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     alert("Login failed " + error.message);
+  //   }
+  // };
+
   const handleSignIn = async () => {
     try {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        userInfo?.email,
-        userInfo?.password
-      );
-      console.log(response);
+      setButtonSpinner(true);
+      const response = await fetch("http://192.168.1.170:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userInfo?.email,
+          password: userInfo?.password,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        router.push("/(routes)/landing");
+      } else {
+        alert("Login failed: " + data.message);
+      }
     } catch (error: any) {
       console.log(error);
-      alert("Login failed " + error.message);
+      alert("Login failed: " + error.message);
+    } finally {
+      setButtonSpinner(false);
     }
   };
 

@@ -23,6 +23,7 @@ import { router } from "expo-router";
 import { Ionicons, FontAwesome, Entypo } from "@expo/vector-icons";
 import { NavigationProp } from "@react-navigation/native";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { signOut } from "firebase/auth";
 
 const services = [
   {
@@ -112,7 +113,19 @@ interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
+
 export default function LandingScreen({ navigation }: RouterProps) {
+
+  const handleLogout = async () => {
+    try {
+      await signOut(FIREBASE_AUTH);
+      router.push("/(routes)/login");
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
+
+
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
     Raleway_600SemiBold,
@@ -130,8 +143,18 @@ export default function LandingScreen({ navigation }: RouterProps) {
       style={{ flex: 1, paddingHorizontal: 16, paddingTop: 60 }}
     >
       <ScrollView>
-        <Text style={styles.welcomeText}>Welcome to Laundry-Mate</Text>
-        <Button title="Logout" onPress={() => FIREBASE_AUTH.signOut()} />
+        {/* sign out  */}
+        <TouchableOpacity
+          style={[styles.cardButton, { marginTop: -10, borderRadius: 100 }]}
+          onPress={handleLogout}
+        >
+          <Text style={styles.cardButtonText}>Logout</Text>
+        </TouchableOpacity>
+
+        <Text style={[styles.welcomeText, { marginTop: 30 }]}>
+          Welcome to Laundry-Mate
+        </Text>
+
         {/* search bar */}
         <View style={styles.searchContainer}>
           <Ionicons name="search" size={24} color="gray" />
@@ -159,7 +182,7 @@ export default function LandingScreen({ navigation }: RouterProps) {
         <View style={styles.categoryContainer}>
           {categories.map((category) => (
             <TouchableOpacity key={category.id} style={styles.categoryItem}>
-              <FontAwesome name={category.icon} size={24} color="#fff" />
+              {/* <FontAwesome name={category.icon} size={24} color="#fff" /> */}
               <Text style={styles.categoryText}>{category.name}</Text>
             </TouchableOpacity>
           ))}
