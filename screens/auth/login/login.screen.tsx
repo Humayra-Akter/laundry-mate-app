@@ -27,16 +27,18 @@ import { commonStyles } from "@/styles/common/common.styles";
 import { router } from "expo-router";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen() {
-  WebBrowser.maybeCompleteAuthSession();
+  // WebBrowser.maybeCompleteAuthSession();
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId:
-      "21780219897-splopostp1up19th1t16ar1on1lj2e2j.apps.googleusercontent.com",
-    clientId:
-      "21780219897-i9b9gav5v9161e544ocleush006an9lm.apps.googleusercontent.com",
-  });
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   androidClientId:
+  //     "21780219897-splopostp1up19th1t16ar1on1lj2e2j.apps.googleusercontent.com",
+  //   clientId:
+  //     "21780219897-i9b9gav5v9161e544ocleush006an9lm.apps.googleusercontent.com",
+  // });
 
   let [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
@@ -44,6 +46,7 @@ export default function LoginScreen() {
     Nunito_400Regular,
     Nunito_700Bold,
   });
+  const auth = FIREBASE_AUTH;
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [required, setRequired] = useState("");
@@ -91,7 +94,19 @@ export default function LoginScreen() {
     }
   };
 
-  const handleSignIn = () => {};
+  const handleSignIn = async () => {
+    try {
+      const response = await signInWithEmailAndPassword(
+        auth,
+        userInfo?.email,
+        userInfo?.password
+      );
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+      alert("Login failed " + error.message);
+    }
+  };
 
   return (
     <LinearGradient
@@ -116,10 +131,12 @@ export default function LoginScreen() {
                 keyboardType="email-address"
                 value={userInfo.email}
                 placeholder="example@gmail.com"
+                autoCapitalize="none"
                 onChangeText={(value) => {
                   setUserInfo({ ...userInfo, email: value });
                 }}
               />
+
               <Fontisto
                 style={{ position: "absolute", left: 36, top: 10 }}
                 name="email"
@@ -217,7 +234,6 @@ export default function LoginScreen() {
                   name="google"
                   size={30}
                   style={{ color: "#FF725E" }}
-                  onPress={() => promptAsync()}
                 />
               </TouchableOpacity>
             </View>
