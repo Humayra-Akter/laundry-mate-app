@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   ScrollView,
@@ -11,6 +11,9 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import pricingData from "../../utils/pricingData.json";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { router } from "expo-router";
 
 interface Item {
   ItemName: string;
@@ -37,6 +40,14 @@ const initializeItems = (data: any[]): Item[] => {
 };
 
 export default function ItemsScreen() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      setUser(user);
+    });
+  }, []);
+
   const [items, setItems] = useState<Item[]>(initializeItems(pricingData));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isAnyItemAdded, setIsAnyItemAdded] = useState<boolean>(false);
@@ -60,7 +71,6 @@ export default function ItemsScreen() {
       updatedItems[index][serviceType] -= 1;
       setItems(updatedItems);
     }
-    // Check if any item count is greater than zero
     const anyItemAdded = updatedItems.some(
       (item) =>
         item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
@@ -72,7 +82,20 @@ export default function ItemsScreen() {
     setSearchQuery(query);
   };
 
-  const handleCheckout = () => {
+  // const handleCheckout = () => {
+  //   const selectedItems = items.filter(
+  //     (item) =>
+  //       item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
+  //   );
+
+  //   if (selectedItems.length === 0) {
+  //     Alert.alert("No items selected", "Please select at least one item.");
+  //     return;
+  //   }
+  //   Alert.alert("Checkout", "Proceeding to checkout with selected items.");
+  // };
+
+  const handleCheckout = async () => {
     const selectedItems = items.filter(
       (item) =>
         item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
@@ -83,8 +106,27 @@ export default function ItemsScreen() {
       return;
     }
 
-    // Handle checkout process here (e.g., navigate to checkout screen or trigger API call)
-    Alert.alert("Checkout", "Proceeding to checkout with selected items.");
+    try {
+      const response = await fetch(`192.168.1.170:5000/selectedItems`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user, items: selectedItems }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          Alert.alert(
+            "Order Placed",
+            "Your order has been successfully placed!"
+          );
+          // router.push("/(routes)/checkout");
+        });
+    } catch (error) {
+      console.error("Error placing order:", error);
+      Alert.alert("Error", "Failed to place order. Please try again later.");
+    }
   };
 
   const filteredItems = items.filter((item) =>

@@ -10,7 +10,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log(user);
       setUser(user);
     });
   }, []);
