@@ -13,9 +13,11 @@ import moment from "moment";
 import { router } from "expo-router";
 
 export default function PickupDateScreen() {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [tentativeDeliveryDate, setTentativeDeliveryDate] =
+    useState<moment.Moment | null>(null);
 
   const timeSlots = [
     "10AM to 11AM",
@@ -43,6 +45,46 @@ export default function PickupDateScreen() {
 
   const handleSelectTimeSlot = (timeSlot: any) => {
     setSelectedTimeSlot(timeSlot);
+    calculateDeliveryDate(selectedDate, timeSlot);
+  };
+
+  const calculateDeliveryDate = (pickupDate: any, timeSlot: any) => {
+    if (pickupDate && timeSlot) {
+      let deliveryDate = moment(pickupDate).add(1, "days"); // Default next day delivery
+
+      // Adjust delivery date based on time slot
+      switch (timeSlot) {
+        case "10AM to 11AM":
+          deliveryDate = moment(pickupDate).add(2, "days");
+          break;
+        case "11AM to 12PM":
+          deliveryDate = moment(pickupDate).add(3, "days");
+          break;
+        case "12PM to 1PM":
+          deliveryDate = moment(pickupDate).add(3, "days");
+          break;
+        case "1PM to 2PM":
+          deliveryDate = moment(pickupDate).add(4, "days");
+          break;
+        case "2PM to 3PM":
+          deliveryDate = moment(pickupDate).add(4, "days");
+          break;
+        case "3PM to 4PM":
+          deliveryDate = moment(pickupDate).add(5, "days");
+          break;
+        case "4PM to 5PM":
+          deliveryDate = moment(pickupDate).add(5, "days");
+          break;
+        case "5PM to 6PM":
+          deliveryDate = moment(pickupDate).add(6, "days");
+          break;
+        default:
+          deliveryDate = moment(pickupDate).add(1, "days"); // Default next day delivery
+          break;
+      }
+
+      setTentativeDeliveryDate(deliveryDate);
+    }
   };
 
   const renderSelectedDateTime = () => {
@@ -106,6 +148,14 @@ export default function PickupDateScreen() {
 
         {/* Selected Date and Time Slot Display */}
         <View style={{ marginHorizontal: 16 }}>{renderSelectedDateTime()}</View>
+
+        {/* Tentative Delivery Date */}
+        {tentativeDeliveryDate && (
+          <Text style={styles.tentativeDeliveryText}>
+            Tentative Delivery Date:{" "}
+            {moment(tentativeDeliveryDate).format("MMMM Do YYYY")}
+          </Text>
+        )}
 
         {/* Proceed Button */}
         <TouchableOpacity
@@ -173,5 +223,12 @@ const styles = StyleSheet.create({
   },
   timeSlotButton: {
     width: "48%", // Two buttons in a row
+  },
+  tentativeDeliveryText: {
+    marginTop: 20,
+    textAlign: "center",
+    color: "red",
+    fontSize: 16,
+    fontFamily: "Raleway_700Bold",
   },
 });
