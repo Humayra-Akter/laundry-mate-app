@@ -108,7 +108,7 @@ export default function PickupDateScreen() {
     >
       <ScrollView style={styles.container}>
         {/* Calendar */}
-        <Text style={styles.title}>Select Date</Text>
+        <Text style={styles.title}>Select Pickup Date</Text>
 
         <TouchableOpacity
           onPress={showDatePicker}
@@ -129,7 +129,7 @@ export default function PickupDateScreen() {
         )}
 
         {/* Time Slots */}
-        <Text style={styles.title}>Select Time Slot</Text>
+        <Text style={styles.title}>Select Pickup Time Slot</Text>
         <View style={styles.timeSlotsContainer}>
           {timeSlots.map((slot, index) => (
             <TouchableOpacity

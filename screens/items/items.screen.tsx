@@ -82,52 +82,6 @@ export default function ItemsScreen() {
     setSearchQuery(query);
   };
 
-  // const handleCheckout = () => {
-  //   const selectedItems = items.filter(
-  //     (item) =>
-  //       item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
-  //   );
-
-  //   if (selectedItems.length === 0) {
-  //     Alert.alert("No items selected", "Please select at least one item.");
-  //     return;
-  //   }
-  //   Alert.alert("Checkout", "Proceeding to checkout with selected items.");
-  // };
-
-  // const handleCheckout = async () => {
-  //   const selectedItems = items.filter(
-  //     (item) =>
-  //       item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
-  //   );
-
-  //   if (selectedItems.length === 0) {
-  //     Alert.alert("No items selected", "Please select at least one item.");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(`10.103.131.53:5000/selectedItems`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ user, items: selectedItems }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         Alert.alert(
-  //           "Order Placed",
-  //           "Your order has been successfully placed!"
-  //         );
-  //         // router.push("/(routes)/checkout");
-  //       });
-  //   } catch (error) {
-  //     console.error("Error placing order:", error);
-  //     Alert.alert("Error", "Failed to place order. Please try again later.");
-  //   }
-  // };
   const handleCheckout = async () => {
     const selectedItems = items.filter(
       (item) =>
@@ -261,7 +215,7 @@ export default function ItemsScreen() {
           style={styles.checkoutButton}
           onPress={handleCheckout}
         >
-          <Text style={styles.checkoutText}>Checkout</Text>
+          <Text style={styles.checkoutText}>CART</Text>
         </TouchableOpacity>
       )}
     </LinearGradient>

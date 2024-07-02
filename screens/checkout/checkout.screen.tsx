@@ -83,6 +83,9 @@ export default function CheckoutScreen() {
             ))}
           </View>
         ))}
+        <TouchableOpacity style={styles.checkoutButton}>
+          <Text style={styles.checkoutText}>Checkout</Text>
+        </TouchableOpacity>
       </ScrollView>
     </LinearGradient>
   );
@@ -136,5 +139,18 @@ const styles = StyleSheet.create({
   countText: {
     fontSize: 16,
     color: "#333",
+  },
+  checkoutButton: {
+    backgroundColor: "#FF725E",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    marginVertical: 10,
+    marginHorizontal: 10,
+  },
+  checkoutText: {
+    color: "#FFF",
+    fontSize: 18,
+    fontFamily: "Raleway_700Bold",
   },
 });
