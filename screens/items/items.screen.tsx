@@ -95,6 +95,39 @@ export default function ItemsScreen() {
   //   Alert.alert("Checkout", "Proceeding to checkout with selected items.");
   // };
 
+  // const handleCheckout = async () => {
+  //   const selectedItems = items.filter(
+  //     (item) =>
+  //       item.IronCount > 0 || item.WashIronCount > 0 || item.DryCleanCount > 0
+  //   );
+
+  //   if (selectedItems.length === 0) {
+  //     Alert.alert("No items selected", "Please select at least one item.");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(`10.103.131.53:5000/selectedItems`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ user, items: selectedItems }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         Alert.alert(
+  //           "Order Placed",
+  //           "Your order has been successfully placed!"
+  //         );
+  //         // router.push("/(routes)/checkout");
+  //       });
+  //   } catch (error) {
+  //     console.error("Error placing order:", error);
+  //     Alert.alert("Error", "Failed to place order. Please try again later.");
+  //   }
+  // };
   const handleCheckout = async () => {
     const selectedItems = items.filter(
       (item) =>
@@ -107,22 +140,22 @@ export default function ItemsScreen() {
     }
 
     try {
-      const response = await fetch(`192.168.1.170:5000/selectedItems`, {
+      const response = await fetch(`http://10.103.131.53:5000/selectedItems`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ user, items: selectedItems }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          Alert.alert(
-            "Order Placed",
-            "Your order has been successfully placed!"
-          );
-          // router.push("/(routes)/checkout");
-        });
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      Alert.alert("Order Placed", "Your order has been forwarded!");
+      router.push("/(routes)/checkout");
     } catch (error) {
       console.error("Error placing order:", error);
       Alert.alert("Error", "Failed to place order. Please try again later.");
@@ -155,7 +188,9 @@ export default function ItemsScreen() {
             <View style={styles.pricingContainer}>
               {item.IronPrice !== null && (
                 <View style={styles.serviceContainer}>
-                  <Text style={styles.priceText}>Iron: ${item.IronPrice}</Text>
+                  <Text style={styles.priceText}>
+                    Iron: BDT{item.IronPrice}
+                  </Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
                       onPress={() => handleRemoveItem(index, "IronCount")}
@@ -176,7 +211,7 @@ export default function ItemsScreen() {
               {item.WashIronPrice !== null && (
                 <View style={styles.serviceContainer}>
                   <Text style={styles.priceText}>
-                    Wash & Iron: ${item.WashIronPrice}
+                    Wash & Iron: BDT{item.WashIronPrice}
                   </Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -198,7 +233,7 @@ export default function ItemsScreen() {
               {item.DryCleanPrice !== null && (
                 <View style={styles.serviceContainer}>
                   <Text style={styles.priceText}>
-                    Dry Clean: ${item.DryCleanPrice}
+                    Dry Clean: BDT{item.DryCleanPrice}
                   </Text>
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity

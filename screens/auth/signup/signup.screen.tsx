@@ -102,7 +102,7 @@ export default function SignupScreen() {
         userInfo?.password
       );
       console.log(response);
-      await fetch("http://192.168.1.170:5000/user", {
+      await fetch("http://10.103.131.53:5000/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
