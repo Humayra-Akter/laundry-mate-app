@@ -17,13 +17,14 @@ export default function RootLayout() {
   return (
     <>
       {user ? (
-        <Stack  screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="/(routes)/welcome-intro/index" />
           <Stack.Screen name="/(routes)/landing/index" />
           <Stack.Screen name="/(routes)/pricing/index" />
           <Stack.Screen name="/(routes)/pickup-date/index" />
           <Stack.Screen name="/(routes)/items/index" />
+          <Stack.Screen name="/(routes)/payment/index" />
         </Stack>
       ) : (
         <Stack screenOptions={{ headerShown: false }}>
