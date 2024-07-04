@@ -25,6 +25,7 @@ export default function RootLayout() {
           <Stack.Screen name="/(routes)/pickup-date/index" />
           <Stack.Screen name="/(routes)/items/index" />
           <Stack.Screen name="/(routes)/payment/index" />
+          <Stack.Screen name="/(routes)/admin/index" />
         </Stack>
       ) : (
         <Stack screenOptions={{ headerShown: false }}>
@@ -35,6 +36,7 @@ export default function RootLayout() {
           <Stack.Screen name="/(routes)/sign-up/index" />
           <Stack.Screen name="/(routes)/forgot-password/index" />
           <Stack.Screen name="/(routes)/verifyAccount/index" />
+          <Stack.Screen name="/(routes)/admin/index" />
         </Stack>
       )}
     </>
