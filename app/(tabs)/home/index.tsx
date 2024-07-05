@@ -12,10 +12,13 @@ import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
 export default function index() {
+  const router = useRouter();
+
   return (
     <LinearGradient colors={["#faf8f2", "#fafafa"]}>
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
@@ -67,7 +70,10 @@ export default function index() {
                 We will be at your doorstep on time
               </Text>
               <View style={[styles.headerBottomRow, { marginTop: 20 }]}>
-                <Pressable style={styles.pressAbleContainer}>
+                <Pressable
+                  onPress={() => router.push("/home/address")}
+                  style={styles.pressAbleContainer}
+                >
                   <Text style={styles.pressAbleContainerText}>BOOK NOW</Text>
                 </Pressable>
                 <FontAwesome6 name="truck-fast" size={24} color="#034694" />
