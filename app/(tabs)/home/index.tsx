@@ -6,11 +6,14 @@ import {
   Image,
   ScrollView,
   FlatList,
+  TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   FontAwesome,
-  FontAwesome5,
+  FontAwesome6,
+  Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { onboardingSwiperData } from "@/data/onboardingSwiperData";
@@ -96,6 +99,24 @@ export default function HomeScreen() {
             style={styles.services}
           />
         </View>
+        {/* pickup */}
+        <View style={styles.servicesContainer}>
+          <Text style={styles.pickup}>
+            Select a Pickup date and Start Your Journey with{" "}
+          </Text>
+          <TouchableOpacity
+            style={styles.pickupContainer}
+            onPress={() => router.push("/home/pickup")}
+          >
+            <Text style={styles.pickupLM}>LAUNDRY MATE</Text>
+            <FontAwesome name="calendar" size={24} color="#752100" />
+          </TouchableOpacity>
+        </View>
+        {/* search option */}
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={24} color="gray" />
+          <TextInput placeholder="Search" style={styles.searchInput} />
+        </View>
         {/* General Services  */}
         <View style={styles.servicesContainer}>
           <Text style={styles.sectionTitle}>General Services</Text>
@@ -112,11 +133,11 @@ export default function HomeScreen() {
         <View style={styles.trackOrderCard}>
           <Text
             style={styles.trackOrderText}
-            onPress={() => router.push("/trackorder")}
+            onPress={() => router.push("/home/trackOrder")}
           >
             Track Your Order
           </Text>
-          <FontAwesome5 name="truck-fast" size={20} color="#752100" />
+          <FontAwesome6 name="truck-fast" size={20} color="#752100" />
         </View>
         {/* Special Offers  */}
         <View style={styles.servicesContainer}>
@@ -190,6 +211,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FF725E",
   },
+  pickup: {
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: "bold",
+    margin: 10,
+    padding: 6,
+  },
+  pickupLM: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#752100",
+  },
+  searchContainer: {
+    padding: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    marginTop: 18,
+    borderColor: "#FF725E",
+    borderWidth: 1,
+  },
+  searchInput: {
+    marginLeft: 10,
+    flex: 1,
+  },
   carouselDescription: {
     fontSize: 14,
     color: "#000",
@@ -201,6 +249,13 @@ const styles = StyleSheet.create({
     color: "#FF725E",
     marginVertical: 8,
     textAlign: "center",
+  },
+  pickupContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    marginTop: -10,
   },
   servicesContainer: {
     padding: 10,
@@ -232,7 +287,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontWeight: "bold",
   },
-  
   specialOfferItem: {
     borderRadius: 10,
     padding: 12,
