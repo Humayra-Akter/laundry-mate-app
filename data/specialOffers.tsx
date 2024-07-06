@@ -1,0 +1,73 @@
+export const specialOffers = [
+  {
+    id: 1,
+    title: "First Order Discount",
+    description: "Get 20% off on your first order.",
+    discount: 20,
+    validity: "2024-12-31",
+  },
+  {
+    id: 2,
+    title: "Referral Discount",
+    description:
+      "Refer a friend and both of you get 15% off on your next order.",
+    discount: 15,
+    validity: "2024-12-31",
+  },
+  {
+    id: 3,
+    title: "Bulk Order Discount",
+    description: "Get 10% off when you order more than 20 items.",
+    discount: 10,
+    validity: "2024-12-31",
+  },
+  {
+    id: 4,
+    title: "Loyalty Program",
+    description: "Earn points on every order and redeem them for discounts.",
+    discount: 0,
+    validity: "2024-12-31",
+  },
+  {
+    id: 5,
+    title: "Seasonal Offer",
+    description: "Enjoy 25% off during the festive season.",
+    discount: 25,
+    validity: "2024-12-31",
+  },
+  {
+    id: 6,
+    title: "Subscription Plan",
+    description: "Subscribe and save 15% on weekly or monthly plans.",
+    discount: 15,
+    validity: "2024-12-31",
+  },
+  {
+    id: 7,
+    title: "Happy Hour Discount",
+    description: "Get 10% off on orders placed between 2 PM and 5 PM.",
+    discount: 10,
+    validity: "2024-12-31",
+  },
+  {
+    id: 8,
+    title: "Weekend Special",
+    description: "Enjoy 20% off on orders placed on weekends.",
+    discount: 20,
+    validity: "2024-12-31",
+  },
+  {
+    id: 9,
+    title: "Student Discount",
+    description: "Students get 15% off with a valid student ID.",
+    discount: 15,
+    validity: "2024-12-31",
+  },
+  {
+    id: 10,
+    title: "Corporate Discount",
+    description: "Special rates for corporate accounts.",
+    discount: 20,
+    validity: "2024-12-31",
+  },
+];

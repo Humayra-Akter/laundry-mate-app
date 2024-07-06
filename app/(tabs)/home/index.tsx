@@ -1,375 +1,336 @@
+import React from "react";
 import {
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   View,
-  Dimensions,
-  Pressable,
+  Image,
+  ScrollView,
+  FlatList,
 } from "react-native";
-import React from "react";
-import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import {
+  FontAwesome,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+import { onboardingSwiperData } from "@/data/onboardingSwiperData";
+import { specialOffers } from "@/data/specialOffers";
+import services from "@/data/services.json";
+import faqs from "@/data/faqs.json";
+import { generalServices } from "@/data/generalServices";
 import { useRouter } from "expo-router";
 
-const { width } = Dimensions.get("window");
-
-export default function index() {
+export default function HomeScreen() {
   const router = useRouter();
 
+  const renderCarouselItem = ({ item }: any) => (
+    <View style={styles.carouselItem}>
+      <Image source={item.image} style={styles.carouselImage} />
+      <Text style={styles.carouselTitle}>{item.title}</Text>
+      <Text style={styles.carouselDescription}>{item.shortDescription}</Text>
+    </View>
+  );
+
+  const renderServiceItem = ({ item }: any) => (
+    <View style={styles.serviceItem}>
+      <MaterialCommunityIcons name={item.icon} size={24} color="#FF725E" />
+      <Text style={styles.serviceName}>{item.name}</Text>
+    </View>
+  );
+
+  const renderGeneralServiceItem = ({ item }: any) => (
+    <View style={styles.generalServiceItem}>
+      <Image source={item.image} style={styles.generalServiceImage} />
+      <Text style={styles.generalServiceName}>{item.name}</Text>
+    </View>
+  );
+
+  const renderFAQItem = ({ item }: any) => (
+    <View style={styles.faqItem}>
+      <Text style={styles.faqQuestion}>{item.question}</Text>
+      <Text style={styles.faqAnswer}>{item.answer}</Text>
+    </View>
+  );
+
+  const renderSpecialOfferItem = ({ item }: any) => (
+    <View style={styles.specialOfferItem}>
+      <Text style={styles.specialOfferTitle}>{item.title}</Text>
+      <Text style={styles.specialOfferDescription}>{item.description}</Text>
+      <View style={styles.specialOfferDetails}>
+        <Text style={styles.specialOfferDiscount}>{item.discount}% off</Text>
+        <Text style={styles.specialOfferValidity}>
+          Valid until {item.validity}
+        </Text>
+      </View>
+    </View>
+  );
+
   return (
-    <LinearGradient colors={["#faf8f2", "#fafafa"]}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-        <View style={styles.headerContainer}>
-          <View style={styles.headerTopRow}>
-            <View style={styles.headerTopRow}>
-              <Image
-                style={styles.logo}
-                source={require("@/assets/images/logo.png")}
-              />
-              <Text style={styles.laundryText}>Laundry Mate</Text>
-            </View>
-            <Ionicons
-              name="reorder-three"
-              size={24}
-              color="#034694"
-              style={styles.menuIcon}
-            />
-          </View>
-          <View style={styles.headerBottomRow}>
-            <View>
-              <Text style={styles.greeting}>Hi Humz!</Text>
-              <Text style={styles.location}>Home Dhaka 1214</Text>
-            </View>
-            <View style={styles.quickHelpContainer}>
-              <Ionicons
-                name="information-circle-sharp"
-                size={24}
-                color="#034694"
-              />
-              <Text style={styles.quickHelpText}>QUICK HELP</Text>
-            </View>
-          </View>
+    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.header}>
+          <Image
+            source={require("@/assets/images/logo.png")}
+            style={styles.logo}
+          />
+          <Text style={styles.title}>Laundry Mate</Text>
         </View>
-
-        <View style={styles.quickOrderContainer}>
-          <View style={styles.quickOrderContent}>
-            <Ionicons
-              name="notifications-circle-sharp"
-              size={24}
-              color="#034694"
-            />
-            <View>
-              <Text style={styles.quickOrderTitle}>QUICK ORDER</Text>
-              <Text style={styles.quickOrderText}>
-                Book a pickup and a delivery option
-              </Text>
-              <Text style={styles.quickOrderText}>
-                We will be at your doorstep on time
-              </Text>
-              <View style={[styles.headerBottomRow, { marginTop: 20 }]}>
-                <Pressable
-                  onPress={() => router.push("/home/address")}
-                  style={styles.pressAbleContainer}
-                >
-                  <Text style={styles.pressAbleContainerText}>BOOK NOW</Text>
-                </Pressable>
-                <FontAwesome6 name="truck-fast" size={24} color="#034694" />
-              </View>
-            </View>
-          </View>
+        {/* onboardingSwiperData */}
+        <FlatList
+          data={onboardingSwiperData}
+          renderItem={renderCarouselItem}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.carousel}
+        />
+        {/* Our Services */}
+        <View style={styles.servicesContainer}>
+          <Text style={styles.sectionTitle}>Our Services</Text>
+          <FlatList
+            data={services}
+            renderItem={renderServiceItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.services}
+          />
         </View>
-
-        <View style={styles.cardsRow}>
-          <View style={styles.clubContainer}>
-            <Text style={styles.clubText}>
-              Club <Text style={styles.ultimateText}>Ultimate</Text>
-            </Text>
-            <Text style={styles.putLaundryText}>
-              Put your laundry on Laundry-Mate
-            </Text>
-            <View style={styles.headerBottomRow}>
-              <Text style={styles.subscribeText}>
-                Subscribe and get the benefits
-              </Text>
-              <AntDesign name="caretright" size={24} color="#034694" />
-            </View>
-          </View>
-
-          <View style={styles.clubContainer}>
-            <Text style={styles.clubText}>
-              Place Your <Text style={styles.ultimateText}>Order</Text>
-            </Text>
-            <Text style={styles.putLaundryText}>
-              Select items from the catalogue below and book your order
-            </Text>
-            <View style={styles.headerBottomRow}>
-              <Text style={styles.subscribeText}>book your order</Text>
-              <FontAwesome5 name="shopping-basket" size={24} color="#034694" />
-            </View>
-          </View>
+        {/* General Services  */}
+        <View style={styles.servicesContainer}>
+          <Text style={styles.sectionTitle}>General Services</Text>
+          <FlatList
+            data={generalServices}
+            renderItem={renderGeneralServiceItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.generalServices}
+          />
         </View>
-
-        <View style={styles.cardsRow}>
-          <View style={styles.pricesContainer}>
-            <View style={styles.priceCard}>
-              <Text style={styles.priceTitle}>AFFORDABLE PRICES</Text>
-              <View style={styles.headerBottomRow}>
-                <Text style={styles.priceText}>Get our Price List</Text>
-                <Entypo name="triangle-right" size={18} color="#034694" />
-              </View>
-            </View>
-            <View style={styles.priceCard}>
-              <Text style={styles.priceTitle}>AFFORDABLE PRICES</Text>
-              <View style={styles.headerBottomRow}>
-                <Text style={styles.priceText}>Get our Price List</Text>
-                <Entypo name="triangle-right" size={18} color="#034694" />
-              </View>
-            </View>
-          </View>
-          <View style={[styles.planContainer, { flexDirection: "row" }]}>
-            <View>
-              <Text style={styles.planTitle}>WHAT'S THE PLAN</Text>
-              <Text style={styles.planTitle2}>FOR THE PLANET</Text>
-            </View>
-            <Entypo name="triangle-right" size={18} color="#034694" />
-          </View>
-        </View>
-
-        <View style={styles.nextAvailableContainer}>
-          <View style={styles.nextAvailableHeader}>
-            <Ionicons
-              name="notifications-circle-sharp"
-              size={24}
-              color="#034694"
-            />
-            {/* <Ionicons name="notifications-outline" size={24} color="black" /> */}
-            <Text>Next Available</Text>
-          </View>
-          <Text style={styles.nextAvailableText}>
-            Order Within 15 mins to catch this pickUp Slot
+        {/* trackorder */}
+        <View style={styles.trackOrderCard}>
+          <Text
+            style={styles.trackOrderText}
+            onPress={() => router.push("/trackorder")}
+          >
+            Track Your Order
           </Text>
-          <Pressable style={styles.nextAvailableButton}>
-            <Text>ADD ITEMS</Text>
-          </Pressable>
+          <FontAwesome5 name="truck-fast" size={20} color="#752100" />
         </View>
+        {/* Special Offers  */}
+        <View style={styles.servicesContainer}>
+          <Text style={styles.sectionTitle}>Special Offers</Text>
+          <FlatList
+            data={specialOffers}
+            renderItem={renderSpecialOfferItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.carousel}
+          />
+        </View>
+        {/* FAQs  */}
+        <Text style={styles.sectionTitle}>FAQs</Text>
+        {faqs.map((item) => renderFAQItem({ item }))}
       </ScrollView>
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
+  container: {
+    flex: 1,
+  },
+  scrollViewContent: {
     padding: 16,
-    height: 200,
-    backgroundColor: "#cc9664",
-    marginTop: 10,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
   },
-  laundryText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginLeft: 10,
-  },
-  headerTopRow: {
+  header: {
     flexDirection: "row",
+    gap: 10,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    marginBottom: 10,
   },
   logo: {
     width: 60,
     height: 60,
-    resizeMode: "cover",
+    marginBottom: 8,
+    marginTop: 10,
   },
-  menuIcon: {
-    top: -16,
-  },
-  headerBottomRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  greeting: {
-    fontSize: 16,
+  title: {
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#752100",
   },
-  location: {
+  carousel: {
+    marginBottom: 16,
+  },
+  carouselItem: {
+    width: 280,
+    marginRight: 16,
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 12,
+    backgroundColor: "#fff8e6",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+  },
+  carouselImage: {
+    width: 200,
+    height: 150,
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+  carouselTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FF725E",
+  },
+  carouselDescription: {
     fontSize: 14,
-    fontWeight: "bold",
     color: "#000",
+    textAlign: "center",
   },
-  quickHelpContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#FF725E",
+    marginVertical: 8,
+    textAlign: "center",
   },
-  quickHelpText: {
-    fontSize: 12,
-    fontWeight: "semibold",
-    color: "#034694",
-  },
-  quickOrderContainer: {
+  servicesContainer: {
     padding: 10,
-    backgroundColor: "#fff",
-    width: width * 0.8,
+    backgroundColor: "#fff8e6",
     marginLeft: "auto",
     marginRight: "auto",
     borderRadius: 10,
-    marginTop: -40,
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-  },
-  quickOrderContent: {
-    flexDirection: "row",
-    gap: 10,
-  },
-  quickOrderTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#034694",
-  },
-  quickOrderText: {
-    marginTop: 4,
-    color: "#666",
-  },
-  pressAbleContainer: {
-    backgroundColor: "#cc9664",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 4,
-  },
-  pressAbleContainerText: {
-    fontSize: 14,
-    fontWeight: "400",
-    color: "#fff",
-  },
-  cardsRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginHorizontal: 16,
-    marginTop: 20,
-    gap: 20,
-  },
-  clubContainer: {
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 10,
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    width: width * 0.45,
-  },
-  clubText: {
-    color: "#cc9664",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  ultimateText: {
-    color: "#034694",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  putLaundryText: {
-    fontSize: 14,
-    fontWeight: "400",
-    marginTop: 6,
-    color: "#666",
-  },
-  subscribeText: {
-    fontSize: 12,
-    fontWeight: "400",
-    color: "#666",
-  },
-  pricesContainer: {
-    flexDirection: "column",
-  },
-  priceCard: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    gap: 12,
-    padding: 10,
-    borderRadius: 10,
     marginTop: 10,
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    width: width * 0.45,
+    width: "100%",
   },
-  priceTitle: {
-    fontSize: 13,
-    fontWeight: "500",
-    color: "#034694",
+  services: {
+    marginBottom: 16,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10,
   },
-  priceText: {
-    marginTop: 4,
-    color: "#666",
-  },
-  planContainer: {
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 10,
+  serviceItem: {
     alignItems: "center",
-    gap: 10,
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    width: width * 0.45,
+    marginRight: 16,
   },
-  planTitle: {
-    fontSize: 18,
+  serviceName: {
+    fontSize: 14,
+    color: "#000",
+    marginTop: 4,
     fontWeight: "bold",
-    color: "#cc9664",
-    width: 130,
   },
-  planTitle2: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#034694",
-    width: 120,
-  },
-  nextAvailableContainer: {
-    backgroundColor: "#fff",
-    padding: 10,
-    marginHorizontal: 16,
+  
+  specialOfferItem: {
     borderRadius: 10,
-    marginTop: 20,
+    padding: 12,
+    backgroundColor: "#fff8e6",
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
   },
-  nextAvailableHeader: {
+  specialOfferTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FF725E",
+    marginBottom: 8,
+  },
+  specialOfferDescription: {
+    fontSize: 14,
+    color: "#000",
+    marginBottom: 8,
+  },
+  specialOfferDetails: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  specialOfferDiscount: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#752100",
+  },
+  specialOfferValidity: {
+    fontSize: 12,
+    color: "#752100",
+  },
+  generalServices: {
+    marginBottom: 22,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10,
+  },
+  generalServiceItem: {
+    alignItems: "center",
+    marginRight: 16,
+  },
+  generalServiceImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+  generalServiceName: {
+    fontSize: 14,
+    color: "#000",
+    marginTop: 4,
+    fontWeight: "bold",
+  },
+  trackOrderCard: {
+    backgroundColor: "#FFF8E6",
+    padding: 16,
+    borderRadius: 10,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 1 },
+    marginBottom: 16,
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
-  },
-  nextAvailableText: {
-    fontSize: 14,
-    fontWeight: "500",
-    marginTop: 5,
-    color: "#034694",
-  },
-  nextAvailableButton: {
-    borderColor: "#034694",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
     justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 0.7,
-    marginTop: 8,
-    borderRadius: 5,
+    gap: 10,
+    marginTop: 16,
+  },
+  trackOrderText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FF725E",
+    textAlign: "center",
+  },
+  faqItem: {
+    marginBottom: 8,
+    backgroundColor: "#fff8e6",
+    padding: 10,
+    borderRadius: 10,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 1 },
+  },
+  faqQuestion: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333333",
+    marginBottom: 4,
+  },
+  faqAnswer: {
+    fontSize: 14,
+    color: "#666666",
   },
 });

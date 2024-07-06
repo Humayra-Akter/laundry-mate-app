@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Washing",
+    "icon": "washing-machine"
+  },
+  {
+    "id": 2,
+    "name": "Dry Cleaning",
+    "icon": "tshirt-crew"
+  },
+  {
+    "id": 3,
+    "name": "Ironing",
+    "icon": "iron"
+  },
+  {
+    "id": 4,
+    "name": "Folding",
+    "icon": "tshirt-crew-outline"
+  }
+]

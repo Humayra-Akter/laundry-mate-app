@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "question": "How do I schedule a pickup?",
+    "answer": "You can schedule a pickup through our app by selecting your preferred date and time."
+  },
+  {
+    "id": 2,
+    "question": "What type of detergents do you use?",
+    "answer": "We use eco-friendly detergents that are safe for the environment and your clothes."
+  },
+  {
+    "id": 3,
+    "question": "How can I track my order?",
+    "answer": "You can track your order status through the 'Track Order' section in our app."
+  }
+]
