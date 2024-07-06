@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AntDesign,
   Entypo,
@@ -18,23 +18,38 @@ import {
 import moment from "moment";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import Step4 from "./Step4";
+
+interface TimeOption {
+  startTime: string;
+  endTime: string;
+}
 
 const Address = () => {
   const [step, setStep] = useState(1);
   const [currentDate, setCurrentDate] = useState(moment());
   const [deliveryDate, setDeliveryDate] = useState(moment());
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDeliveryTime, setSelectedDeliveryTime] = useState(null);
+  const [selectedTime, setSelectedTime] = useState<TimeOption | null>(null);
+  const [selectedDeliveryTime, setSelectedDeliveryTime] =
+    useState<TimeOption | null>(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedDate, setSelectedDate] = useState(moment());
   const [selectedAdress, setSelectedAdress] = useState("");
+  const [tentativeDeliveryDate, setTentativeDeliveryDate] =
+    useState<moment.Moment | null>(null);
 
   const handleBack = () => {
     setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
+  };
+
+  const handleNext = () => {
+    setStep((prevStep) => {
+      const nextStep = prevStep + 1;
+      console.log(nextStep);
+      if (nextStep === 5) {
+        // Handle step 5 logic here
+      }
+      return nextStep;
+    });
   };
 
   const pickupTimeOptions = [
@@ -44,18 +59,6 @@ const Address = () => {
     { startTime: "7:30 PM", endTime: "10:00 PM" },
   ];
 
-  const handleNext = () => {
-    setStep((prevStep) => {
-      const nextStep = prevStep + 1;
-      console.log("next step", nextStep);
-      if (nextStep == 5) {
-        //  placeOrder();
-      }
-
-      return nextStep;
-    });
-  };
-
   const getNext6Days = () => {
     const nextDays = [];
     for (let i = 0; i < 5; i++) {
@@ -63,6 +66,7 @@ const Address = () => {
 
       nextDays.push(nextDate);
     }
+
     return nextDays;
   };
 
@@ -85,7 +89,7 @@ const Address = () => {
   const renderDateButtons = () => {
     const next6Days = getNext6Days();
 
-    return next6Days?.map((date, index) => (
+    return next6Days?.map((date: any, index: any) => (
       <TouchableOpacity
         onPress={() => setSelectedDate(date)}
         style={{
@@ -123,6 +127,72 @@ const Address = () => {
         </Text>
       </TouchableOpacity>
     ));
+  };
+
+  const renderPickUpTimeOptions = () => {
+    if (selectedDate) {
+      const isCurrentDate = selectedDate.isSame(currentDate, "day");
+
+      const currentTime = moment();
+
+      return pickupTimeOptions.map((option: any, index: any) => {
+        console.log(option);
+        const startTime = moment(
+          selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
+          "YYYY-MM-DD LT"
+        );
+        const isTimeSlotPast = isCurrentDate && startTime.isBefore(currentDate);
+
+        return (
+          <TouchableOpacity
+            onPress={() => {
+              if (!isTimeSlotPast) {
+                // setSelectedTime(option);
+              }
+            }}
+            style={{
+              opacity: isTimeSlotPast ? 0.5 : 1,
+              padding: 10,
+              margin: 10,
+              borderRadius: 5,
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >{`${option.startTime} - ${option.endTime}`}</Text>
+          </TouchableOpacity>
+        );
+      });
+    }
+  };
+
+  const renderTimeOptions = () => {
+    return pickupTimeOptions.map((option, index) => {
+      console.log(option);
+      const startTime = moment(
+        selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
+        "YYYY-MM-DD LT"
+      );
+
+      return (
+        <TouchableOpacity
+          key={index}
+          style={{
+            margin: 10,
+            padding: 10,
+            borderRadius: 5,
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+            }}
+          >{`${option.startTime} - ${option.endTime}`}</Text>
+        </TouchableOpacity>
+      );
+    });
   };
 
   const renderButtons = () => {
@@ -170,100 +240,41 @@ const Address = () => {
     ));
   };
 
-  const renderPickUpTimeOptions = () => {
-    if (selectedDate) {
-      const isCurrentDate = selectedDate.isSame(currentDate, "day");
+  const calculateDeliveryDate = (pickupDate: any, timeSlot: any) => {
+    if (pickupDate && timeSlot) {
+      let deliveryDate = moment(pickupDate).add(1, "days"); 
+      switch (timeSlot) {
+        case "10AM to 11AM":
+          deliveryDate = moment(pickupDate).add(2, "days");
+          break;
+        case "11AM to 12PM":
+          deliveryDate = moment(pickupDate).add(3, "days");
+          break;
+        case "12PM to 1PM":
+          deliveryDate = moment(pickupDate).add(3, "days");
+          break;
+        case "1PM to 2PM":
+          deliveryDate = moment(pickupDate).add(4, "days");
+          break;
+        case "2PM to 3PM":
+          deliveryDate = moment(pickupDate).add(4, "days");
+          break;
+        case "3PM to 4PM":
+          deliveryDate = moment(pickupDate).add(5, "days");
+          break;
+        case "4PM to 5PM":
+          deliveryDate = moment(pickupDate).add(5, "days");
+          break;
+        case "5PM to 6PM":
+          deliveryDate = moment(pickupDate).add(6, "days");
+          break;
+        default:
+          deliveryDate = moment(pickupDate).add(1, "days"); 
+          break;
+      }
 
-      const currentTime = moment();
-
-      return pickupTimeOptions.map((option: any, index) => {
-        console.log(option);
-        const startTime = moment(
-          selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
-          "YYYY-MM-DD LT"
-        );
-
-        //check if the time slot is past the current time
-        const isTimeSlotPast = isCurrentDate && startTime.isBefore(currentDate);
-
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              if (!isTimeSlotPast) {
-                setSelectedTime(option);
-              }
-            }}
-            style={{
-              // textDecorationLine: isTimeSlotPast ? "line-through" : "none",
-              opacity: isTimeSlotPast ? 0.5 : 1,
-              padding: 10,
-              margin: 10,
-              borderRadius: 5,
-              // backgroundColor:
-              //   selectedTime &&
-              //   selectedTime.startTime === option.startTime &&
-              //   selectedTime.endTime === option.endTime
-              //     ? "#0066b2"
-              //     : "white",
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                // color:
-                // selectedTime &&
-                // selectedTime.startTime === option.startTime &&
-                // selectedTime.endTime === option.endTime
-                //   ? "white"
-                //   : "black",
-              }}
-            >{`${option.startTime} - ${option.endTime}`}</Text>
-          </TouchableOpacity>
-        );
-      });
+      setTentativeDeliveryDate(deliveryDate);
     }
-  };
-
-  const renderTimeOptions = () => {
-    return pickupTimeOptions.map((option: any, index) => {
-      console.log(option);
-      const startTime = moment(
-        selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
-        "YYYY-MM-DD LT"
-      );
-
-      return (
-        <TouchableOpacity
-          key={index}
-          onPress={() => {
-            setSelectedDeliveryTime(option);
-          }}
-          style={{
-            margin: 10,
-            padding: 10,
-            borderRadius: 5,
-            // backgroundColor:
-            //   selectedDeliveryTime &&
-            //   selectedDeliveryTime.startTime === option.startTime &&
-            //   selectedDeliveryTime.endTime === option.endTime
-            //     ? "#0066b2"
-            //     : "white",
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              // color:
-              //   selectedDeliveryTime &&
-              //   selectedDeliveryTime.startTime === option.startTime &&
-              //   selectedDeliveryTime.endTime === option.endTime
-              //     ? "white"
-              //     : "black",
-            }}
-          >{`${option.startTime} - ${option.endTime}`}</Text>
-        </TouchableOpacity>
-      );
-    });
   };
 
   return (
@@ -297,25 +308,94 @@ const Address = () => {
 
       <View style={styles.mainContent}>
         <LinearGradient colors={["#faf8f2", "#fafafa"]} style={{ flex: 1 }}>
-          <ScrollView style={styles.container}>
-            {step === 1 && <Step1 />}
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            {step === 1 && (
+              <View>
+                {/* Map over all the addresses */}
+                <Pressable style={styles.addressRow}>
+                  <AntDesign name="plus" size={24} color="black" />
+                  <Pressable onPress={() => router.push("/home/add")}>
+                    <Text style={styles.addAddressText}>Add address</Text>
+                  </Pressable>
+                </Pressable>
+                <View>
+                  <Pressable style={styles.addressPressable}>
+                    <View style={styles.common}>
+                      <View style={[styles.common, { gap: 10 }]}>
+                        <Ionicons
+                          name="location-outline"
+                          size={24}
+                          color="#0066b2"
+                        />
+                        <Text style={{ fontSize: 17, fontWeight: "500" }}>
+                          Home
+                        </Text>
+                      </View>
+                      <FontAwesome name="flag" size={24} color="#0066b2" />
+                    </View>
+                    <View style={styles.demoAddress}>
+                      <Text>117 north basabo</Text>
+                      <Text>Dhaka-1214</Text>
+                    </View>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+
             {step === 2 && (
-              <Step2
-                currentDate={currentDate}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                renderDateButtons={renderDateButtons}
-                renderPickUpTimeOptions={renderPickUpTimeOptions}
-              />
+              <View style={styles.pickupSlotContainer}>
+                <View style={styles.pickupSlotHeader}>
+                  <EvilIcons name="location" size={24} color="black" />
+                  <View>
+                    <Text style={{ fontSize: 16 }}>Pick up slot</Text>
+                    <Text style={styles.pickupSlotDate}>
+                      {currentDate.format("MMMM YYYY")}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.pickupSlotOptions}>
+                  {renderDateButtons()}
+                </View>
+
+                <Text style={styles.pickupTimeText}>Pickup Time Options</Text>
+                <View style={styles.pickupTimeOptions}>
+                  {renderPickUpTimeOptions()}
+                </View>
+              </View>
             )}
+
             {step == 3 && (
-              <Step3
-                selectedDate={selectedDate}
-                renderButtons={renderButtons}
-                renderTimeOptions={renderTimeOptions}
-              />
+              <>
+                <View style={styles.step3View}>
+                  <View style={[styles.common, { gap: 10 }]}>
+                    <View style={[styles.common, { gap: 10 }]}>
+                      <EvilIcons name="location" size={24} color="black" />
+                      <Text>Pick up slot</Text>
+                    </View>
+                    <AntDesign name="edit" size={24} color="black" />
+                  </View>
+
+                  <View style={styles.common}>
+                    <View style={styles.selectedDateSegment}>
+                      <Text style={styles.selectedText}>
+                        {selectedDate.format("D")}
+                      </Text>
+                      <Text style={styles.selectedText}>
+                        {selectedDate.format("ddd")}
+                      </Text>
+                    </View>
+
+                    <View style={styles.selectedTime}>
+                      <Text style={styles.selectedText}>
+                        {`${selectedTime?.startTime} - ${selectedTime?.endTime}`}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </>
             )}
-            {step == 4 && <Step4 />}
+            {step == 4 && <></>}
           </ScrollView>
         </LinearGradient>
       </View>
@@ -331,7 +411,6 @@ const Address = () => {
         </Pressable>
         <Pressable
           onPress={handleNext}
-          disabled={step === 6}
           style={[styles.footerButton, styles.nextButton]}
         >
           <Text style={[styles.footerButtonText, styles.nextButtonText]}>
@@ -403,7 +482,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-  
+  addressRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
   addAddressText: {
     fontSize: 16,
   },
