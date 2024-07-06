@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginBottom: 8,
+    marginRight: 10,
   },
   pgTitle: {
     fontSize: 24,
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   selectedDateTimeText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
     paddingHorizontal: 18,
     marginHorizontal: 16,

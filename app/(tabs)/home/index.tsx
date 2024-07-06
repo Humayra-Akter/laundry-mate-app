@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -25,6 +25,15 @@ import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim() !== "") {
+      router.push(
+        `/home/searchResults?query=${encodeURIComponent(searchQuery)}`
+      );
+    }
+  };
 
   const renderCarouselItem = ({ item }: any) => (
     <View style={styles.carouselItem}>
@@ -113,10 +122,14 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
         {/* search option */}
-        <View style={styles.searchContainer}>
+
+        <TouchableOpacity
+          style={styles.searchContainer}
+          onPress={() => router.push("/home/search")}
+        >
           <Ionicons name="search" size={24} color="gray" />
-          <TextInput placeholder="Search" style={styles.searchInput} />
-        </View>
+          <Text style={styles.searchInput}>Search</Text>
+        </TouchableOpacity>
         {/* General Services  */}
         <View style={styles.servicesContainer}>
           <Text style={styles.sectionTitle}>General Services</Text>

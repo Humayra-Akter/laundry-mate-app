@@ -7,6 +7,7 @@ export default function Layout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="pickup" />
         <Stack.Screen name="trackOrder" />
+        <Stack.Screen name="search" />
       </Stack>
     </>
   );
