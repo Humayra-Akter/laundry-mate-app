@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AntDesign,
   Entypo,
@@ -18,6 +18,10 @@ import {
 import moment from "moment";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
 
 const Address = () => {
   const [step, setStep] = useState(1);
@@ -33,23 +37,24 @@ const Address = () => {
     setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
   };
 
-  const handleNext = () => {
-    setStep((prevStep) => {
-      const nextStep = prevStep + 1;
-      console.log(nextStep);
-      if (nextStep === 5) {
-        // Handle step 5 logic here
-      }
-      return nextStep;
-    });
-  };
-
   const pickupTimeOptions = [
     { startTime: "6:30 AM", endTime: "9:00 AM" },
     { startTime: "9:00 AM", endTime: "11:30 AM" },
     { startTime: "5:00 PM", endTime: "7:30 PM" },
     { startTime: "7:30 PM", endTime: "10:00 PM" },
   ];
+
+  const handleNext = () => {
+    setStep((prevStep) => {
+      const nextStep = prevStep + 1;
+      console.log("next step", nextStep);
+      if (nextStep == 5) {
+        //  placeOrder();
+      }
+
+      return nextStep;
+    });
+  };
 
   const getNext6Days = () => {
     const nextDays = [];
@@ -58,7 +63,6 @@ const Address = () => {
 
       nextDays.push(nextDate);
     }
-
     return nextDays;
   };
 
@@ -81,7 +85,7 @@ const Address = () => {
   const renderDateButtons = () => {
     const next6Days = getNext6Days();
 
-    return next6Days?.map((date: any, index: any) => (
+    return next6Days?.map((date, index) => (
       <TouchableOpacity
         onPress={() => setSelectedDate(date)}
         style={{
@@ -119,72 +123,6 @@ const Address = () => {
         </Text>
       </TouchableOpacity>
     ));
-  };
-
-  const renderPickUpTimeOptions = () => {
-    if (selectedDate) {
-      const isCurrentDate = selectedDate.isSame(currentDate, "day");
-
-      const currentTime = moment();
-
-      return pickupTimeOptions.map((option: any, index: any) => {
-        console.log(option);
-        const startTime = moment(
-          selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
-          "YYYY-MM-DD LT"
-        );
-        const isTimeSlotPast = isCurrentDate && startTime.isBefore(currentDate);
-
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              if (!isTimeSlotPast) {
-                // setSelectedTime(option);
-              }
-            }}
-            style={{
-              opacity: isTimeSlotPast ? 0.5 : 1,
-              padding: 10,
-              margin: 10,
-              borderRadius: 5,
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-              }}
-            >{`${option.startTime} - ${option.endTime}`}</Text>
-          </TouchableOpacity>
-        );
-      });
-    }
-  };
-
-  const renderTimeOptions = () => {
-    return pickupTimeOptions.map((option, index) => {
-      console.log(option);
-      const startTime = moment(
-        selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
-        "YYYY-MM-DD LT"
-      );
-
-      return (
-        <TouchableOpacity
-          key={index}
-          style={{
-            margin: 10,
-            padding: 10,
-            borderRadius: 5,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-            }}
-          >{`${option.startTime} - ${option.endTime}`}</Text>
-        </TouchableOpacity>
-      );
-    });
   };
 
   const renderButtons = () => {
@@ -232,6 +170,102 @@ const Address = () => {
     ));
   };
 
+  const renderPickUpTimeOptions = () => {
+    if (selectedDate) {
+      const isCurrentDate = selectedDate.isSame(currentDate, "day");
+
+      const currentTime = moment();
+
+      return pickupTimeOptions.map((option: any, index) => {
+        console.log(option);
+        const startTime = moment(
+          selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
+          "YYYY-MM-DD LT"
+        );
+
+        //check if the time slot is past the current time
+        const isTimeSlotPast = isCurrentDate && startTime.isBefore(currentDate);
+
+        return (
+          <TouchableOpacity
+            onPress={() => {
+              if (!isTimeSlotPast) {
+                setSelectedTime(option);
+              }
+            }}
+            style={{
+              // textDecorationLine: isTimeSlotPast ? "line-through" : "none",
+              opacity: isTimeSlotPast ? 0.5 : 1,
+              padding: 10,
+              margin: 10,
+              borderRadius: 5,
+              // backgroundColor:
+              //   selectedTime &&
+              //   selectedTime.startTime === option.startTime &&
+              //   selectedTime.endTime === option.endTime
+              //     ? "#0066b2"
+              //     : "white",
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                // color:
+                // selectedTime &&
+                // selectedTime.startTime === option.startTime &&
+                // selectedTime.endTime === option.endTime
+                //   ? "white"
+                //   : "black",
+              }}
+            >{`${option.startTime} - ${option.endTime}`}</Text>
+          </TouchableOpacity>
+        );
+      });
+    }
+  };
+
+  const renderTimeOptions = () => {
+    return pickupTimeOptions.map((option: any, index) => {
+      console.log(option);
+      const startTime = moment(
+        selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
+        "YYYY-MM-DD LT"
+      );
+
+      return (
+        <TouchableOpacity
+          key={index}
+          onPress={() => {
+            setSelectedDeliveryTime(option);
+          }}
+          style={{
+            margin: 10,
+            padding: 10,
+            borderRadius: 5,
+            // backgroundColor:
+            //   selectedDeliveryTime &&
+            //   selectedDeliveryTime.startTime === option.startTime &&
+            //   selectedDeliveryTime.endTime === option.endTime
+            //     ? "#0066b2"
+            //     : "white",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              // color:
+              //   selectedDeliveryTime &&
+              //   selectedDeliveryTime.startTime === option.startTime &&
+              //   selectedDeliveryTime.endTime === option.endTime
+              //     ? "white"
+              //     : "black",
+            }}
+          >{`${option.startTime} - ${option.endTime}`}</Text>
+        </TouchableOpacity>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* Choose your address */}
@@ -263,254 +297,25 @@ const Address = () => {
 
       <View style={styles.mainContent}>
         <LinearGradient colors={["#faf8f2", "#fafafa"]} style={{ flex: 1 }}>
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            {step === 1 && (
-              <View>
-                {/* Map over all the addresses */}
-                <Pressable style={styles.addressRow}>
-                  <AntDesign name="plus" size={24} color="black" />
-                  <Pressable onPress={() => router.push("/home/add")}>
-                    <Text style={styles.addAddressText}>Add address</Text>
-                  </Pressable>
-                </Pressable>
-                <View>
-                  <Pressable style={styles.addressPressable}>
-                    <View style={styles.common}>
-                      <View style={[styles.common, { gap: 10 }]}>
-                        <Ionicons
-                          name="location-outline"
-                          size={24}
-                          color="#0066b2"
-                        />
-                        <Text style={{ fontSize: 17, fontWeight: "500" }}>
-                          Home
-                        </Text>
-                      </View>
-                      <FontAwesome name="flag" size={24} color="#0066b2" />
-                    </View>
-                    <View style={styles.demoAddress}>
-                      <Text>117 north basabo</Text>
-                      <Text>Dhaka-1214</Text>
-                    </View>
-                  </Pressable>
-                </View>
-              </View>
-            )}
-
+          <ScrollView style={styles.container}>
+            {step === 1 && <Step1 />}
             {step === 2 && (
-              <View style={styles.pickupSlotContainer}>
-                <View style={styles.pickupSlotHeader}>
-                  <EvilIcons name="location" size={24} color="black" />
-                  <View>
-                    <Text style={{ fontSize: 16 }}>Pick up slot</Text>
-                    <Text style={styles.pickupSlotDate}>
-                      {currentDate.format("MMMM YYYY")}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={styles.pickupSlotOptions}>
-                  {renderDateButtons()}
-                </View>
-
-                <Text style={styles.pickupTimeText}>Pickup Time Options</Text>
-                <View style={styles.pickupTimeOptions}>
-                  {renderPickUpTimeOptions()}
-                </View>
-              </View>
+              <Step2
+                currentDate={currentDate}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                renderDateButtons={renderDateButtons}
+                renderPickUpTimeOptions={renderPickUpTimeOptions}
+              />
             )}
-
             {step == 3 && (
-              <>
-                <View style={styles.step3View}>
-                  <View style={[styles.common, { gap: 10 }]}>
-                    <View style={[styles.common, { gap: 10 }]}>
-                      <EvilIcons name="location" size={24} color="black" />
-                      <Text>Pick up slot</Text>
-                    </View>
-                    <AntDesign name="edit" size={24} color="black" />
-                  </View>
-
-                  <View style={styles.common}>
-                    <View style={styles.selectedDateSegment}>
-                      <Text style={styles.selectedText}>
-                        {selectedDate.format("D")}
-                      </Text>
-                      <Text style={styles.selectedText}>
-                        {selectedDate.format("ddd")}
-                      </Text>
-                    </View>
-
-                    <View style={styles.selectedTime}>
-                      <Text style={styles.selectedText}>
-                        {/* {`${selectedTime.startTime} - ${selectedTime.endTime}`} */}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    marginTop: 10,
-                    padding: 10,
-                    borderRadius: 10,
-                  }}
-                >
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                    {renderButtons()}
-                  </View>
-
-                  <Text style={{ marginHorizontal: 10 }}>
-                    Pickup Time Options
-                  </Text>
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                    {renderTimeOptions()}
-                  </View>
-                </View>
-              </>
+              <Step3
+                selectedDate={selectedDate}
+                renderButtons={renderButtons}
+                renderTimeOptions={renderTimeOptions}
+              />
             )}
-            {step == 4 && (
-              <View
-                style={{
-                  marginTop: 10,
-                  backgroundColor: "white",
-                  borderRadius: 10,
-                }}
-              >
-                <View style={{ padding: 10 }}>
-                  <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                    Your Cart
-                  </Text>
-                </View>
-
-                <View style={{ marginHorizontal: 12 }}>
-                  <Pressable style={styles.itemDetail}>
-                    <View>
-                      <Image style={{ width: 40, height: 40 }} />
-                    </View>
-
-                    <View style={{ flex: 1 }}>
-                      <Text>item.name</Text>
-                      {/* <Text>{item?.item.price * item?.item.quantity}</Text> */}
-                    </View>
-
-                    <Pressable>
-                      <AntDesign name="pluscircleo" size={24} color="#89CFF0" />
-                    </Pressable>
-                  </Pressable>
-                </View>
-                <View style={styles.itemBg}>
-                  <View style={styles.itemBG2}>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Total Amount
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      BDT
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Promo Code
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Rs 0
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Delivery Charges
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Rs 25
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Total Payable
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      BDT total + 25
-                    </Text>
-                  </View>
-                </View>
-
-                <View
-                  style={styles.totalBG}
-                >
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      TOTAL AMOUNT
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      BDT
-                    </Text>
-                  </View>
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      TAXES AND CHARGES
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      Rs 150
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.common,
-                      {
-                        marginVertical: 10,
-                      },
-                    ]}
-                  >
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      TOTAL PAYABLE
-                    </Text>
-                    <Text style={{ color: "white", fontWeight: "500" }}>
-                      BDT 25 + 150
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            )}
+            {step == 4 && <Step4 />}
           </ScrollView>
         </LinearGradient>
       </View>
@@ -526,6 +331,7 @@ const Address = () => {
         </Pressable>
         <Pressable
           onPress={handleNext}
+          disabled={step === 6}
           style={[styles.footerButton, styles.nextButton]}
         >
           <Text style={[styles.footerButtonText, styles.nextButtonText]}>
@@ -597,11 +403,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-  addressRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
+  
   addAddressText: {
     fontSize: 16,
   },
