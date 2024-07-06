@@ -14,7 +14,7 @@ type RouteParams = {
   totalPrice?: number;
 };
 
-export default function index() {
+export default function Basket() {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
   const { item, totalPrice } = route.params || {};
   const parsedItem: PricingItem = item

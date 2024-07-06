@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -7,28 +7,52 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { generalServices } from "@/data/generalServices";
+import { useNavigation } from "@react-navigation/native";
+import pricingData from "../../../data/pricingData.json";
+import { router } from "expo-router";
+
+// Define the interface for your pricing data
+interface PricingItem {
+  ItemName: string;
+  IronPrice: number | null;
+  WashIronPrice: number | null;
+  DryCleanPrice: number | null;
+}
 
 export default function Search() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredServices, setFilteredServices] = useState([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filteredServices, setFilteredServices] = useState<PricingItem[]>([]);
+  const navigation = useNavigation();
 
-  const handleSearch = (query:any) => {
-    setSearchQuery(query);
-    if (query.trim() === "") {
-      setFilteredServices([]);
-    } else {
-      const results = generalServices.filter((service) =>
-        service.name.toLowerCase().includes(query.toLowerCase())
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = pricingData.filter((item: PricingItem) =>
+        item.ItemName.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
-      setFilteredServices(results);
+      setFilteredServices(filtered);
+    } else {
+      setFilteredServices([]);
     }
+  }, [searchQuery]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
   };
 
-  const renderServiceItem = ({ item }:any) => (
-    <View style={styles.serviceItem}>
-      <Text style={styles.serviceName}>{item.name}</Text>
-    </View>
+  const handleSelectItem = (item: PricingItem) => {
+    router.push({
+      pathname: "/home/addToCart",
+      params: { item: JSON.stringify(item) },
+    });
+  };
+
+  const renderServiceItem = ({ item }: { item: PricingItem }) => (
+    <TouchableOpacity
+      style={styles.serviceItem}
+      onPress={() => handleSelectItem(item)}
+    >
+      <Text style={styles.serviceName}>{item.ItemName}</Text>
+    </TouchableOpacity>
   );
 
   return (
@@ -43,7 +67,7 @@ export default function Search() {
       <FlatList
         data={filteredServices}
         renderItem={renderServiceItem}
-        keyExtractor={(item) => item?.id?.toString()}
+        keyExtractor={(item) => item.ItemName}
         style={styles.resultList}
       />
     </View>

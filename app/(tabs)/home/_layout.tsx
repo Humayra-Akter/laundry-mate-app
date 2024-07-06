@@ -8,6 +8,8 @@ export default function Layout() {
         <Stack.Screen name="pickup" />
         <Stack.Screen name="trackOrder" />
         <Stack.Screen name="search" />
+        <Stack.Screen name="addToCart" />
+        <Stack.Screen name="basket" />
       </Stack>
     </>
   );

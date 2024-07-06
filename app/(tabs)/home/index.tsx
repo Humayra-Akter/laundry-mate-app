@@ -87,6 +87,14 @@ export default function HomeScreen() {
           />
           <Text style={styles.title}>Laundry Mate</Text>
         </View>
+        {/* search option */}
+        <TouchableOpacity
+          style={styles.searchContainer}
+          onPress={() => router.push("/home/search")}
+        >
+          <Ionicons name="search" size={24} color="gray" />
+          <Text style={styles.searchInput}>Search</Text>
+        </TouchableOpacity>
         {/* onboardingSwiperData */}
         <FlatList
           data={onboardingSwiperData}
@@ -121,15 +129,7 @@ export default function HomeScreen() {
             <FontAwesome name="calendar" size={24} color="#752100" />
           </TouchableOpacity>
         </View>
-        {/* search option */}
 
-        <TouchableOpacity
-          style={styles.searchContainer}
-          onPress={() => router.push("/home/search")}
-        >
-          <Ionicons name="search" size={24} color="gray" />
-          <Text style={styles.searchInput}>Search</Text>
-        </TouchableOpacity>
         {/* General Services  */}
         <View style={styles.servicesContainer}>
           <Text style={styles.sectionTitle}>General Services</Text>
@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
     marginTop: 18,
     borderColor: "#FF725E",
     borderWidth: 1,
+    marginBottom: 10,
   },
   searchInput: {
     marginLeft: 10,
