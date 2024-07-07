@@ -56,7 +56,7 @@ export default function AddToCart() {
 
   const handleAddToCart = () => {
     router.push({
-      pathname: "/home/basket",
+      pathname: "/(tabs)/basket",
       params: {
         item: JSON.stringify(parsedItem),
         selectedServices: JSON.stringify(selectedServices),
