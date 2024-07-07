@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
+import { router } from "expo-router";
 
 interface PricingItem {
   ItemName: string;
@@ -30,6 +31,9 @@ export default function index() {
     <View style={styles.container}>
       <Text style={styles.itemName}>Selected Item: {parsedItem.ItemName}</Text>
       <Text style={styles.totalPrice}>Total Price: BDT {totalPrice}</Text>
+      <TouchableOpacity onPress={() => router.push("/basket/select")}>
+        <Text>View more</Text>
+      </TouchableOpacity>
     </View>
   );
 }
