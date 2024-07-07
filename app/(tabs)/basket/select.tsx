@@ -72,15 +72,27 @@ export default function Select() {
     return (
       <View style={styles.itemRow}>
         <Text style={styles.itemText}>{item.ItemName}</Text>
-        <Text style={styles.priceText}>${price}</Text>
+        {price !== null ? (
+          <Text style={styles.priceText}>BDT {price}</Text>
+        ) : (
+          <Text style={styles.notAvailableText}>Not Available</Text>
+        )}
         <TouchableOpacity
-          style={styles.addButton}
+          style={[styles.addButton, price === null && styles.disabledButton]}
           onPress={() => handleAddToCart(item)}
+          disabled={price === null}
         >
           <Text style={styles.addButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
     );
+  };
+
+  const getServiceTitle = () => {
+    if (selectedService === "Iron") return "Ironing Prices";
+    if (selectedService === "WashIron") return "Washing Prices";
+    if (selectedService === "DryClean") return "Dry Cleaning Prices";
+    return "";
   };
 
   return (
@@ -93,22 +105,54 @@ export default function Select() {
       />
       <ScrollView horizontal contentContainerStyle={styles.serviceContainer}>
         <TouchableOpacity
-          style={styles.serviceButton}
+          style={[
+            styles.serviceButton,
+            selectedService === "WashIron" && styles.selectedServiceButton,
+          ]}
           onPress={() => filterByService("WashIron")}
         >
-          <Text style={styles.serviceButtonText}>Washing</Text>
+          <Text
+            style={[
+              styles.serviceButtonText,
+              selectedService === "WashIron" &&
+                styles.selectedServiceButtonText,
+            ]}
+          >
+            Washing
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.serviceButton}
+          style={[
+            styles.serviceButton,
+            selectedService === "Iron" && styles.selectedServiceButton,
+          ]}
           onPress={() => filterByService("Iron")}
         >
-          <Text style={styles.serviceButtonText}>Ironing</Text>
+          <Text
+            style={[
+              styles.serviceButtonText,
+              selectedService === "Iron" && styles.selectedServiceButtonText,
+            ]}
+          >
+            Ironing
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.serviceButton}
+          style={[
+            styles.serviceButton,
+            selectedService === "DryClean" && styles.selectedServiceButton,
+          ]}
           onPress={() => filterByService("DryClean")}
         >
-          <Text style={styles.serviceButtonText}>Dry Cleaning</Text>
+          <Text
+            style={[
+              styles.serviceButtonText,
+              selectedService === "DryClean" &&
+                styles.selectedServiceButtonText,
+            ]}
+          >
+            Dry Cleaning
+          </Text>
         </TouchableOpacity>
       </ScrollView>
       <ScrollView horizontal contentContainerStyle={styles.categoryContainer}>
@@ -122,6 +166,14 @@ export default function Select() {
           </TouchableOpacity>
         ))}
       </ScrollView>
+      {selectedService && (
+        <Text style={styles.serviceTitle}>{getServiceTitle()}</Text>
+      )}
+      <View style={styles.tableHeader}>
+        <Text style={styles.headerText}>Item Name</Text>
+        <Text style={styles.headerText}>Price</Text>
+        <Text style={styles.headerText}>Action</Text>
+      </View>
       <FlatList
         data={filteredItems}
         renderItem={renderPricingItem}
@@ -150,7 +202,7 @@ const styles = StyleSheet.create({
   serviceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 50,
+    marginBottom: 20,
     height: 45,
     marginLeft: "auto",
     marginRight: "auto",
@@ -172,6 +224,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginLeft: "auto",
   },
+  selectedServiceButton: {
+    backgroundColor: "#FF725E",
+  },
+  selectedServiceButtonText: {
+    color: "#FFF",
+  },
   serviceButtonText: {
     fontSize: 16,
     color: "#FF725E",
@@ -180,7 +238,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 50,
+    marginBottom: 20,
     height: 45,
     marginLeft: "auto",
     marginRight: "auto",
@@ -205,6 +263,27 @@ const styles = StyleSheet.create({
     color: "#FF725E",
     fontWeight: "bold",
   },
+  serviceTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FF725E",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  tableHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    backgroundColor: "#E5ECF9",
+    paddingHorizontal: 10,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+    width: "30%",
+    textAlign: "center",
+  },
   itemList: {
     paddingBottom: 100,
   },
@@ -215,22 +294,30 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    paddingHorizontal: 10,
   },
   itemText: {
     fontSize: 18,
     color: "#000",
+    width: "40%",
   },
   priceText: {
     fontSize: 18,
     color: "#000",
-    textAlign: "left",
+    width: "20%",
+    textAlign: "center",
+  },
+  notAvailableText: {
+    fontSize: 18,
+    color: "gray",
+    width: "20%",
+    textAlign: "center",
   },
   addButton: {
     backgroundColor: "#FFF",
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginRight: 10,
     borderWidth: 1,
     borderColor: "#FF725E",
     elevation: 5,
@@ -239,7 +326,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     alignItems: "center",
-
+    width: "30%",
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
+    borderColor: "#ccc",
   },
   addButtonText: {
     fontSize: 16,
