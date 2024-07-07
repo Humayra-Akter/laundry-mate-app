@@ -7,9 +7,11 @@ import {
   TextInput,
   FlatList,
   ScrollView,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 import pricelist from "../../../data/pricingData.json";
 import { router } from "expo-router";
 
@@ -98,12 +100,30 @@ export default function Select() {
 
   return (
     <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.container}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search items..."
-        value={searchText}
-        onChangeText={filterItems}
-      />
+      {/* Top section */}
+      <View style={styles.header}>
+        <Image
+          source={require("@/assets/images/logo.png")}
+          style={styles.logo}
+        />
+        <Text style={styles.pgTitle}>Laundry Mate</Text>
+      </View>
+
+      {/* search  */}
+      <View style={styles.searchBarContainer}>
+        <Ionicons
+          name="search"
+          size={24}
+          color="gray"
+          style={styles.searchIcon}
+        />
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search items..."
+          value={searchText}
+          onChangeText={filterItems}
+        />
+      </View>
       <ScrollView horizontal contentContainerStyle={styles.serviceContainer}>
         <TouchableOpacity
           style={[
@@ -179,20 +199,45 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  searchBar: {
-    height: 40,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  logo: {
+    width: 60,
+    height: 60,
+    marginBottom: 8,
+    marginRight: 10,
+  },
+  pgTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#752100",
+  },
+  searchBarContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     borderColor: "#FF725E",
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 10,
     marginBottom: 30,
     backgroundColor: "#FFF",
-    marginTop: 40,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchBar: {
+    flex: 1,
+    height: 40,
   },
   serviceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 36,
     height: 45,
     marginLeft: "auto",
     marginRight: "auto",
@@ -230,15 +275,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FF725E",
     textAlign: "center",
-    marginBottom: 10,
-    marginTop:30
+    marginBottom: 20,
+    marginTop: 10,
   },
   tableHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 10,
-    backgroundColor: "#E5ECF9",
-    paddingHorizontal: 10,
+    paddingVertical: 12,
+    backgroundColor: "#FFF8E6",
   },
   headerText: {
     fontSize: 16,
@@ -260,12 +304,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   itemText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#000",
     width: "40%",
   },
   priceText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#000",
     width: "20%",
     textAlign: "center",
