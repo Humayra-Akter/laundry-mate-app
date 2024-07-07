@@ -20,8 +20,6 @@ interface PricingItem {
   DryCleanPrice: number | null;
 }
 
-const categories = ["Men", "Women", "Baby", "Household"]; // Example categories
-
 export default function Select() {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
@@ -35,23 +33,26 @@ export default function Select() {
   }, []);
 
   const filterItems = (text: string) => {
-    const filtered = pricelist.filter((item: any) =>
-      item.ItemName.toLowerCase().includes(text.toLowerCase())
-    );
+    const filtered = pricelist.filter((item: PricingItem) => {
+      const matchesInitial = item.ItemName.toLowerCase().startsWith(
+        text.toLowerCase()
+      );
+      const matchesService =
+        (selectedService === "Iron" && item.IronPrice !== null) ||
+        (selectedService === "WashIron" && item.WashIronPrice !== null) ||
+        (selectedService === "DryClean" && item.DryCleanPrice !== null);
+      return matchesInitial && matchesService;
+    });
     setFilteredItems(filtered);
     setSearchText(text);
   };
 
   const filterByService = (service: "Iron" | "WashIron" | "DryClean") => {
     const filtered = pricelist.filter(
-      (item: any) => item[`${service}Price`] !== null
+      (item: PricingItem) => item[`${service}Price`] !== null
     );
     setFilteredItems(filtered);
     setSelectedService(service);
-  };
-
-  const filterByCategory = (category: string) => {
-    setFilteredItems(pricelist);
   };
 
   const handleAddToCart = (item: PricingItem) => {
@@ -155,17 +156,6 @@ export default function Select() {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-      <ScrollView horizontal contentContainerStyle={styles.categoryContainer}>
-        {categories.map((category) => (
-          <TouchableOpacity
-            key={category}
-            style={styles.categoryButton}
-            onPress={() => filterByCategory(category)}
-          >
-            <Text style={styles.categoryButtonText}>{category}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
       {selectedService && (
         <Text style={styles.serviceTitle}>{getServiceTitle()}</Text>
       )}
@@ -235,40 +225,13 @@ const styles = StyleSheet.create({
     color: "#FF725E",
     fontWeight: "bold",
   },
-  categoryContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-    height: 45,
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  categoryButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: "#FF725E",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    alignItems: "center",
-  },
-  categoryButtonText: {
-    fontSize: 16,
-    color: "#FF725E",
-    fontWeight: "bold",
-  },
   serviceTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#FF725E",
     textAlign: "center",
     marginBottom: 10,
+    marginTop:30
   },
   tableHeader: {
     flexDirection: "row",
