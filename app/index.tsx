@@ -1,15 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Redirect } from "expo-router";
+import ProviderWrapper from "./ProviderWrapper";
 
-const index = () => {
+const Index = () => {
   return (
-    <>
+    <ProviderWrapper>
       <Redirect href={"/(tabs)/home"} />
-    </>
+    </ProviderWrapper>
   );
 };
 
-export default index;
-
-const styles = StyleSheet.create({});
+export default Index;
