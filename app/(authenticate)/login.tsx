@@ -25,7 +25,6 @@ import {
 } from "react-native-responsive-screen";
 
 export default function LoginScreen() {
-
   const auth = FIREBASE_AUTH;
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -36,7 +35,6 @@ export default function LoginScreen() {
     email: "",
     password: "",
   });
-
 
   const handleSignIn = async () => {
     try {
@@ -154,7 +152,7 @@ export default function LoginScreen() {
             </View>
             {/* forget password  */}
             <TouchableOpacity
-              onPress={() => router.push("/(routes)/forgot-password")}
+              onPress={() => router.push("/forgotPassword")}
             >
               <Text style={styles.forgetSection}>Forgot Password?</Text>
             </TouchableOpacity>
@@ -179,30 +177,14 @@ export default function LoginScreen() {
                 </Text>
               )}
             </TouchableOpacity>
-            {/* google login  */}
-            {/* <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 20,
-                gap: 16,
-              }}
-            >
-              <TouchableOpacity>
-                <FontAwesome
-                  name="google"
-                  size={30}
-                  style={{ color: "#FF725E" }}
-                />
-              </TouchableOpacity>
-            </View> */}
+
             {/* redirect button  */}
             <View style={styles.signUpRedirect}>
               <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
                 Don't have an account?
               </Text>
               <TouchableOpacity
-                onPress={() => router.push("/(routes)/sign-up")}
+                onPress={() => router.push("/register")}
               >
                 <Text
                   style={{
@@ -329,7 +311,7 @@ const styles = StyleSheet.create({
     color: "#000",
     marginTop: 10,
   },
-  
+
   errorContainer: {
     flexDirection: "row",
     alignItems: "center",

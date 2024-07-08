@@ -205,9 +205,7 @@ export default function SignupScreen() {
                 >
                   Already have an account?
                 </Text>
-                <TouchableOpacity
-                  onPress={() => router.push("/(routes)/login")}
-                >
+                <TouchableOpacity onPress={() => router.push("/login")}>
                   <Text
                     style={{
                       fontFamily: "Raleway_600SemiBold",
