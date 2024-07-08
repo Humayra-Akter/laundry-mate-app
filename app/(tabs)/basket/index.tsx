@@ -38,7 +38,7 @@ export default function index() {
       <View style={styles.itemSection}>
         <Text style={styles.sectionTitle}>Selected Item</Text>
         <View style={styles.itemRow}>
-          <FontAwesome name="shirt" size={24} color="black" />
+          {/* <FontAwesome name="shirt" size={24} color="black" /> */}
           <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
         </View>
       </View>
