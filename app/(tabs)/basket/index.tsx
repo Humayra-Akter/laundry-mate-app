@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { router } from "expo-router";
 import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface PricingItem {
   ItemName: string;
@@ -29,37 +30,43 @@ export default function index() {
       };
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.titleContainer, { backgroundColor: "#FF725E", padding:10, marginBottom:20}]}>
+    <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
+      <View
+        style={[
+          styles.titleContainer,
+          { backgroundColor: "#FF725E", padding: 10, marginBottom: 20 },
+        ]}
+      >
         <View style={styles.backIconContainer}>
           <Ionicons name="basket" size={32} color="#fff8e6" />
         </View>
         <Text style={styles.title}>My Basket</Text>
       </View>
-
-      <View style={styles.itemSection}>
-        <Text style={styles.sectionTitle}>Selected Item</Text>
-        <View style={styles.itemRow}>
-          <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
+      <View style={styles.container}>
+        <View style={styles.itemSection}>
+          <Text style={styles.sectionTitle}>Selected Item</Text>
+          <View style={styles.itemRow}>
+            <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.priceSection}>
-        <Text style={styles.sectionTitle}>Total Price</Text>
-        <View style={styles.priceRow}>
-          <MaterialIcons name="attach-money" size={24} color="black" />
-          <Text style={styles.totalPrice}>BDT {totalPrice}</Text>
+        <View style={styles.priceSection}>
+          <Text style={styles.sectionTitle}>Total Price</Text>
+          <View style={styles.priceRow}>
+            <MaterialIcons name="attach-money" size={24} color="black" />
+            <Text style={styles.totalPrice}>BDT {totalPrice}</Text>
+          </View>
         </View>
-      </View>
 
-      <TouchableOpacity
-        style={styles.viewMoreButton}
-        onPress={() => router.push("/basket/select")}
-      >
-        <Text style={styles.viewMoreText}>View more</Text>
-        <Ionicons name="arrow-forward" size={24} color="white" />
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={styles.viewMoreButton}
+          onPress={() => router.push("/basket/select")}
+        >
+          <Text style={styles.viewMoreText}>View more</Text>
+          <Ionicons name="arrow-forward" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
   );
 }
 
@@ -67,7 +74,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#FFF",
   },
   backIconContainer: {
     width: 30,

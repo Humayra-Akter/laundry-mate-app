@@ -1,3 +1,5 @@
+//app/orders/_layout.tsx
+
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
@@ -5,7 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Layout() {
+export default function OrdersLayout() {
   return (
     <Tabs>
       <Tabs.Screen
