@@ -65,6 +65,11 @@ export default function AddToCart() {
     });
   };
 
+  const isAddToCartDisabled =
+    selectedServices.Iron === 0 &&
+    selectedServices.WashIron === 0 &&
+    selectedServices.DryClean === 0;
+
   return (
     <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
       <View style={styles.container}>
@@ -148,7 +153,14 @@ export default function AddToCart() {
             Total Price: BDT {totalPrice.toFixed(2)}
           </Text>
         </View>
-        <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
+        <TouchableOpacity
+          style={[
+            styles.addButton,
+            isAddToCartDisabled && styles.disabledButton,
+          ]}
+          onPress={handleAddToCart}
+          disabled={isAddToCartDisabled}
+        >
           <Text style={styles.addButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
@@ -230,6 +242,9 @@ const styles = StyleSheet.create({
     bottom: 16,
     left: 16,
     right: 16,
+  },
+  disabledButton: {
+    backgroundColor: "#d3d3d3",
   },
   addButtonText: {
     fontSize: 18,

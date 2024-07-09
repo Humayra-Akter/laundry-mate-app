@@ -10,20 +10,15 @@ import {
 } from "react-native";
 import {
   Entypo,
-  FontAwesome,
   Fontisto,
   Ionicons,
-  Octicons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { router } from "expo-router";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Alert } from "react-native";
 
 export default function LoginScreen() {
   const auth = FIREBASE_AUTH;
@@ -50,18 +45,9 @@ export default function LoginScreen() {
           email: userInfo?.email,
           password: userInfo?.password,
         }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data);
-        router.push("/home");
-      } else {
-        alert("Login failed: " + data.message);
-      }
-    } catch (error: any) {
-      console.log(error);
-      alert("Login failed: " + error.message);
+      })
+        .then((res) => res.json())
+        .then((data) => router.push("/home"));
     } finally {
       setButtonSpinner(false);
     }
