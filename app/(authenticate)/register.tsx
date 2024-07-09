@@ -52,7 +52,7 @@ export default function SignupScreen() {
         userInfo?.password
       );
       console.log(response);
-      await fetch("http://192.168.1.170:5000/user", {
+      await fetch("http://10.103.130.220:5000/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function SignupScreen() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          router.push("/(routes)/landing");
+          router.push("/home");
         });
     } catch (error: any) {
       console.log(error);
@@ -185,37 +185,17 @@ export default function SignupScreen() {
                 {buttonSpinner ? (
                   <ActivityIndicator size="small" color={"white"} />
                 ) : (
-                  <Text
-                    style={{
-                      color: "white",
-                      textAlign: "center",
-                      fontSize: 16,
-                      fontFamily: "Raleway_700Bold",
-                    }}
-                  >
-                    Sign Up
-                  </Text>
+                  <Text style={styles.buttonText}>Sign Up</Text>
                 )}
               </TouchableOpacity>
 
               {/* redirect button  */}
               <View style={styles.signUpRedirect}>
-                <Text
-                  style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}
-                >
+                <Text style={styles.redirectText}>
                   Already have an account?
                 </Text>
                 <TouchableOpacity onPress={() => router.push("/login")}>
-                  <Text
-                    style={{
-                      fontFamily: "Raleway_600SemiBold",
-                      fontSize: 18,
-                      marginLeft: 4,
-                      color: "#FF725E",
-                    }}
-                  >
-                    Sign In
-                  </Text>
+                  <Text style={styles.signInText}>Sign In</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -232,7 +212,8 @@ const styles = StyleSheet.create({
     height: 250,
     alignItems: "center",
     marginTop: 50,
-    marginLeft: 80,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   welcomeText: {
     textAlign: "center",
@@ -259,6 +240,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "white",
     color: "#A1A1A1",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
   },
   visibleIcon: {
     position: "absolute",
@@ -278,18 +264,25 @@ const styles = StyleSheet.create({
     top: 10,
     marginTop: -2,
   },
-  forgetSection: {
-    marginHorizontal: 22,
-    textAlign: "right",
-    fontSize: 16,
-    marginTop: 8,
-  },
   buttonContainer: {
+    width: "90%",
     backgroundColor: "#FF725E",
     paddingVertical: 10,
-    borderRadius: 5,
-    marginHorizontal: 16,
-    marginTop: 16,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
   },
   signUpRedirect: {
     flexDirection: "row",
@@ -297,5 +290,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
     marginTop: 20,
+  },
+  redirectText: {
+    fontSize: 18,
+    fontWeight: "300",
+  },
+  signInText: {
+    fontWeight: "400",
+    fontSize: 18,
+    marginLeft: 4,
+    color: "#FF725E",
   },
 });

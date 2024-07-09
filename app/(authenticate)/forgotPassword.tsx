@@ -20,35 +20,15 @@ export default function forgotPassword() {
         placeholder="example@gmail.com"
         keyboardType="email-address"
       />
-      <TouchableOpacity style={[styles.buttonContainer, { marginTop: 20 }]}>
-        <Text
-          style={{
-            color: "white",
-            textAlign: "center",
-            fontSize: 16,
-            fontWeight: "700",
-          }}
-        >
-          Send
-        </Text>
+      <TouchableOpacity style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>Send</Text>
       </TouchableOpacity>
 
       {/* redirect button  */}
       <View style={styles.signUpRedirect}>
-        <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-          Back to
-        </Text>
-        <TouchableOpacity onPress={() => router.push("/(routes)/login")}>
-          <Text
-            style={{
-              fontFamily: "Raleway_600SemiBold",
-              fontSize: 18,
-              marginLeft: 4,
-              color: "#FF725E",
-            }}
-          >
-            Sign In
-          </Text>
+        <Text style={styles.redirectText}>Back to</Text>
+        <TouchableOpacity onPress={() => router.push("/login")}>
+          <Text style={styles.signInText}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -76,19 +56,44 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "white",
     color: "#A1A1A1",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    width: "90%",
+    backgroundColor: "#FF725E",
+    paddingVertical: 10,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
   },
   signUpRedirect: {
     flexDirection: "row",
-    marginHorizontal: 22,
     justifyContent: "center",
-    marginBottom: 20,
     marginTop: 20,
   },
-  buttonContainer: {
-    backgroundColor: "#FF725E",
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginHorizontal: 16,
-    marginTop: 16,
+  redirectText: {
+    fontSize: 18,
+    fontFamily: "Raleway_600SemiBold",
+  },
+  signInText: {
+    fontFamily: "Raleway_600SemiBold",
+    fontSize: 18,
+    marginLeft: 4,
+    color: "#FF725E",
   },
 });

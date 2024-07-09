@@ -13,6 +13,7 @@ import {
   FontAwesome,
   Fontisto,
   Ionicons,
+  Octicons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -35,11 +36,12 @@ export default function LoginScreen() {
     email: "",
     password: "",
   });
+  const [focusedInput, setFocusedInput] = useState("");
 
   const handleSignIn = async () => {
     try {
       setButtonSpinner(true);
-      const response = await fetch("http://192.168.1.170:5000/login", {
+      const response = await fetch("http://10.103.130.220:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +55,7 @@ export default function LoginScreen() {
       const data = await response.json();
       if (response.ok) {
         console.log(data);
-        router.push("/(routes)/landing");
+        router.push("/home");
       } else {
         alert("Login failed: " + data.message);
       }
@@ -66,10 +68,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={["#E5ECF9", "#F6F7F9"]}
-      style={{ flex: 1, paddingHorizontal: 16, paddingTop: 20 }}
-    >
+    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.gradient}>
       <ScrollView>
         <Image
           source={require("@/assets/signin/signin.png")}
@@ -84,18 +83,24 @@ export default function LoginScreen() {
             {/* email input  */}
             <View>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  focusedInput === "email" && styles.inputFocused,
+                ]}
                 keyboardType="email-address"
                 value={userInfo.email}
                 placeholder="example@gmail.com"
+                placeholderTextColor="#A1A1A1"
                 autoCapitalize="none"
                 onChangeText={(value) => {
                   setUserInfo({ ...userInfo, email: value });
                 }}
+                onFocus={() => setFocusedInput("email")}
+                onBlur={() => setFocusedInput("")}
               />
 
               <Fontisto
-                style={{ position: "absolute", left: 36, top: 10 }}
+                style={styles.icon}
                 name="email"
                 size={20}
                 color={"#A1A1A1"}
@@ -109,14 +114,20 @@ export default function LoginScreen() {
             {/* password input  */}
             <View style={{ marginTop: 16 }}>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  focusedInput === "password" && styles.inputFocused,
+                ]}
                 keyboardType="default"
-                defaultValue=""
+                value={userInfo.password}
                 placeholder="********"
+                placeholderTextColor="#A1A1A1"
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={(value) => {
                   setUserInfo({ ...userInfo, password: value });
                 }}
+                onFocus={() => setFocusedInput("password")}
+                onBlur={() => setFocusedInput("")}
               />
               <TouchableOpacity
                 style={styles.visibleIcon}
@@ -144,16 +155,12 @@ export default function LoginScreen() {
               {error.password && (
                 <View style={styles.errorContainer}>
                   <Entypo name="cross" size={18} color={"red"} />
-                  <Text style={{ color: "red", fontSize: 12, marginTop: -1 }}>
-                    {error?.password}
-                  </Text>
+                  <Text style={styles.errorText}>{error?.password}</Text>
                 </View>
               )}
             </View>
             {/* forget password  */}
-            <TouchableOpacity
-              onPress={() => router.push("/forgotPassword")}
-            >
+            <TouchableOpacity onPress={() => router.push("/forgotPassword")}>
               <Text style={styles.forgetSection}>Forgot Password?</Text>
             </TouchableOpacity>
 
@@ -165,37 +172,15 @@ export default function LoginScreen() {
               {buttonSpinner ? (
                 <ActivityIndicator size="small" color={"white"} />
               ) : (
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: 16,
-                    fontFamily: "Raleway_700Bold",
-                  }}
-                >
-                  Login
-                </Text>
+                <Text style={styles.buttonText}>Login</Text>
               )}
             </TouchableOpacity>
 
             {/* redirect button  */}
             <View style={styles.signUpRedirect}>
-              <Text style={{ fontSize: 18, fontFamily: "Raleway_600SemiBold" }}>
-                Don't have an account?
-              </Text>
-              <TouchableOpacity
-                onPress={() => router.push("/register")}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Raleway_600SemiBold",
-                    fontSize: 18,
-                    marginLeft: 4,
-                    color: "#FF725E",
-                  }}
-                >
-                  Register
-                </Text>
+              <Text style={styles.signUpText}>Don't have an account?</Text>
+              <TouchableOpacity onPress={() => router.push("/register")}>
+                <Text style={styles.registerText}>Register</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -206,12 +191,18 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 20,
+  },
   signInImage: {
     width: "60%",
     height: 250,
     alignItems: "center",
-    marginTop: 50,
-    marginLeft: 80,
+    marginTop: 30,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   welcomeText: {
     textAlign: "center",
@@ -231,13 +222,30 @@ const styles = StyleSheet.create({
     rowGap: 30,
   },
   input: {
+    width: "90%",
+    paddingHorizontal: 20,
     height: 40,
     marginHorizontal: 16,
     borderRadius: 8,
-    paddingLeft: 75,
     fontSize: 16,
+    paddingLeft: 55,
     backgroundColor: "white",
     color: "#A1A1A1",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    marginBottom: 4,
+  },
+  inputFocused: {
+    borderColor: "#FF725E",
+    color: "black",
+  },
+  icon: {
+    position: "absolute",
+    left: 36,
+    top: 10,
   },
   visibleIcon: {
     position: "absolute",
@@ -255,13 +263,27 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 16,
     marginTop: 8,
+    color: "#FF725E",
   },
   buttonContainer: {
+    width: "90%",
     backgroundColor: "#FF725E",
     paddingVertical: 10,
-    borderRadius: 5,
-    marginHorizontal: 16,
-    marginTop: 16,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
   },
   signUpRedirect: {
     flexDirection: "row",
@@ -270,53 +292,26 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  signUpText: {
+    fontSize: 18,
+    fontWeight: "400",
   },
-  buttonText: {
-    color: "black",
-    textAlign: "center",
-    fontSize: hp("2%"),
-    fontWeight: "bold",
-  },
-  dotStyle: {
-    backgroundColor: "#FF725E",
-    width: wp("2%"),
-    height: hp("1%"),
-    borderRadius: 5,
-    marginHorizontal: 5,
-  },
-  activeDotStyle: {
-    backgroundColor: "#000",
-    width: wp("2%"),
-    height: hp("1%"),
-    borderRadius: 5,
-    marginHorizontal: 5,
-  },
-  titleText: {
-    fontSize: hp("3.5%"),
-    textAlign: "center",
-  },
-  description: {
-    fontSize: hp("1.5%"),
-    textAlign: "center",
+  registerText: {
+    fontWeight: "400",
+    fontSize: 18,
+    marginLeft: 4,
     color: "#FF725E",
-    marginTop: 10,
   },
-  shortDescription: {
-    fontSize: hp("2%"),
-    textAlign: "center",
-    color: "#000",
-    marginTop: 10,
-  },
-
   errorContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 16,
     position: "absolute",
     top: 60,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginTop: -1,
   },
 });
