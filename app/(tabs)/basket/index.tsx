@@ -30,15 +30,16 @@ export default function index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Ionicons name="basket" size={32} color="#FF725E" />
-        <Text style={styles.headerTitle}>My Basket</Text>
+      <View style={[styles.titleContainer, { backgroundColor: "#FF725E", padding:10, marginBottom:20}]}>
+        <View style={styles.backIconContainer}>
+          <Ionicons name="basket" size={32} color="#fff8e6" />
+        </View>
+        <Text style={styles.title}>My Basket</Text>
       </View>
 
       <View style={styles.itemSection}>
         <Text style={styles.sectionTitle}>Selected Item</Text>
         <View style={styles.itemRow}>
-          {/* <FontAwesome name="shirt" size={24} color="black" /> */}
           <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
         </View>
       </View>
@@ -66,18 +67,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#F6F7F9",
+    backgroundColor: "#FFF",
+  },
+  backIconContainer: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
   },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginLeft: 10,
-    color: "#FF725E",
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    marginTop: 12,
   },
   itemSection: {
     marginBottom: 20,
@@ -111,14 +124,21 @@ const styles = StyleSheet.create({
   viewMoreButton: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#FF725E",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
   },
   viewMoreText: {
     fontSize: 18,
     color: "white",
     marginRight: 10,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
