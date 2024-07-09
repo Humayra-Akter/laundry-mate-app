@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React, { useEffect, useState } from "react";
-import { addDoc, collection, getDoc, getDocs, query } from "firebase/firestore";
+import React  from "react";
+
 import { Octicons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -20,9 +20,7 @@ const index = () => {
         <View>
           <Image
             style={{ width: 200, height: 50, resizeMode: "cover" }}
-            source={{
-              uri: "https://laundrymate.in/assets/images/shared/branding/Logo.webp",
-            }}
+            source={require("@/assets/signin/signin.png")}
           />
         </View>
         <Octicons name="three-bars" size={24} color="white" />
@@ -52,154 +50,146 @@ const index = () => {
       </View>
 
       <View>
-       
-          <Pressable
+        <Pressable
+          style={{
+            marginVertical: 12,
+            backgroundColor: "white",
+            borderRadius: 7,
+          }}
+        >
+          <View
             style={{
-              marginVertical: 12,
-              backgroundColor: "white",
-              borderRadius: 7,
+              backgroundColor: "#0066b2",
+              padding: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderTopLeftRadius: 7,
+              borderTopRightRadius: 7,
             }}
           >
-            <View
-              style={{
-                backgroundColor: "#0066b2",
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderTopLeftRadius: 7,
-                borderTopRightRadius: 7,
-              }}
-            >
-              <View>
-                <Text
-                  style={{ color: "white", fontSize: 15, fontWeight: "500" }}
-                >
-                  Order Detail
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 15,
-                    fontWeight: "500",
-                    marginTop: 3,
-                  }}
-                >
-                  item?.id
-                </Text>
-              </View>
-
-              <View>
-                <Text
-                  style={{ color: "white", fontSize: 15, fontWeight: "500" }}
-                >
-                  Payment
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 15,
-                    fontWeight: "500",
-                    marginTop: 4,
-                  }}
-                >
-                  Cash on delivery
-                </Text>
-              </View>
+            <View>
+              <Text style={{ color: "white", fontSize: 15, fontWeight: "500" }}>
+                Order Detail
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 15,
+                  fontWeight: "500",
+                  marginTop: 3,
+                }}
+              >
+                item?.id
+              </Text>
             </View>
 
-            <View
-              style={{
-                backgroundColor: "white",
-                marginHorizontal: 10,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <View>
-                <Text
-                  style={{
-                    marginTop: 10,
-                    fontSize: 14,
-                    fontWeight: "500",
-                    color: "gray",
-                    width: 200,
-                  }}
-                >
-                  item?.address.houseNo
-                </Text>
-                <View style={{ marginTop: 10 }}>
-                  <Text style={{ fontSize: 13, fontWeight: "600" }}>
-                    PICK UP
-                  </Text>
-                  <Text style={{ fontSize: 15, marginTop: 4 }}>
-                    item?.pickuptime
-                  </Text>
-                </View>
-                <View style={{ marginTop: 10 }}>
-                  <Text style={{ fontSize: 13, fontWeight: "600" }}>
-                    DELIVERY
-                  </Text>
-                  <Text style={{ fontSize: 15, marginTop: 4 }}>
-                    item?.deliveryTime
-                  </Text>
-                </View>
-                <View style={{ marginBottom: 20 }} />
-              </View>
-
-              <View style={{ alignItems: "center" }}>
-                <View
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 16,
-                    backgroundColor: "#F0F8FF",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: 10,
-                  }}
-                >
-                  <MaterialCommunityIcons
-                    name="note-outline"
-                    size={24}
-                    color="black"
-                  />
-                </View>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 13,
-                    fontWeight: "500",
-                  }}
-                >
-                  Order Summary
-                </Text>
-                <View
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 16,
-                    backgroundColor: "#F0F8FF",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: 10,
-                  }}
-                >
-                  <FontAwesome name="folder-open-o" size={24} color="black" />
-                </View>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 13,
-                    fontWeight: "500",
-                  }}
-                >
-                  FeedBack
-                </Text>
-              </View>
+            <View>
+              <Text style={{ color: "white", fontSize: 15, fontWeight: "500" }}>
+                Payment
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 15,
+                  fontWeight: "500",
+                  marginTop: 4,
+                }}
+              >
+                Cash on delivery
+              </Text>
             </View>
-          </Pressable>
-    
+          </View>
+
+          <View
+            style={{
+              backgroundColor: "white",
+              marginHorizontal: 10,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  marginTop: 10,
+                  fontSize: 14,
+                  fontWeight: "500",
+                  color: "gray",
+                  width: 200,
+                }}
+              >
+                item?.address.houseNo
+              </Text>
+              <View style={{ marginTop: 10 }}>
+                <Text style={{ fontSize: 13, fontWeight: "600" }}>PICK UP</Text>
+                <Text style={{ fontSize: 15, marginTop: 4 }}>
+                  item?.pickuptime
+                </Text>
+              </View>
+              <View style={{ marginTop: 10 }}>
+                <Text style={{ fontSize: 13, fontWeight: "600" }}>
+                  DELIVERY
+                </Text>
+                <Text style={{ fontSize: 15, marginTop: 4 }}>
+                  item?.deliveryTime
+                </Text>
+              </View>
+              <View style={{ marginBottom: 20 }} />
+            </View>
+
+            <View style={{ alignItems: "center" }}>
+              <View
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  backgroundColor: "#F0F8FF",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="note-outline"
+                  size={24}
+                  color="black"
+                />
+              </View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 13,
+                  fontWeight: "500",
+                }}
+              >
+                Order Summary
+              </Text>
+              <View
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  backgroundColor: "#F0F8FF",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <FontAwesome name="folder-open-o" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 13,
+                  fontWeight: "500",
+                }}
+              >
+                FeedBack
+              </Text>
+            </View>
+          </View>
+        </Pressable>
       </View>
     </View>
   );
