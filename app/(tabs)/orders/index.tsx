@@ -6,11 +6,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
-import { Redirect } from "expo-router";
+import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 
 export default function index() {
   const [showLogout, setShowLogout] = useState(false);
   const [loggedOut, setLoggedOut] = useState(false);
+  const router = useRouter();
+  const { selectedDate, selectedTimeSlot } = useLocalSearchParams();
 
   const handleLogout = async () => {
     try {
@@ -74,7 +76,7 @@ export default function index() {
               <View style={styles.orderDetailBodySection}>
                 <Text style={styles.orderDetailBodySectionTitle}>PICK UP</Text>
                 <Text style={styles.orderDetailBodySectionText}>
-                  item pickuptime
+                  {selectedDate} {selectedTimeSlot}
                 </Text>
               </View>
               <View style={styles.orderDetailBodySection}>
@@ -200,6 +202,7 @@ const styles = StyleSheet.create({
   orderDetailBodySectionText: {
     fontSize: 15,
     marginTop: 4,
+    color: "#000",
   },
   iconContainer: {
     alignItems: "center",

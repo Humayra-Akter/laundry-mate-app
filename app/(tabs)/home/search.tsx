@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   searchInput: {
     fontSize: 18,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#FF725E",
     padding: 10,
     borderRadius: 5,
     marginBottom: 16,

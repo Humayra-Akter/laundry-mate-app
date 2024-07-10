@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import Calendar from "./Calendar";
 import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 
 const timeSlots = [
   "10AM to 11AM",
@@ -24,9 +26,7 @@ export default function Pickup() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [tentativeDate, setTentativeDate] = useState("");
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const router = useRouter();
 
   const handleDatePress = (date: any) => {
     setSelectedDate(date);
@@ -41,9 +41,18 @@ export default function Pickup() {
     setTentativeDate(tentative.toDateString());
   };
 
-  const renderTimeSlots = () => {
-    const isToday = selectedDate.toDateString() === today.toDateString();
+  const handleProceed = (withDate: any) => {
+    if (!withDate || !selectedDate || !selectedTimeSlot) {
+      router.push("/home/search");
+    } else {
+      router.push({
+        pathname: "/(tabs)/orders",
+        params: { selectedDate: selectedDate.toDateString(), selectedTimeSlot },
+      });
+    }
+  };
 
+  const renderTimeSlots = () => {
     return (
       <View style={styles.timeSlotsContainer}>
         {timeSlots.map((slot, index) => (
@@ -52,36 +61,20 @@ export default function Pickup() {
             style={[
               styles.timeSlotButton,
               selectedTimeSlot === slot && styles.selectedButton,
-              isToday && styles.disabledButton,
             ]}
-            onPress={() => !isToday && handleTimeSlotPress(slot)}
-            disabled={isToday}
+            onPress={() => handleTimeSlotPress(slot)}
           >
-            <Text
-              style={[
-                styles.buttonText,
-                isToday && { color: "gray" },
-                selectedTimeSlot === slot && styles.selectedButtonText,
-              ]}
-            >
-              {slot}
-            </Text>
+            <Text style={styles.buttonText}>{slot}</Text>
           </TouchableOpacity>
         ))}
       </View>
     );
   };
 
-  const handleProceed = (withDate: boolean) => {
-    if (!withDate) {
-      setSelectedTimeSlot("");
-    }
-    router.push("/home/search");
-  };
-
   return (
     <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
+        {/* Top section */}
         <View
           style={[
             styles.header,
@@ -94,43 +87,29 @@ export default function Pickup() {
           />
           <Text style={styles.pgTitle}>Laundry Mate</Text>
         </View>
-
+        {/* Calendar section */}
         <View style={{ marginTop: -100 }}>
           <Text style={styles.title}>Select Pickup Date</Text>
           <Calendar
             onSelectDate={handleDatePress}
             selectedDate={selectedDate}
-            disabledDates={[today]}
           />
         </View>
-
+        {/* Select Time Slot section */}
         <Text style={styles.title2}>Select Pickup Time Slot</Text>
         {renderTimeSlots()}
-
+        {/* Selected date and time */}
         {selectedTimeSlot && (
-          <View>
-            <Text
-              style={{
-                color: "#000",
-                fontWeight: "bold",
-                textAlign: "center",
-                fontSize: 24,
-                marginBottom: 10,
-              }}
-            >
-              Selected Pickup Date
+          <View style={styles.selectedDateTimeContainer}>
+            <Text style={styles.selectedDateTimeText}>
+              Selected Date: {selectedDate.toDateString()}
             </Text>
-            <View style={styles.selectedDateTimeContainer}>
-              <Text style={styles.selectedDateTimeText}>
-                Selected Date: {selectedDate.toDateString()}
-              </Text>
-              <Text style={styles.selectedDateTimeText}>
-                Selected Time Slot: {selectedTimeSlot}
-              </Text>
-            </View>
+            <Text style={styles.selectedDateTimeText}>
+              Selected Time Slot: {selectedTimeSlot}
+            </Text>
           </View>
         )}
-
+        {/* Tentative date */}
         {tentativeDate && (
           <View style={styles.tentativeDateContainer}>
             <Text style={styles.tentativeDateText}>
@@ -139,21 +118,21 @@ export default function Pickup() {
             </Text>
           </View>
         )}
-
+        {/* Buttons */}
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            onPress={() => handleProceed(true)}
-            style={styles.buttonContainer}
-          >
-            <Text style={styles.buttonText2}>Select Pickup and Proceed</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleProceed(false)}
             style={styles.buttonContainer}
           >
             <Text style={styles.buttonText2}>
-              Select date Later and Proceed
+              Select Later and Search Item
             </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleProceed(true)}
+            style={styles.buttonContainer}
+          >
+            <Text style={styles.buttonText2}>Select Pickup and Proceed</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
