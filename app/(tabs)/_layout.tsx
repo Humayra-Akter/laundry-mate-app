@@ -1,6 +1,4 @@
 //app/orders/_layout.tsx
-
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
@@ -64,4 +62,3 @@ export default function OrdersLayout() {
   );
 }
 
-const styles = StyleSheet.create({});

@@ -2,7 +2,7 @@
 
 import { Stack } from "expo-router";
 
-export default function HomeLayout() {
+export default function Layout() {
   return (
     <>
       <Stack screenOptions={{ headerShown: false }}>
@@ -10,7 +10,7 @@ export default function HomeLayout() {
         <Stack.Screen name="pickup" />
         <Stack.Screen name="trackOrder" />
         <Stack.Screen name="search" />
-        <Stack.Screen name="addToCart" />
+        <Stack.Screen name="addToCart" /> 
       </Stack>
     </>
   );

@@ -20,7 +20,7 @@ const timeSlots = [
   "5PM to 6PM",
 ];
 
-export default function PickupScreen() {
+export default function Pickup() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [tentativeDate, setTentativeDate] = useState("");

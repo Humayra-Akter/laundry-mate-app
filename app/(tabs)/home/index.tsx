@@ -23,7 +23,7 @@ import faqs from "@/data/faqs.json";
 import { generalServices } from "@/data/generalServices";
 import { useRouter } from "expo-router";
 
-export default function HomeScreen() {
+export default function index() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 

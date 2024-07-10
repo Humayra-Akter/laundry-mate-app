@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import pricingData from "../../../data/pricingData.json";
 import { router } from "expo-router";
 
-// Define the interface for your pricing data
 interface PricingItem {
   ItemName: string;
   IronPrice: number | null;

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const TrackOrderScreen = () => {
+const TrackOrder = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Order is on the way</Text>
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrackOrderScreen;
+export default TrackOrder;

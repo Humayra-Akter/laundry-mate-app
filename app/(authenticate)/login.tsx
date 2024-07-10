@@ -36,7 +36,7 @@ export default function LoginScreen() {
   const handleSignIn = async () => {
     try {
       setButtonSpinner(true);
-      const response = await fetch("http://10.103.130.220:5000/login", {
+      const response = await fetch("http://192.168.1.170:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

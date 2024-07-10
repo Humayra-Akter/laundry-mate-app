@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
 import { Redirect } from "expo-router";
 
-const Index = () => {
+export default function index() {
   const [showLogout, setShowLogout] = useState(false);
   const [loggedOut, setLoggedOut] = useState(false);
 
@@ -104,7 +104,7 @@ const Index = () => {
       </View>
     </LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -219,5 +219,3 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 });
-
-export default Index;
