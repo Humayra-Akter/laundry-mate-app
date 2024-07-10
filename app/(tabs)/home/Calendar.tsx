@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedDate } from "../../../redux/DateReducer";
 
-const Calendar = ({ onSelectDate }:any) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+const Calendar = ({ onSelectDate }: any) => {
+  const dispatch = useDispatch();
+  const selectedDate = useSelector((state: any) => state.date.selectedDate);
   const today = new Date();
-  const currentMonth = selectedDate.getMonth();
-  const currentYear = selectedDate.getFullYear();
+  const currentMonth = selectedDate
+    ? new Date(selectedDate).getMonth()
+    : today.getMonth();
+  const currentYear = selectedDate
+    ? new Date(selectedDate).getFullYear()
+    : today.getFullYear();
 
-  const daysInMonth = (month:any, year:any) => {
+  const daysInMonth = (month: any, year: any) => {
     return new Date(year, month + 1, 0).getDate();
   };
 
@@ -26,6 +32,8 @@ const Calendar = ({ onSelectDate }:any) => {
       const date = new Date(currentYear, currentMonth, day);
       const isToday = date.toDateString() === today.toDateString();
       const isDisabled = date < today;
+      const isSelected =
+        date.toDateString() === new Date(selectedDate).toDateString();
 
       days.push(
         <TouchableOpacity
@@ -34,9 +42,10 @@ const Calendar = ({ onSelectDate }:any) => {
             styles.dayButton,
             isToday && styles.todayButton,
             isDisabled && styles.disabledButton,
+            isSelected && styles.selectedButton,
           ]}
           onPress={() => {
-            setSelectedDate(date);
+            dispatch(setSelectedDate(date.toISOString()));
             onSelectDate(date);
           }}
           disabled={isDisabled}
@@ -52,11 +61,11 @@ const Calendar = ({ onSelectDate }:any) => {
   };
 
   const goToPreviousMonth = () => {
-    setSelectedDate(new Date(currentYear, currentMonth - 1, 1));
+    setSelectedDate(new Date(currentYear, currentMonth - 1, 1).toISOString());
   };
 
   const goToNextMonth = () => {
-    setSelectedDate(new Date(currentYear, currentMonth + 1, 1));
+    setSelectedDate(new Date(currentYear, currentMonth + 1, 1).toISOString());
   };
 
   return (
@@ -66,8 +75,14 @@ const Calendar = ({ onSelectDate }:any) => {
           <AntDesign name="left" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.monthText}>
-          {selectedDate.toLocaleString("default", { month: "long" })}{" "}
-          {selectedDate.getFullYear()}
+          {selectedDate
+            ? new Date(selectedDate).toLocaleString("default", {
+                month: "long",
+              })
+            : today.toLocaleString("default", { month: "long" })}
+          {selectedDate
+            ? new Date(selectedDate).getFullYear()
+            : today.getFullYear()}
         </Text>
         <TouchableOpacity onPress={goToNextMonth}>
           <AntDesign name="right" size={24} color="black" />
@@ -100,7 +115,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    marginHorizontal:16
+    marginHorizontal: 16,
   },
   header: {
     flexDirection: "row",
@@ -148,6 +163,9 @@ const styles = StyleSheet.create({
   todayText: {
     color: "#FFF",
     fontWeight: "bold",
+  },
+  selectedButton: {
+    backgroundColor: "#FF725E",
   },
   disabledButton: {
     opacity: 0.5,
