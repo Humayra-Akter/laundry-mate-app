@@ -7,9 +7,9 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import Calendar from "./Calendar";
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 
 const timeSlots = [
   "10AM to 11AM",
@@ -25,6 +25,9 @@ export default function Pickup() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [tentativeDate, setTentativeDate] = useState("");
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const handleDatePress = (date: any) => {
     setSelectedDate(date);
     setTentativeDate("");
@@ -38,8 +41,9 @@ export default function Pickup() {
     setTentativeDate(tentative.toDateString());
   };
 
-  // Render time slots in a grid
   const renderTimeSlots = () => {
+    const isToday = selectedDate.toDateString() === today.toDateString();
+
     return (
       <View style={styles.timeSlotsContainer}>
         {timeSlots.map((slot, index) => (
@@ -48,24 +52,42 @@ export default function Pickup() {
             style={[
               styles.timeSlotButton,
               selectedTimeSlot === slot && styles.selectedButton,
+              isToday && styles.disabledButton,
             ]}
-            onPress={() => handleTimeSlotPress(slot)}
+            onPress={() => !isToday && handleTimeSlotPress(slot)}
+            disabled={isToday}
           >
-            <Text style={styles.buttonText}>{slot}</Text>
+            <Text
+              style={[
+                styles.buttonText,
+                isToday && { color: "gray" },
+                selectedTimeSlot === slot && styles.selectedButtonText,
+              ]}
+            >
+              {slot}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
     );
   };
 
+  const handleProceed = (withDate: boolean) => {
+    if (!withDate) {
+      setSelectedTimeSlot("");
+    }
+    router.push("/home/search");
+  };
+
   return (
-    <LinearGradient
-      colors={["#E5ECF9", "#F6F7F9"]}
-      style={{ flex: 1, paddingHorizontal: 16 }}
-    >
+    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Top section */}
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            { backgroundColor: "#FF725E", height: 180, borderRadius: 20 },
+          ]}
+        >
           <Image
             source={require("@/assets/images/logo.png")}
             style={styles.logo}
@@ -73,26 +95,42 @@ export default function Pickup() {
           <Text style={styles.pgTitle}>Laundry Mate</Text>
         </View>
 
-        {/* Calendar section */}
-        <Calendar onSelectDate={handleDatePress} selectedDate={selectedDate} />
+        <View style={{ marginTop: -100 }}>
+          <Text style={styles.title}>Select Pickup Date</Text>
+          <Calendar
+            onSelectDate={handleDatePress}
+            selectedDate={selectedDate}
+            disabledDates={[today]}
+          />
+        </View>
 
-        {/* Select Time Slot section */}
-        <Text style={styles.title}>Select Pickup Time Slot</Text>
+        <Text style={styles.title2}>Select Pickup Time Slot</Text>
         {renderTimeSlots()}
 
-        {/* Selected date and time */}
         {selectedTimeSlot && (
-          <View style={styles.selectedDateTimeContainer}>
-            <Text style={styles.selectedDateTimeText}>
-              Selected Date: {selectedDate.toDateString()}
+          <View>
+            <Text
+              style={{
+                color: "#000",
+                fontWeight: "bold",
+                textAlign: "center",
+                fontSize: 24,
+                marginBottom: 10,
+              }}
+            >
+              Selected Pickup Date
             </Text>
-            <Text style={styles.selectedDateTimeText}>
-              Selected Time Slot: {selectedTimeSlot}
-            </Text>
+            <View style={styles.selectedDateTimeContainer}>
+              <Text style={styles.selectedDateTimeText}>
+                Selected Date: {selectedDate.toDateString()}
+              </Text>
+              <Text style={styles.selectedDateTimeText}>
+                Selected Time Slot: {selectedTimeSlot}
+              </Text>
+            </View>
           </View>
         )}
 
-        {/* Tentative date */}
         {tentativeDate && (
           <View style={styles.tentativeDateContainer}>
             <Text style={styles.tentativeDateText}>
@@ -101,6 +139,23 @@ export default function Pickup() {
             </Text>
           </View>
         )}
+
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            onPress={() => handleProceed(true)}
+            style={styles.buttonContainer}
+          >
+            <Text style={styles.buttonText2}>Select Pickup and Proceed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleProceed(false)}
+            style={styles.buttonContainer}
+          >
+            <Text style={styles.buttonText2}>
+              Select date Later and Proceed
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </LinearGradient>
   );
@@ -109,27 +164,33 @@ export default function Pickup() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingVertical: 16,
   },
   header: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
-    marginTop: 10,
   },
   logo: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     marginBottom: 8,
     marginRight: 10,
+    marginTop: 20,
   },
   pgTitle: {
-    fontSize: 24,
+    marginTop: 25,
     fontWeight: "bold",
-    color: "#752100",
+    fontSize: 24,
   },
   title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  title2: {
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
@@ -157,12 +218,20 @@ const styles = StyleSheet.create({
   },
   selectedButton: {
     backgroundColor: "#FF725E",
+    color: "#000",
+  },
+  disabledButton: {
+    backgroundColor: "#ddd",
   },
   buttonText: {
     fontSize: 16,
     color: "#000",
     textAlign: "center",
     fontWeight: "400",
+  },
+  selectedButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
   selectedDateTimeContainer: {
     backgroundColor: "#FFF8E6",
@@ -179,9 +248,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginLeft: "auto",
     marginRight: "auto",
+    borderWidth: 1,
   },
   selectedDateTimeText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "500",
     paddingHorizontal: 18,
     marginHorizontal: 16,
@@ -196,5 +266,33 @@ const styles = StyleSheet.create({
   redText: {
     color: "red",
     fontWeight: "bold",
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 20,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  buttonContainer: {
+    backgroundColor: "#FF725E",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    alignItems: "center",
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  buttonText2: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

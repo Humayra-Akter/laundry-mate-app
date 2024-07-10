@@ -62,7 +62,7 @@ export default function index() {
           style={styles.viewMoreButton}
           onPress={() => router.push("/basket/select")}
         >
-          <Text style={styles.viewMoreText}>View more</Text>
+          <Text style={styles.viewMoreText}>Add more</Text>
           <Ionicons name="arrow-forward" size={24} color="white" />
         </TouchableOpacity>
       </View>
