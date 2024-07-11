@@ -72,7 +72,7 @@ export default function Pickup() {
   };
 
   return (
-    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1 }}>
+    <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         {/* Top section */}
         <View
@@ -124,9 +124,7 @@ export default function Pickup() {
             onPress={() => handleProceed(false)}
             style={styles.buttonContainer}
           >
-            <Text style={styles.buttonText2}>
-              Select Later and Search Item
-            </Text>
+            <Text style={styles.buttonText2}>Select Later and Search Item</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleProceed(true)}

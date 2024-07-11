@@ -7,7 +7,7 @@ export default function BasketLayout() {
     <>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="select" />
+        <Stack.Screen name="payment" />
         <Stack.Screen name="cart" />
       </Stack>
     </>

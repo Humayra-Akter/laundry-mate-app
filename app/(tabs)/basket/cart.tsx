@@ -5,9 +5,11 @@ import {
   ScrollView,
   Pressable,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const cart = () => {
   return (
@@ -37,18 +39,24 @@ const cart = () => {
           </View>
 
           <Pressable>
-            <AntDesign name="pluscircleo" size={24} color="#89CFF0" />
+            <AntDesign name="pluscircleo" size={24} color="#000" />
           </Pressable>
         </Pressable>
       </View>
 
-      <View style={styles.footer}>
-        <Pressable style={styles.emptyBasketButton}>
-          <Text style={styles.emptyBasketButtonText}>Empty Basket</Text>
-        </Pressable>
-        <Pressable style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>Checkout</Text>
-        </Pressable>
+      {/* Buttons */}
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={styles.buttonText2}>Empty Basket</Text>
+          <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => router.push("/basket/payment")}
+        >
+          <Text style={styles.buttonText2}>Payment</Text>
+          <Ionicons name="bag-check" size={24} color="#fff8e6" />
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -58,7 +66,7 @@ export default cart;
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#cc9664",
+    backgroundColor: "#FF725E",
     padding: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -97,25 +105,36 @@ const styles = StyleSheet.create({
     gap: 12,
     marginTop: 30,
   },
-  emptyBasketButton: {
-    backgroundColor: "#d0d0d0",
-    padding: 15,
-    borderRadius: 10,
+
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 20,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  buttonContainer: {
+    backgroundColor: "#FF725E",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    alignItems: "center",
     flex: 1,
+    marginHorizontal: 5,
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
   },
-  emptyBasketButtonText: {
+  buttonText2: {
+    color: "white",
     textAlign: "center",
-    fontWeight: "500",
-  },
-  checkoutButton: {
-    backgroundColor: "#cc9664",
-    padding: 15,
-    borderRadius: 10,
-    flex: 1,
-  },
-  checkoutButtonText: {
-    textAlign: "center",
-    color: "#000",
-    fontWeight: "500",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

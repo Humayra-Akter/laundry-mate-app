@@ -2,7 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { router } from "expo-router";
-import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialIcons,
+  FontAwesome,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface PricingItem {
@@ -57,13 +62,22 @@ export default function index() {
             <Text style={styles.totalPrice}>BDT {totalPrice}</Text>
           </View>
         </View>
-
+      </View>
+      {/* Buttons */}
+      <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          style={styles.viewMoreButton}
+          style={styles.buttonContainer}
           onPress={() => router.push("/(tabs)/home/search")}
         >
-          <Text style={styles.viewMoreText}>Add more</Text>
-          <Ionicons name="arrow-forward" size={24} color="white" />
+          <Text style={styles.buttonText2}>Add more</Text>
+          <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => router.push("/basket/cart")}
+        >
+          <Text style={styles.buttonText2}>Checkout</Text>
+          <Ionicons name="bag-check" size={24} color="#fff8e6" />
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
   },
@@ -127,24 +141,35 @@ const styles = StyleSheet.create({
     color: "#FF725E",
     marginLeft: 10,
   },
-  viewMoreButton: {
+  buttonsContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 20,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  buttonContainer: {
     backgroundColor: "#FF725E",
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    alignItems: "center",
+    flex: 1,
+    marginHorizontal: 5,
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
   },
-  viewMoreText: {
-    fontSize: 18,
+  buttonText2: {
     color: "white",
-    marginRight: 10,
-    fontWeight: "bold",
     textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

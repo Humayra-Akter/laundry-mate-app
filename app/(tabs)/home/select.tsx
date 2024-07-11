@@ -99,7 +99,7 @@ export default function Select() {
   };
 
   return (
-    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.container}>
+    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
       {/* Top section */}
       <View style={styles.header}>
         <Image

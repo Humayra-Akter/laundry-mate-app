@@ -54,7 +54,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.gradient}>
+    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.gradient}>
       <ScrollView>
         <Image
           source={require("@/assets/signin/signin.png")}
