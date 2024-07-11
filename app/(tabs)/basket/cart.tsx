@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   cartItem: {
     padding: 10,
     backgroundColor: "white",
-    marginVertical: 13,
+    marginVertical: 2,
     flexDirection: "row",
     gap: 12,
     borderRadius: 5,
