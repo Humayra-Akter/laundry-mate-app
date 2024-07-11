@@ -60,7 +60,7 @@ export default function index() {
 
         <TouchableOpacity
           style={styles.viewMoreButton}
-          onPress={() => router.push("/basket/select")}
+          onPress={() => router.push("/(tabs)/home/search")}
         >
           <Text style={styles.viewMoreText}>Add more</Text>
           <Ionicons name="arrow-forward" size={24} color="white" />

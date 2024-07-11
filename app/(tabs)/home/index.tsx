@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
+  AntDesign,
   FontAwesome,
   FontAwesome6,
   Ionicons,
@@ -78,9 +79,9 @@ export default function index() {
   );
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+    <LinearGradient colors={["#57004d", "#6b3465"]} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.header}>
+        <View style={[styles.header]}>
           <Image
             source={require("@/assets/images/logo.png")}
             style={styles.logo}
@@ -96,6 +97,20 @@ export default function index() {
           <Ionicons name="search" size={24} color="gray" />
           <Text style={styles.searchInput}>Search</Text>
         </TouchableOpacity>
+        {/* pickup */}
+        <View style={styles.servicesPickupContainer}>
+          <Text style={styles.pickup}>
+            Select a Pickup date and Start Your Journey with{" "}
+          </Text>
+          <TouchableOpacity
+            style={styles.pickupContainer}
+            onPress={() => router.push("/home/pickup")}
+          >
+            <Text style={styles.pickupLM}>LAUNDRY MATE</Text>
+            <FontAwesome name="calendar" size={24} color="#752100" />
+          </TouchableOpacity>
+        </View>
+
         {/* onboardingSwiperData */}
         <FlatList
           data={onboardingSwiperData}
@@ -117,19 +132,6 @@ export default function index() {
             style={styles.services}
           />
         </View>
-        {/* pickup */}
-        <View style={styles.servicesContainer}>
-          <Text style={styles.pickup}>
-            Select a Pickup date and Start Your Journey with{" "}
-          </Text>
-          <TouchableOpacity
-            style={styles.pickupContainer}
-            onPress={() => router.push("/home/pickup")}
-          >
-            <Text style={styles.pickupLM}>LAUNDRY MATE</Text>
-            <FontAwesome name="calendar" size={24} color="#752100" />
-          </TouchableOpacity>
-        </View>
 
         {/* General Services  */}
         <View style={styles.servicesContainer}>
@@ -142,6 +144,17 @@ export default function index() {
             showsHorizontalScrollIndicator={false}
             style={styles.generalServices}
           />
+        </View>
+
+        {/* price list */}
+        <View style={styles.priceListCard}>
+          <Text
+            style={styles.trackOrderText}
+            onPress={() => router.push("/home/select")}
+          >
+            View Price List of Available Services
+          </Text>
+          <AntDesign name="rightcircle" size={20} color="#752100" />
         </View>
         {/* trackorder */}
         <View style={styles.trackOrderCard}>
@@ -185,7 +198,6 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 10,
   },
   logo: {
     width: 60,
@@ -213,6 +225,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   carouselImage: {
     width: 200,
@@ -280,6 +294,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#752100",
     marginBottom: 8,
+    textAlign: "center",
+    marginTop: 16,
   },
   services: {
     marginBottom: 16,
@@ -295,6 +311,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   serviceName: {
     marginTop: 8,
@@ -315,6 +333,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   generalServiceImage: {
     width: 80,
@@ -326,12 +346,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#752100",
   },
+  priceListCard: {
+    alignItems: "center",
+    justifyContent: "center",
+
+    padding: 10,
+    flexDirection: "row",
+    gap: 10,
+    backgroundColor: "#fff8e6",
+    borderRadius: 10,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
+  },
   trackOrderCard: {
     alignItems: "center",
     justifyContent: "center",
-    margin: 20,
+    marginTop: 20,
+    marginBottom: 20,
     padding: 8,
     flexDirection: "row",
+    gap: 10,
     backgroundColor: "#F0E68C",
     borderRadius: 10,
     elevation: 5,
@@ -339,6 +378,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   trackOrderText: {
     fontSize: 18,
@@ -357,6 +398,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   specialOfferTitle: {
     fontSize: 18,
@@ -400,5 +443,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
+  },
+  servicesPickupContainer: {
+    backgroundColor: "#fff8e6",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    borderRadius: 10,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
 });
