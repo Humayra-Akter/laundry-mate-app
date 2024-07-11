@@ -196,6 +196,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   buttonText2: {
     color: "white",
