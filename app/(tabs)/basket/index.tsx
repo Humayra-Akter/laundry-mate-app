@@ -2,13 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { router } from "expo-router";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome,
-  FontAwesome5,
-} from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSelector } from "react-redux";
 
 interface PricingItem {
   ItemName: string;
@@ -22,9 +18,12 @@ type RouteParams = {
   totalPrice?: number;
 };
 
-export default function index() {
+export default function BasketScreen() {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
-  const { item, totalPrice } = route.params || {};
+  const { item } = route.params || {};
+
+  const cartItems = useSelector((state: any) => state.cart.cart);
+
   const parsedItem: PricingItem = item
     ? JSON.parse(item)
     : {
@@ -33,6 +32,28 @@ export default function index() {
         WashIronPrice: null,
         DryCleanPrice: null,
       };
+
+  const selectedItems = cartItems.filter(
+    (item: any) =>
+      item.selectedServices.Iron > 0 ||
+      item.selectedServices.WashIron > 0 ||
+      item.selectedServices.DryClean > 0
+  );
+
+  const totalPrice = selectedItems.reduce(
+    (total: any, item: any) => total + item.totalPrice,
+    0
+  );
+
+  const handleCheckout = () => {
+    router.push({
+      pathname: "/basket/cart",
+      params: {
+        selectedItems: JSON.stringify(selectedItems),
+        totalPrice,
+      },
+    });
+  };
 
   return (
     <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
@@ -48,13 +69,23 @@ export default function index() {
         <Text style={styles.title}>My Basket</Text>
       </View>
       <View style={styles.container}>
-        <View style={styles.itemSection}>
-          <Text style={styles.sectionTitle}>Selected Item</Text>
-          <View style={styles.itemRow}>
-            <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
-          </View>
+        <View style={styles.container}>
+          {selectedItems.map((item: any, index: any) => (
+            <View key={index} style={styles.itemSection}>
+              <Text style={styles.sectionTitle}>{item.ItemName}</Text>
+              {item.selectedServices.Iron > 0 && (
+                <Text>Iron: {item.selectedServices.Iron}</Text>
+              )}
+              {item.selectedServices.WashIron > 0 && (
+                <Text>Wash & Iron: {item.selectedServices.WashIron}</Text>
+              )}
+              {item.selectedServices.DryClean > 0 && (
+                <Text>Dry Clean: {item.selectedServices.DryClean}</Text>
+              )}
+              <Text>Total Price: BDT {item.totalPrice}</Text>
+            </View>
+          ))}
         </View>
-
         <View style={styles.priceSection}>
           <Text style={styles.sectionTitle}>Total Price</Text>
           <View style={styles.priceRow}>
@@ -74,7 +105,7 @@ export default function index() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => router.push("/basket/cart")}
+          onPress={handleCheckout}
         >
           <Text style={styles.buttonText2}>Checkout</Text>
           <Ionicons name="bag-check" size={24} color="#fff8e6" />

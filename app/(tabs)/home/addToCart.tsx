@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useRoute, useNavigation, RouteProp } from "@react-navigation/native";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import { router } from "expo-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../redux/CartReducer";
 import { LinearGradient } from "expo-linear-gradient";
+import { CartItem, SelectedServices } from "../../../redux/types";
 
 interface PricingItem {
   ItemName: string;
@@ -19,16 +22,16 @@ type Service = "Iron" | "WashIron" | "DryClean";
 
 export default function AddToCart() {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
-  const navigation = useNavigation();
   const { item } = route.params;
   const parsedItem: PricingItem = JSON.parse(item);
 
-  const [selectedServices, setSelectedServices] = useState({
+  const [selectedServices, setSelectedServices] = useState<SelectedServices>({
     Iron: 0,
     WashIron: 0,
     DryClean: 0,
   });
   const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const ironSubtotal = (parsedItem.IronPrice ?? 0) * selectedServices.Iron;
@@ -55,13 +58,16 @@ export default function AddToCart() {
   };
 
   const handleAddToCart = () => {
+    const item: CartItem = {
+      ItemName: parsedItem.ItemName,
+      selectedServices,
+      totalPrice,
+    };
+
+    dispatch(addToCart(item));
+
     router.push({
       pathname: "/(tabs)/basket",
-      params: {
-        item: JSON.stringify(parsedItem),
-        selectedServices: JSON.stringify(selectedServices),
-        totalPrice,
-      },
     });
   };
 
@@ -231,25 +237,22 @@ const styles = StyleSheet.create({
   },
   totalPriceText: {
     fontSize: 20,
-    color: "#752100",
     fontWeight: "bold",
+    color: "#752100",
   },
   addButton: {
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 8,
     backgroundColor: "#FF725E",
-    paddingVertical: 16,
-    borderRadius: 10,
-    position: "absolute",
-    bottom: 16,
-    left: 16,
-    right: 16,
+    marginVertical: 16,
   },
   disabledButton: {
-    backgroundColor: "#d3d3d3",
+    backgroundColor: "#FF725E80",
   },
   addButtonText: {
     fontSize: 18,
-    color: "#FFF",
-    textAlign: "center",
     fontWeight: "bold",
+    color: "#FFF",
   },
 });
