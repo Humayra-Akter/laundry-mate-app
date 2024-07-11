@@ -27,6 +27,11 @@ export const CartSlice = createSlice({
     cleanCart: (state) => {
       state.cart = [];
     },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      state.cart = state.cart.filter(
+        (item) => item.ItemName !== action.payload
+      );
+    },
     incrementQuantity: (state, action: PayloadAction<string>) => {
       // implement increment logic if needed
     },
@@ -36,7 +41,12 @@ export const CartSlice = createSlice({
   },
 });
 
-export const { addToCart, incrementQuantity, decrementQuantity, cleanCart } =
-  CartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  incrementQuantity,
+  decrementQuantity,
+  cleanCart,
+} = CartSlice.actions;
 
 export default CartSlice.reducer;

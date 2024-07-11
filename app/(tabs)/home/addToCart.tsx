@@ -62,6 +62,9 @@ export default function AddToCart() {
       ItemName: parsedItem.ItemName,
       selectedServices,
       totalPrice,
+      index: function (index: any): void {
+        throw new Error("Function not implemented.");
+      }
     };
 
     dispatch(addToCart(item));

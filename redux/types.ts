@@ -6,6 +6,7 @@ export interface SelectedServices {
 }
 
 export interface CartItem {
+  index(index: any): void;
   ItemName: string;
   selectedServices: SelectedServices;
   totalPrice: number;

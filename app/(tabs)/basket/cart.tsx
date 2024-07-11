@@ -7,15 +7,17 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  AntDesign,
   FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useRoute, RouteProp } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, cleanCart } from "../../../redux/CartReducer"; // Adjust the import according to your reducer file
+import { CartItem } from "../../../redux/types";
 
 type RouteParams = {
   selectedItems: string;
@@ -25,7 +27,25 @@ type RouteParams = {
 const Cart = () => {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
   const { selectedItems, totalPrice } = route.params || {};
-  const items = selectedItems ? JSON.parse(selectedItems) : [];
+  const initialItems: CartItem[] = selectedItems
+    ? JSON.parse(selectedItems)
+    : [];
+  const [items, setItems] = useState(initialItems);
+  const dispatch = useDispatch();
+  const cart = useSelector((state: any) => state.cart.cart);
+
+  useEffect(() => {
+    setItems(cart);
+  }, [cart]);
+
+  const handleDelete = (itemName: string) => {
+    dispatch(removeFromCart(itemName));
+  };
+
+  const handleEmptyCart = () => {
+    dispatch(cleanCart());
+  };
+
   return (
     <ScrollView>
       <View style={styles.header}>
@@ -38,7 +58,7 @@ const Cart = () => {
 
       <Text style={styles.cartItemsText}>Cart Items</Text>
       <View style={styles.cartItemsContainer}>
-        {items.map((item: any, index: any) => (
+        {items.map((item, index) => (
           <View style={styles.cartItem} key={index}>
             <Image
               style={styles.cartItemImage}
@@ -59,8 +79,8 @@ const Cart = () => {
                 <Text>Total Price: BDT {item.totalPrice}</Text>
               </View>
               <Pressable
-                style={styles.addIcon}
-                onPress={() => router.push("/(tabs)/home/search")}
+                style={styles.deleteIcon}
+                onPress={() => handleDelete(item.ItemName)}
               >
                 <MaterialCommunityIcons
                   name="delete-circle"
@@ -75,7 +95,10 @@ const Cart = () => {
 
       {/* Buttons */}
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handleEmptyCart}
+        >
           <Text style={styles.buttonText2}>Empty Basket</Text>
           <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
         </TouchableOpacity>
@@ -151,7 +174,7 @@ const styles = StyleSheet.create({
     borderColor: "#dea981",
     width: "85%",
   },
-  addIcon: {
+  deleteIcon: {
     position: "absolute",
     top: 5,
     right: 5,
@@ -163,7 +186,6 @@ const styles = StyleSheet.create({
     gap: 12,
     marginTop: 30,
   },
-
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
