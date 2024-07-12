@@ -6,12 +6,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  Alert,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import Calendar from "./Calendar";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useSelector } from "react-redux";
 
 const timeSlots = [
   "10AM to 11AM",
@@ -27,6 +26,7 @@ export default function Pickup() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [tentativeDate, setTentativeDate] = useState("");
   const router = useRouter();
+  const cart = useSelector((state: any) => state.cart.cart);
 
   const handleDatePress = (date: any) => {
     setSelectedDate(date);
@@ -128,7 +128,11 @@ export default function Pickup() {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleProceed(true)}
-            style={styles.buttonContainer}
+            style={[
+              styles.buttonContainer,
+              cart.length === 0 && styles.disabledButtonContainer,
+            ]}
+            disabled={cart.length === 0}
           >
             <Text style={styles.buttonText2}>Select Pickup and Proceed</Text>
           </TouchableOpacity>
@@ -197,18 +201,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF725E",
     color: "#000",
   },
-  disabledButton: {
-    backgroundColor: "#ddd",
-  },
   buttonText: {
     fontSize: 16,
     color: "#000",
     textAlign: "center",
     fontWeight: "400",
-  },
-  selectedButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
   selectedDateTimeContainer: {
     backgroundColor: "#FFF8E6",
@@ -271,5 +268,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
+  },
+  disabledButtonContainer: {
+    backgroundColor: "#ddd",
   },
 });

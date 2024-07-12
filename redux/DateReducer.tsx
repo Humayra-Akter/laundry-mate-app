@@ -10,9 +10,12 @@ export const DateSlice = createSlice({
     setSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
     },
+    clearPickupDate(state) {
+      state.selectedDate = null;
+    },
   },
 });
 
-export const { setSelectedDate } = DateSlice.actions;
+export const { setSelectedDate, clearPickupDate } = DateSlice.actions;
 
 export default DateSlice.reducer;

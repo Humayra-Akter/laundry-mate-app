@@ -81,7 +81,7 @@ export default function index() {
   return (
     <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={[styles.header]}>
+        <View style={styles.header}>
           <Image
             source={require("@/assets/images/logo.png")}
             style={styles.logo}

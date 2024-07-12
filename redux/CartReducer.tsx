@@ -24,7 +24,7 @@ export const CartSlice = createSlice({
         state.cart.push(action.payload);
       }
     },
-    cleanCart: (state) => {
+    clearCart(state) {
       state.cart = [];
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
@@ -46,7 +46,7 @@ export const {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-  cleanCart,
+  clearCart,
 } = CartSlice.actions;
 
 export default CartSlice.reducer;
