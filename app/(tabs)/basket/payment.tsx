@@ -151,14 +151,22 @@ const Payment = () => {
         <Text style={styles.sectionTitle}>Payment Options</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[
+              styles.buttonContainer,
+              !selectedPickupDate && styles.disabledButton,
+            ]}
             onPress={() => handlePayment("cash")}
+            disabled={!selectedPickupDate}
           >
             <Text style={styles.buttonText2}>Cash on Delivery</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[
+              styles.buttonContainer,
+              !selectedPickupDate && styles.disabledButton,
+            ]}
             onPress={() => handlePayment("credit")}
+            disabled={!selectedPickupDate}
           >
             <Text style={styles.buttonText2}>Credit Card</Text>
           </TouchableOpacity>
@@ -288,6 +296,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 5,
     marginBottom: 10,
+  },
+  disabledButton: {
+    backgroundColor: "#cccccc",
   },
   buttonText2: {
     color: "white",

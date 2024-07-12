@@ -16,7 +16,7 @@ import {
 import { router } from "expo-router";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, cleanCart } from "../../../redux/CartReducer";
+import { removeFromCart, clearCart } from "../../../redux/CartReducer";
 import { CartItem } from "../../../redux/types";
 import {
   GestureHandlerRootView,
@@ -47,7 +47,7 @@ const Cart = () => {
   };
 
   const handleEmptyCart = () => {
-    dispatch(cleanCart());
+    dispatch(clearCart());
   };
 
   const isCartEmpty = items.length === 0;
