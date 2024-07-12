@@ -46,7 +46,7 @@ export default function Pickup() {
       router.push("/home/search");
     } else {
       router.push({
-        pathname: "/(tabs)/orders",
+        pathname: "/(tabs)/basket/payment",
         params: { selectedDate: selectedDate.toDateString(), selectedTimeSlot },
       });
     }
