@@ -200,7 +200,7 @@ export default function Index() {
                           Total Price
                         </Text>
                         <Text style={styles.orderDetailBodySectionText}>
-                          ${item.totalPrice}
+                          {item.totalPrice}
                         </Text>
                       </View>
                     </View>

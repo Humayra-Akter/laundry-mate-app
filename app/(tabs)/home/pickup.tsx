@@ -124,7 +124,7 @@ export default function Pickup() {
             onPress={() => handleProceed(false)}
             style={styles.buttonContainer}
           >
-            <Text style={styles.buttonText2}>Select Later and Search Item</Text>
+            <Text style={styles.buttonText2}>Search Item</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleProceed(true)}
@@ -134,7 +134,7 @@ export default function Pickup() {
             ]}
             disabled={cart.length === 0}
           >
-            <Text style={styles.buttonText2}>Select Pickup and Proceed</Text>
+            <Text style={styles.buttonText2}>Select Pickup</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
