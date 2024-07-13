@@ -1,4 +1,4 @@
-//app/_layout.tsx
+//app/(tabs)/_layout.tsx
 import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Provider } from "react-redux";
 import store from "@/store";
 
-export default function OrdersLayout() {
+export default function Layout() {
   return (
     <Provider store={store}>
       <Tabs>
