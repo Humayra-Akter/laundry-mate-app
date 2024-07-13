@@ -27,6 +27,8 @@ const Payment = () => {
   const selectedPickupDate = useSelector(
     (state: any) => state.date.selectedDate
   );
+  const user = useSelector((state: any) => state.user);
+
   const totalPrice = cart.reduce(
     (sum: number, item: any) => sum + item.totalPrice,
     0
@@ -58,7 +60,10 @@ const Payment = () => {
       return;
     }
 
+    const userEmail = user?.user?.email || null;
+
     const orderDetails = {
+      userEmail,
       pickupDate: selectedPickupDate,
       items: cart,
       totalPrice,
@@ -69,6 +74,8 @@ const Payment = () => {
       pin: paymentType === "credit" ? pin : null,
     };
 
+    console.log("Order Details:", orderDetails);
+
     try {
       const response = await fetch("http://192.168.1.170:5000/orderedItems", {
         method: "POST",
@@ -78,27 +85,24 @@ const Payment = () => {
         body: JSON.stringify(orderDetails),
       });
 
+      const responseData = await response.json();
+
       if (response.ok) {
-        if (paymentType === "cash") {
-          setConfettiVisible(true);
-          setTimeout(() => {
-            setConfettiVisible(false);
-            handleCloseModal();
-          }, 3000);
-        } else {
+        setConfettiVisible(true);
+        setTimeout(() => {
+          setConfettiVisible(false);
           handleCloseModal();
-        }
+        }, 1000);
       } else {
-        console.error("Failed to store order details");
+        setError(responseData.message || "Failed to store order details.");
       }
     } catch (error) {
-      console.error("Error:", error);
+      setError("An error occurred while processing your request.");
     }
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    setPaymentType("");
     setContactNumber("");
     setPin("");
     setError("");
@@ -216,7 +220,7 @@ const Payment = () => {
                 <Text style={styles.modalTitle}>Thank you for your order!</Text>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={handleCloseModal}
+                  onPress={handlePaymentSubmit}
                 >
                   <Text style={styles.modalButtonText}>Close</Text>
                 </TouchableOpacity>
@@ -273,14 +277,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 20,
-    marginBottom: 20,
-    paddingHorizontal: 10,
+    justifyContent: "space-around",
+    marginVertical: 20,
   },
   buttonContainer: {
     backgroundColor: "#FF725E",
@@ -295,16 +298,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  disabledButton: {
-    backgroundColor: "#cccccc",
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#dea981",
   },
   buttonText2: {
     color: "white",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
   },
   modalContainer: {
     flex: 1,
@@ -313,31 +320,31 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: 300,
-    padding: 20,
     backgroundColor: "#fff",
+    padding: 20,
     borderRadius: 10,
+    width: "80%",
     alignItems: "center",
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
+    marginBottom: 10,
+    color: "#FF725E",
   },
   input: {
-    width: "100%",
-    padding: 10,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
+    padding: 10,
+    width: "100%",
     marginBottom: 10,
   },
   modalButton: {
     backgroundColor: "#FF725E",
+    borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
     marginTop: 10,
   },
   modalButtonText: {

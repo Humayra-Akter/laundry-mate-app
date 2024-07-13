@@ -1,4 +1,3 @@
-//app/_layout.tsx
 import React from "react";
 import { Tabs, Slot } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
@@ -14,6 +13,12 @@ function MainLayout() {
   const { user, loading } = useAuth();
   const router = useRouter();
 
+  React.useEffect(() => {
+    if (!loading && !user) {
+      router.push("/(authenticate)/login");
+    }
+  }, [loading, user]);
+
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -23,8 +28,7 @@ function MainLayout() {
   }
 
   if (!user) {
-    router.push("/(authenticate)/login");
-    return null;
+    return null; 
   }
 
   return (
@@ -88,7 +92,7 @@ export default function Layout() {
     <AuthProvider>
       <Provider store={store}>
         <MainLayout />
-        <Slot /> 
+        <Slot />
       </Provider>
     </AuthProvider>
   );

@@ -134,7 +134,7 @@ export default function Pickup() {
             ]}
             disabled={cart.length === 0}
           >
-            <Text style={styles.buttonText2}>Select Pickup</Text>
+            <Text style={styles.buttonText2}>Proceed to Pay</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -1,12 +1,5 @@
-// //app/index.tsx
-// import React from "react";
-// import { Redirect } from "expo-router";
+//app/index.tsx
 
-// const index = () => {
-//   return <Redirect href="/(authenticate)/login" />;
-// };
-
-// export default index;
 import React, { useEffect, useState } from "react";
 import { Redirect } from "expo-router";
 
@@ -25,3 +18,5 @@ const Index = () => {
 };
 
 export default Index;
+
+

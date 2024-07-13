@@ -23,6 +23,8 @@ import { router } from "expo-router";
 import { useToast } from "react-native-toast-notifications";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { setUser } from "@/redux/UserReducer";
+import { useDispatch } from "react-redux";
 
 export default function SignupScreen() {
   const toast = useToast();
@@ -38,6 +40,7 @@ export default function SignupScreen() {
   });
 
   const auth = FIREBASE_AUTH;
+  const dispatch = useDispatch();
 
   const handleSignUp = async () => {
     try {
@@ -61,7 +64,7 @@ export default function SignupScreen() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          dispatch(setUser({ email: userInfo.email }));
           router.push("/home");
         });
     } catch (error: any) {
