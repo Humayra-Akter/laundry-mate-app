@@ -1,4 +1,4 @@
-//app/orders/_layout.tsx
+//app/_layout.tsx
 import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";

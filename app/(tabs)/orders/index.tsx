@@ -19,6 +19,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
 import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
+import { useDispatch } from "react-redux";
+import { clearUser } from "@/redux/UserReducer";
 
 type OrderItem = {
   ItemName: string;
@@ -68,11 +70,13 @@ export default function Index() {
   const [feedbackText, setFeedbackText] = useState("");
   const router = useRouter();
   const [showConfetti, setShowConfetti] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await FIREBASE_AUTH.signOut();
       setLoggedOut(true);
+      dispatch(clearUser());
       Alert.alert("Logged out", "You have been logged out successfully.");
     } catch (error: any) {
       Alert.alert("Error", error.message);

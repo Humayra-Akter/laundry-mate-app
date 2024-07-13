@@ -19,39 +19,47 @@ import { useState } from "react";
 import { router } from "expo-router";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
 import { Alert } from "react-native";
+import { setUser } from "@/redux/UserReducer";
+import { useDispatch } from "react-redux";
 
 export default function LoginScreen() {
-  const auth = FIREBASE_AUTH;
+ const auth = FIREBASE_AUTH;
+ const dispatch = useDispatch();
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [required, setRequired] = useState("");
-  const [buttonSpinner, setButtonSpinner] = useState(false);
-  const [error, setError] = useState({ password: "" });
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-  });
-  const [focusedInput, setFocusedInput] = useState("");
+ const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+ const [required, setRequired] = useState("");
+ const [buttonSpinner, setButtonSpinner] = useState(false);
+ const [error, setError] = useState({ password: "" });
+ const [userInfo, setUserInfo] = useState({
+   email: "",
+   password: "",
+ });
+ const [focusedInput, setFocusedInput] = useState("");
 
-  const handleSignIn = async () => {
-    try {
-      setButtonSpinner(true);
-      const response = await fetch("http://192.168.1.170:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userInfo?.email,
-          password: userInfo?.password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => router.push("/home"));
-    } finally {
-      setButtonSpinner(false);
-    }
-  };
+ const handleSignIn = async () => {
+   try {
+     setButtonSpinner(true);
+     const response = await fetch("http://192.168.1.170:5000/login", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({
+         email: userInfo?.email,
+         password: userInfo?.password,
+       }),
+     });
+     const data = await response.json();
+     if (response.ok) {
+       dispatch(setUser({ email: userInfo.email }));
+       router.push("/home");
+     } else {
+       Alert.alert("Login Failed", data.message);
+     }
+   } finally {
+     setButtonSpinner(false);
+   }
+ };
 
   return (
     <LinearGradient colors={["#fff", "#fafafa"]} style={styles.gradient}>
