@@ -70,12 +70,13 @@ export default function Index() {
   const [feedbackText, setFeedbackText] = useState("");
   const router = useRouter();
   const [showConfetti, setShowConfetti] = useState(false);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await FIREBASE_AUTH.signOut();
-      setLoggedOut(true); dispatch(clearUser());
+      setLoggedOut(true);
+      dispatch(clearUser());
       Alert.alert("Logged out", "You have been logged out successfully.");
     } catch (error: any) {
       Alert.alert("Error", error.message);
