@@ -17,9 +17,9 @@ import {
 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
-import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "@/redux/UserReducer";
 
 type OrderItem = {
@@ -37,6 +37,7 @@ type OrderDetails = {
   paymentMethod: string;
   contactNumber: string;
   pin: string;
+  userEmail: string; // Add this field to the OrderDetails type
 };
 
 const StarRating = ({ rating, setRating }: any) => {
@@ -72,6 +73,8 @@ export default function Index() {
   const [showConfetti, setShowConfetti] = useState(false);
   const dispatch = useDispatch();
 
+  const user = useSelector((state: any) => state.user);
+
   const handleLogout = async () => {
     try {
       await FIREBASE_AUTH.signOut();
@@ -88,19 +91,27 @@ export default function Index() {
       try {
         const response = await fetch("http://192.168.1.170:5000/orderedItems");
         const data: OrderDetails[] = await response.json();
-        setOrderDetails(data);
+
+        // Filter orders for the logged-in user
+        const userEmail = user?.user?.email;
+        const userOrders = data.filter(
+          (order) => order.userEmail === userEmail
+        );
+
+        setOrderDetails(userOrders);
       } catch (error: any) {
         Alert.alert("Error fetching order details", error.message);
       }
     };
 
     fetchOrderDetails();
-  }, []);
+  }, [user]);
 
   const handleFeedbackSubmit = async () => {
     if (!selectedOrder) return;
-
+    const userEmail = user?.user?.email || null;
     const feedback = {
+      userEmail,
       orderId: selectedOrder._id,
       rating: starCount,
       text: feedbackText,
@@ -146,14 +157,26 @@ export default function Index() {
               <Octicons name="three-bars" size={24} color="white" />
             </Pressable>
           </View>
-
           {showLogout && (
             <Pressable style={styles.logoutButton} onPress={handleLogout}>
               <Text style={styles.logoutButtonText}>Logout</Text>
             </Pressable>
           )}
-
-          <Text style={styles.title}>My Orders</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 12,
+            }}
+          >
+            <MaterialCommunityIcons
+              name="order-bool-descending-variant"
+              size={24}
+              color="#FFF8E6"
+            />
+            <Text style={styles.title}>My Orders</Text>
+          </View>
         </View>
 
         <View style={styles.ordersContainer}>
@@ -213,7 +236,7 @@ export default function Index() {
               </Pressable>
             ))
           ) : (
-            <Text style={styles.noOrdersText}>No orders found.</Text>
+            <Text style={styles.noOrdersText}>No orders till now.</Text>
           )}
         </View>
         <Modal
@@ -305,6 +328,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: "cover",
+    marginTop: 16,
   },
   logoutButton: {
     backgroundColor: "#fff",

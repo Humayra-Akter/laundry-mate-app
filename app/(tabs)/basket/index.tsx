@@ -70,21 +70,24 @@ export default function BasketScreen() {
   return (
     <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
       <ScrollView>
-        <View style={[styles.header1]}>
+        <View style={styles.headerContainer}>
           <Image
-            source={require("@/assets/images/logo.png")}
             style={styles.logo}
+            source={require("@/assets/images/logo.png")}
           />
-          <Text style={styles.title1}>Laundry Mate</Text>
-        </View>
-        <View style={styles.titleContainer}>
-          <View style={styles.backIconContainer}>
-            <Ionicons name="basket" size={32} color="#FF725E" />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 12,
+            }}
+          >
+            <Ionicons name="basket" size={24} color="#FFF8E6" />
+            <Text style={styles.title}>My Busket</Text>
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 20, color: "#FF725E" }}>
-            My Basket
-          </Text>
         </View>
+
         <View style={styles.container}>
           <View style={styles.container}>
             {selectedItems.map((item: any, index: any) => (
@@ -138,22 +141,19 @@ export default function BasketScreen() {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    padding: 12,
+    backgroundColor: "#FF725E",
+  },
   container: {
     flex: 1,
     padding: 12,
   },
   logo: {
-    width: 60,
-    height: 60,
-    marginBottom: 8,
-    marginTop: 10,
-  },
-  backIconContainer: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    width: 40,
+    height: 40,
+    resizeMode: "cover",
+    marginTop: 16,
   },
   header1: {
     flexDirection: "row",
@@ -161,29 +161,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title1: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#752100",
-  },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
+    textAlign: "center",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
   },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
-    backgroundColor: "#fff8e6",
-    padding: 10,
-  },
+
   itemSection: {
     marginBottom: 20,
     borderBottomWidth: 1,
