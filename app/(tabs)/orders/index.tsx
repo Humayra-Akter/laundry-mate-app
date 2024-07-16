@@ -37,7 +37,7 @@ type OrderDetails = {
   paymentMethod: string;
   contactNumber: string;
   pin: string;
-  userEmail: string; // Add this field to the OrderDetails type
+  userEmail: string;
 };
 
 const StarRating = ({ rating, setRating }: any) => {
@@ -60,6 +60,20 @@ const StarRating = ({ rating, setRating }: any) => {
     </View>
   );
 };
+const getTentativeDeliveryDate = (
+  pickupDate: string,
+  timeslotIndex: number
+): Date => {
+  const date = new Date(pickupDate);
+  const additionalDays = 2 + timeslotIndex;
+  date.setDate(date.getDate() + additionalDays);
+  return date;
+};
+
+const getStatusColor = (deliveryDate: Date): string => {
+  const today = new Date();
+  return deliveryDate > today ? "yellow" : "green";
+};
 
 export default function Index() {
   const [showLogout, setShowLogout] = useState(false);
@@ -74,6 +88,15 @@ export default function Index() {
   const dispatch = useDispatch();
 
   const user = useSelector((state: any) => state.user);
+
+  const timeSlots = [
+    "10AM to 11AM",
+    "11AM to 12PM",
+    "12PM to 1PM",
+    "3PM to 4PM",
+    "4PM to 5PM",
+    "5PM to 6PM",
+  ];
 
   const handleLogout = async () => {
     try {
@@ -92,7 +115,6 @@ export default function Index() {
         const response = await fetch("http://192.168.1.170:5000/orderedItems");
         const data: OrderDetails[] = await response.json();
 
-        // Filter orders for the logged-in user
         const userEmail = user?.user?.email;
         const userOrders = data.filter(
           (order) => order.userEmail === userEmail
@@ -181,60 +203,78 @@ export default function Index() {
 
         <View style={styles.ordersContainer}>
           {orderDetails && orderDetails.length > 0 ? (
-            orderDetails.map((order) => (
-              <Pressable key={order?._id} style={styles.orderDetailContainer}>
-                <View style={styles.orderDetailHeader}>
-                  <Text style={styles.orderDetailHeaderText}>Order Detail</Text>
-                  <Text style={styles.orderDetailHeaderSubText}>
-                    Pickup Date:{" "}
-                    {new Date(order.pickupDate).toLocaleDateString()}
-                  </Text>
-                </View>
+            orderDetails.map((order) => {
+              const tentativeDeliveryDate = getTentativeDeliveryDate(
+                order.pickupDate,
+                0
+              );
+              return (
+                <Pressable key={order?._id} style={styles.orderDetailContainer}>
+                  <View style={styles.orderDetailHeader}>
+                    <Text style={styles.orderDetailHeaderText}>
+                      Order Detail
+                    </Text>
+                    <Text style={styles.orderDetailHeaderSubText}>
+                      Pickup Date:{" "}
+                      {new Date(order.pickupDate).toLocaleDateString()}
+                    </Text>
+                    <Text
+                      style={{
+                        color: getStatusColor(tentativeDeliveryDate),
+                        fontWeight: "bold",
+                        marginTop: 1,
+                      }}
+                    >
+                      Delivery Date:{" "}
+                      {tentativeDeliveryDate?.toLocaleDateString()}
+                    </Text>
+                  </View>
 
-                <Pressable
-                  style={styles.feedbackIcon}
-                  onPress={() => {
-                    setSelectedOrder(order);
-                    setFeedbackVisible(true);
-                  }}
-                >
-                  <FontAwesome name="folder-open-o" size={24} color="black" />
+                  <Pressable
+                    style={styles.feedbackIcon}
+                    onPress={() => {
+                      setSelectedOrder(order);
+                      setFeedbackVisible(true);
+                    }}
+                  >
+                    <FontAwesome name="folder-open-o" size={24} color="black" />
+                  </Pressable>
+
+                  <View style={styles.orderDetailBody}>
+                    {order.items.map((item, index) => (
+                      <View key={index} style={styles.orderItem}>
+                        <Text style={styles.orderDetailBodyText}>
+                          {item.ItemName}
+                        </Text>
+                        <View style={styles.orderDetailBodySection}>
+                          <Text style={styles.orderDetailBodySectionTitle}>
+                            Services
+                          </Text>
+                          {Object.entries(item.selectedServices)
+                            .filter(([_, count]) => count > 0)
+                            .map(([service, count]) => (
+                              <Text
+                                key={service}
+                                style={styles.orderDetailBodySectionText}
+                              >
+                                {service}: {count}
+                              </Text>
+                            ))}
+                        </View>
+                        <View style={styles.orderDetailBodySection}>
+                          <Text style={styles.orderDetailBodySectionTitle}>
+                            Total Price
+                          </Text>
+                          <Text style={styles.orderDetailBodySectionText}>
+                            {item.totalPrice}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
                 </Pressable>
-
-                <View style={styles.orderDetailBody}>
-                  {order.items.map((item, index) => (
-                    <View key={index} style={styles.orderItem}>
-                      <Text style={styles.orderDetailBodyText}>
-                        {item.ItemName}
-                      </Text>
-                      <View style={styles.orderDetailBodySection}>
-                        <Text style={styles.orderDetailBodySectionTitle}>
-                          Services
-                        </Text>
-                        {Object.entries(item.selectedServices)
-                          .filter(([_, count]) => count > 0)
-                          .map(([service, count]) => (
-                            <Text
-                              key={service}
-                              style={styles.orderDetailBodySectionText}
-                            >
-                              {service}: {count}
-                            </Text>
-                          ))}
-                      </View>
-                      <View style={styles.orderDetailBodySection}>
-                        <Text style={styles.orderDetailBodySectionTitle}>
-                          Total Price
-                        </Text>
-                        <Text style={styles.orderDetailBodySectionText}>
-                          {item.totalPrice}
-                        </Text>
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              </Pressable>
-            ))
+              );
+            })
           ) : (
             <Text style={styles.noOrdersText}>No orders till now.</Text>
           )}
