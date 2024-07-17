@@ -1,4 +1,4 @@
-//app/(tabs)/orders/_layout.tsx
+//app/(admin)/orders/_layout.tsx
 
 import { Stack } from "expo-router";
 

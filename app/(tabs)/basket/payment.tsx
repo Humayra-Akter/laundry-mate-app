@@ -172,7 +172,7 @@ const Payment = () => {
             onPress={() => handlePayment("credit")}
             disabled={!selectedPickupDate}
           >
-            <Text style={styles.buttonText2}>Credit Card</Text>
+            <Text style={styles.buttonText2}>Online Payment</Text>
           </TouchableOpacity>
         </View>
       </View>
