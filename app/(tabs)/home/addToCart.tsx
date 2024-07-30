@@ -77,7 +77,10 @@ export default function AddToCart() {
     selectedServices.DryClean === 0;
 
   return (
-    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={styles.container}
+    >
       <View style={styles.container}>
         <View style={styles.itemContainer}>
           <Text style={styles.itemName}>{parsedItem.ItemName}</Text>

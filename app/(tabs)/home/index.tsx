@@ -79,7 +79,10 @@ export default function index() {
   );
 
   return (
-    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={styles.container}
+    >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
           <Image

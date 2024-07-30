@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 const TrackOrder = () => {
   return (
     <LinearGradient
-      colors={["#9002d6", "#7200ab"]}
+      colors={["#b521ff", "#691991", "#53007d"]}
       style={{ flex: 1, paddingVertical: 16 }}
     >
       <View style={styles.header}>

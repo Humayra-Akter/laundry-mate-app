@@ -12,7 +12,10 @@ import { router } from "expo-router";
 
 export default function forgotPassword() {
   return (
-    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={styles.container}
+    >
       <Text style={styles.welcomeText}>Reset Email Password</Text>
 
       <TextInput

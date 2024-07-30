@@ -62,7 +62,10 @@ export default function LoginScreen() {
   };
 
   return (
-    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.gradient}>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={styles.gradient}
+    >
       <ScrollView>
         <Image
           source={require("@/assets/signin/signin.png")}
@@ -291,7 +294,7 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: 18,
     fontWeight: "400",
-    color:"#fff"
+    color: "#fff",
   },
   registerText: {
     fontWeight: "400",

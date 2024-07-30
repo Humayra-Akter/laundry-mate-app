@@ -75,7 +75,7 @@ export default function SignupScreen() {
 
   return (
     <LinearGradient
-      colors={["#9002d6", "#7200ab"]}
+      colors={["#b521ff", "#691991", "#53007d"]}
       style={{ flex: 1, paddingHorizontal: 16, paddingTop: 20 }}
     >
       <ScrollView>

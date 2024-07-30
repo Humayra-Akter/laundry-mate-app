@@ -68,7 +68,10 @@ export default function BasketScreen() {
   };
 
   return (
-    <LinearGradient colors={["#9002d6", "#7200ab"]} style={{ flex: 1 }}>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={{ flex: 1 }}
+    >
       <ScrollView>
         <View style={styles.headerContainer}>
           <Image
