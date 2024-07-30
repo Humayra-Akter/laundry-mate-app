@@ -74,15 +74,23 @@ const Cart = () => {
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ScrollView>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Basket Total</Text>
-            <View>
-              <Text style={styles.headerText}>BDT {totalPrice}</Text>
-              <Text style={styles.headerText}>for {items.length} items</Text>
+          <View
+            style={{
+              backgroundColor: "#ffac5e",
+              height: 180,
+              borderRadius: 20,
+            }}
+          >
+            <View style={styles.header}>
+              <Text style={styles.headerText}>Basket Total</Text>
+              <View>
+                <Text style={styles.headerText}>BDT {totalPrice}</Text>
+                <Text style={styles.headerText}>for {items.length} items</Text>
+              </View>
             </View>
+            <Text style={styles.cartItemsText}>Cart Items</Text>
           </View>
 
-          <Text style={styles.cartItemsText}>Cart Items</Text>
           <View style={styles.cartItemsContainer}>
             {items.map((item, index) => (
               <Swipeable
@@ -121,7 +129,7 @@ const Cart = () => {
                       <MaterialCommunityIcons
                         name="delete-circle"
                         size={30}
-                        color="#ffac5e"
+                        color="#d61a23"
                       />
                     </Pressable>
                   </View>
@@ -148,7 +156,7 @@ const Cart = () => {
               >
                 Empty Basket
               </Text>
-              <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
+              <FontAwesome5 name="cart-plus" size={24} color="#000" />
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -166,7 +174,7 @@ const Cart = () => {
               >
                 Payment
               </Text>
-              <MaterialIcons name="payment" size={24} color="#fff8e6" />
+              <MaterialIcons name="payment" size={24} color="#000" />
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -187,19 +195,20 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   headerText: {
-    color: "white",
+    color: "#000",
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "bold",
   },
   cartItemsText: {
     padding: 10,
-    color: "#ffac5e",
+    color: "#000",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "700",
   },
   cartItemsContainer: {
     marginHorizontal: 12,
+    marginTop: -40,
   },
   cartItem: {
     padding: 10,
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 80,
-    backgroundColor: "#ffac5e",
+    backgroundColor: "#d61a23",
     marginVertical: 2,
     borderRadius: 5,
   },
@@ -282,7 +291,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonText2: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",

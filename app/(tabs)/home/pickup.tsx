@@ -106,7 +106,7 @@ export default function Pickup() {
           <Text style={styles.pgTitle}>Laundry Mate</Text>
         </View>
         {/* Calendar section */}
-        <View style={{ marginTop: -100 }}>
+        <View style={{ marginTop: -85 }}>
           <Text style={styles.title}>Select Pickup Date</Text>
           <Calendar
             onSelectDate={handleDatePress}
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10,
+    paddingTop: 20,
   },
   logo: {
     width: 40,
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
-    color: "#fff",
+    color: "#b521ff",
     textAlign: "center",
     marginBottom: 10,
   },
@@ -304,7 +305,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   buttonText2: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",

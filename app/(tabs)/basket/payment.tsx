@@ -117,17 +117,24 @@ const Payment = () => {
       colors={["#b521ff", "#691991", "#53007d"]}
       style={{ flex: 1 }}
     >
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
-          <Image
-            source={require("@/assets/images/logo.png")}
-            style={styles.logo}
-          />
-          <Text style={styles.title}>Laundry Mate</Text>
+      <ScrollView>
+        <View
+          style={{
+            backgroundColor: "#ffac5e",
+            height: 180,
+            borderRadius: 20,
+          }}
+        >
+          <View style={styles.header}>
+            <Image
+              source={require("@/assets/images/logo.png")}
+              style={styles.logo}
+            />
+          </View>
+          <Text style={styles.mainSectionTitle}>Order Summary</Text>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Order Summary</Text>
+        <View style={[styles.section,{marginTop:-50, backgroundColor:"#ddd", margin:20, borderRadius:20}]}>
           <Text style={styles.text}>Total: BDT {totalPrice}</Text>
           <Text style={styles.text}>Total Items: {totalItems}</Text>
           {cart.map((item: any, index: number) => (
@@ -141,7 +148,7 @@ const Payment = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Pickup Details</Text>
           <Text
-            style={[styles.text, { fontWeight: "bold", textAlign: "center" }]}
+            style={[styles.text, { fontWeight: "bold", textAlign: "center", color:"#fff" }]}
           >
             Selected Pickup Date:{" "}
             {selectedPickupDate
@@ -244,29 +251,18 @@ const Payment = () => {
 export default Payment;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
   header: {
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    justifyContent: "center",
     marginBottom: 10,
   },
   logo: {
-    width: 60,
-    height: 60,
-    marginBottom: 8,
-    marginTop: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#752100",
+    width: 40,
+    height: 40,
+    resizeMode: "cover",
+    marginTop: 30,
   },
   section: {
     marginBottom: 20,
+    padding: 20,
   },
   sectionTitle: {
     fontSize: 20,
@@ -274,6 +270,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
     color: "#ffac5e",
+  },
+  mainSectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+    color: "#000",
   },
   text: {
     fontSize: 16,
@@ -312,7 +315,7 @@ const styles = StyleSheet.create({
     borderColor: "#dea981",
   },
   buttonText2: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
@@ -355,7 +358,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   modalButtonText: {
-    color: "#fff",
+    color: "#000",
     fontSize: 16,
     fontWeight: "bold",
   },
