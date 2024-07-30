@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
   faqQuestion: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#ddd",
   },
   faqAnswer: {
     fontSize: 14,

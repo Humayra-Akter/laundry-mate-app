@@ -172,39 +172,47 @@ export default function Index() {
       style={{ flex: 1 }}
     >
       <ScrollView>
-        <View style={styles.headerContainer}>
-          <View style={styles.headerTopRow}>
-            <Image
-              style={styles.logo}
-              source={require("@/assets/images/logo.png")}
-            />
-            <Pressable onPress={() => setShowLogout(!showLogout)}>
-              <Octicons name="three-bars" size={24} color="white" />
-            </Pressable>
-          </View>
-          {showLogout && (
-            <Pressable style={styles.logoutButton} onPress={handleLogout}>
-              <Text style={styles.logoutButtonText}>Logout</Text>
-            </Pressable>
-          )}
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 12,
-            }}
-          >
-            <MaterialCommunityIcons
-              name="order-bool-descending-variant"
-              size={24}
-              color="#FFF8E6"
-            />
-            <Text style={styles.title}>My Orders</Text>
+        <View
+          style={{
+            backgroundColor: "#ffac5e",
+            height: 180,
+            borderRadius: 20,
+          }}
+        >
+          <View>
+            <View style={styles.headerTopRow}>
+              <Image
+                style={styles.logo}
+                source={require("@/assets/images/logo.png")}
+              />
+              <Pressable onPress={() => setShowLogout(!showLogout)}>
+                <Octicons name="three-bars" size={24} color="white" />
+              </Pressable>
+            </View>
+            {showLogout && (
+              <Pressable style={styles.logoutButton} onPress={handleLogout}>
+                <Text style={styles.logoutButtonText}>Logout</Text>
+              </Pressable>
+            )}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 12,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="order-bool-descending-variant"
+                size={24}
+                color="#000"
+              />
+              <Text style={styles.title}>My Orders</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.ordersContainer}>
+        <View style={[styles.ordersContainer, {marginTop:-60}]}>
           {orderDetails && orderDetails.length > 0 ? (
             orderDetails.map((order) => {
               const tentativeDeliveryDate = getTentativeDeliveryDate(
@@ -341,10 +349,6 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    padding: 12,
-    backgroundColor: "#ffac5e",
-  },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -371,7 +375,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: "cover",
-    marginTop: 16,
+    marginTop: 30,
   },
   logoutButton: {
     backgroundColor: "#fff",
@@ -387,7 +391,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
   },
   ordersContainer: {

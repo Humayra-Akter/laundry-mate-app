@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,11 +61,13 @@ const Calendar = ({ onSelectDate }: any) => {
   };
 
   const goToPreviousMonth = () => {
-    setSelectedDate(new Date(currentYear, currentMonth - 1, 1).toISOString());
+    const newDate = new Date(currentYear, currentMonth - 1, 1);
+    dispatch(setSelectedDate(newDate.toISOString()));
   };
 
   const goToNextMonth = () => {
-    setSelectedDate(new Date(currentYear, currentMonth + 1, 1).toISOString());
+    const newDate = new Date(currentYear, currentMonth + 1, 1);
+    dispatch(setSelectedDate(newDate.toISOString()));
   };
 
   return (
@@ -75,14 +77,10 @@ const Calendar = ({ onSelectDate }: any) => {
           <AntDesign name="left" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.monthText}>
-          {selectedDate
-            ? new Date(selectedDate).toLocaleString("default", {
-                month: "long",
-              })
-            : today.toLocaleString("default", { month: "long" })}
-          {selectedDate
-            ? new Date(selectedDate).getFullYear()
-            : today.getFullYear()}
+          {new Date(selectedDate || today).toLocaleString("default", {
+            month: "long",
+          })}
+          {new Date(selectedDate || today).getFullYear()}
         </Text>
         <TouchableOpacity onPress={goToNextMonth}>
           <AntDesign name="right" size={24} color="black" />
