@@ -86,7 +86,7 @@ export default function BasketScreen() {
               gap: 12,
             }}
           >
-            <Ionicons name="basket" size={24} color="#FFF8E6" />
+            <Ionicons name="basket" size={24} color="#000" />
             <Text style={styles.title}>My Busket</Text>
           </View>
         </View>
@@ -97,20 +97,34 @@ export default function BasketScreen() {
               <View key={index} style={styles.itemSection}>
                 <Text style={styles.sectionTitle}>{item.ItemName}</Text>
                 {item.selectedServices.Iron > 0 && (
-                  <Text>Iron: {item.selectedServices.Iron}</Text>
+                  <Text style={styles.sectionItems}>
+                    Iron: {item.selectedServices.Iron}
+                  </Text>
                 )}
                 {item.selectedServices.WashIron > 0 && (
-                  <Text>Wash & Iron: {item.selectedServices.WashIron}</Text>
+                  <Text style={styles.sectionItems}>
+                    Wash & Iron: {item.selectedServices.WashIron}
+                  </Text>
                 )}
                 {item.selectedServices.DryClean > 0 && (
-                  <Text>Dry Clean: {item.selectedServices.DryClean}</Text>
+                  <Text style={styles.sectionItems}>
+                    Dry Clean: {item.selectedServices.DryClean}
+                  </Text>
                 )}
-                <Text>Total Price: BDT {item.totalPrice}</Text>
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontWeight: "semibold",
+                    marginBottom: 8,
+                  }}
+                >
+                  Total Price: BDT {item.totalPrice}
+                </Text>
               </View>
             ))}
           </View>
           <View style={styles.priceSection}>
-            <Text style={styles.sectionTitle}>Total Price</Text>
+            <Text style={styles.TotalPriceSectionTitle}>Total Price</Text>
             <View style={styles.priceRow}>
               <FontAwesome6
                 name="bangladeshi-taka-sign"
@@ -128,14 +142,14 @@ export default function BasketScreen() {
             onPress={() => router.push("/(tabs)/home/search")}
           >
             <Text style={styles.buttonText2}>Add more</Text>
-            <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
+            <FontAwesome5 name="cart-plus" size={24} color="#000" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={handleCheckout}
           >
             <Text style={styles.buttonText2}>Checkout</Text>
-            <Ionicons name="bag-check" size={24} color="#fff8e6" />
+            <Ionicons name="bag-check" size={24} color="#000" />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -167,7 +181,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
   },
   header: {
@@ -175,7 +189,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
-
   itemSection: {
     marginBottom: 20,
     borderBottomWidth: 1,
@@ -185,7 +198,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#ffac5e",
+    color: "#ffa",
+  },
+  TotalPriceSectionTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#000",
+  },
+  sectionItems: {
+    fontSize: 14,
+    color: "#ddd",
   },
   itemRow: {
     flexDirection: "row",
@@ -194,10 +217,11 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 18,
     marginLeft: 10,
+    color: "#000",
   },
   priceSection: {
     marginBottom: 20,
-    backgroundColor: "#fff8e6",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,
@@ -246,9 +270,9 @@ const styles = StyleSheet.create({
     borderColor: "#dea981",
   },
   buttonText2: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "bold",
   },
 });

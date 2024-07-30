@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    marginTop: 32,
   },
   searchInput: {
     fontSize: 18,

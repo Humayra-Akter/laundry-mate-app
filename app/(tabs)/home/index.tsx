@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#ffac5e",
   },
   carousel: {
     marginBottom: 16,
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#fff",
     marginBottom: 8,
     textAlign: "center",
     marginTop: 16,

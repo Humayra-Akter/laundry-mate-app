@@ -190,8 +190,9 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#ffa",
     textAlign: "center",
+    marginTop: 20,
   },
   priceContainer: {
     marginVertical: 16,
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 18,
-    color: "#752100",
+    color: "#000",
     textAlign: "center",
     marginTop: 12,
   },
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
   },
   counterText: {
     fontSize: 24,
-    color: "#FFF",
+    color: "#000",
     fontWeight: "bold",
   },
   counterValue: {
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
   totalPriceText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#fff",
   },
   addButton: {
     alignItems: "center",
@@ -251,11 +252,11 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   disabledButton: {
-    backgroundColor: "#ffac5e80",
+    backgroundColor: "#ffac5e",
   },
   addButtonText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFF",
+    color: "#000",
   },
 });

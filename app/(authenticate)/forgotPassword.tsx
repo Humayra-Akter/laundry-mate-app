@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
@@ -91,10 +91,11 @@ const styles = StyleSheet.create({
   },
   redirectText: {
     fontSize: 18,
-    fontFamily: "Raleway_600SemiBold",
+    fontWeight: "semibold",
+    color:"#fff"
   },
   signInText: {
-    fontFamily: "Raleway_600SemiBold",
+    fontWeight: "bold",
     fontSize: 18,
     marginLeft: 4,
     color: "#ffac5e",

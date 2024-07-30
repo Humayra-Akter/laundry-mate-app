@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { clearCart } from "../../../redux/CartReducer";
 import { clearPickupDate } from "../../../redux/DateReducer";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Payment = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -112,124 +113,131 @@ const Payment = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require("@/assets/images/logo.png")}
-          style={styles.logo}
-        />
-        <Text style={styles.title}>Laundry Mate</Text>
-      </View>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={{ flex: 1 }}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("@/assets/images/logo.png")}
+            style={styles.logo}
+          />
+          <Text style={styles.title}>Laundry Mate</Text>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Order Summary</Text>
-        <Text style={styles.text}>Total: BDT {totalPrice}</Text>
-        <Text style={styles.text}>Total Items: {totalItems}</Text>
-        {cart.map((item: any, index: number) => (
-          <View key={index} style={styles.cartItem}>
-            <Text style={styles.text}>{item.ItemName}</Text>
-            <Text style={styles.text}>BDT {item.totalPrice}</Text>
-          </View>
-        ))}
-      </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Order Summary</Text>
+          <Text style={styles.text}>Total: BDT {totalPrice}</Text>
+          <Text style={styles.text}>Total Items: {totalItems}</Text>
+          {cart.map((item: any, index: number) => (
+            <View key={index} style={styles.cartItem}>
+              <Text style={styles.text}>{item.ItemName}</Text>
+              <Text style={styles.text}>BDT {item.totalPrice}</Text>
+            </View>
+          ))}
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Pickup Details</Text>
-        <Text
-          style={[styles.text, { fontWeight: "bold", textAlign: "center" }]}
-        >
-          Selected Pickup Date:{" "}
-          {selectedPickupDate
-            ? new Date(selectedPickupDate).toDateString()
-            : "Not selected"}
-        </Text>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleNavigateToPickup}
-        >
-          <Text style={styles.buttonText2}>Change Pickup Date</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Payment Options</Text>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={[
-              styles.buttonContainer,
-              !selectedPickupDate && styles.disabledButton,
-            ]}
-            onPress={() => handlePayment("cash")}
-            disabled={!selectedPickupDate}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Pickup Details</Text>
+          <Text
+            style={[styles.text, { fontWeight: "bold", textAlign: "center" }]}
           >
-            <Text style={styles.buttonText2}>Cash on Delivery</Text>
-          </TouchableOpacity>
+            Selected Pickup Date:{" "}
+            {selectedPickupDate
+              ? new Date(selectedPickupDate).toDateString()
+              : "Not selected"}
+          </Text>
           <TouchableOpacity
-            style={[
-              styles.buttonContainer,
-              !selectedPickupDate && styles.disabledButton,
-            ]}
-            onPress={() => handlePayment("credit")}
-            disabled={!selectedPickupDate}
+            style={styles.buttonContainer}
+            onPress={handleNavigateToPickup}
           >
-            <Text style={styles.buttonText2}>Online Payment</Text>
+            <Text style={styles.buttonText2}>Change Pickup Date</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {isConfettiVisible && (
-        <ConfettiCannon count={500} origin={{ x: -10, y: 0 }} />
-      )}
-
-      <Modal
-        transparent={true}
-        animationType="slide"
-        visible={isModalVisible}
-        onRequestClose={handleCloseModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {paymentType === "credit" ? (
-              <>
-                <Text style={styles.modalTitle}>bkash</Text>
-                {error ? <Text style={styles.errorText}>{error}</Text> : null}
-                <TextInput
-                  style={styles.input}
-                  placeholder="Contact Number"
-                  value={contactNumber}
-                  onChangeText={setContactNumber}
-                  keyboardType="phone-pad"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="PIN"
-                  value={pin}
-                  onChangeText={setPin}
-                  secureTextEntry
-                  keyboardType="numeric"
-                />
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={handlePaymentSubmit}
-                >
-                  <Text style={styles.modalButtonText}>Submit</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <Text style={styles.modalTitle}>Thank you for your order!</Text>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={handlePaymentSubmit}
-                >
-                  <Text style={styles.modalButtonText}>Close</Text>
-                </TouchableOpacity>
-              </>
-            )}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Payment Options</Text>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={[
+                styles.buttonContainer,
+                !selectedPickupDate && styles.disabledButton,
+              ]}
+              onPress={() => handlePayment("cash")}
+              disabled={!selectedPickupDate}
+            >
+              <Text style={styles.buttonText2}>Cash on Delivery</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.buttonContainer,
+                !selectedPickupDate && styles.disabledButton,
+              ]}
+              onPress={() => handlePayment("credit")}
+              disabled={!selectedPickupDate}
+            >
+              <Text style={styles.buttonText2}>Online Payment</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    </ScrollView>
+
+        {isConfettiVisible && (
+          <ConfettiCannon count={500} origin={{ x: -10, y: 0 }} />
+        )}
+
+        <Modal
+          transparent={true}
+          animationType="slide"
+          visible={isModalVisible}
+          onRequestClose={handleCloseModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {paymentType === "credit" ? (
+                <>
+                  <Text style={styles.modalTitle}>bkash</Text>
+                  {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Contact Number"
+                    value={contactNumber}
+                    onChangeText={setContactNumber}
+                    keyboardType="phone-pad"
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="PIN"
+                    value={pin}
+                    onChangeText={setPin}
+                    secureTextEntry
+                    keyboardType="numeric"
+                  />
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={handlePaymentSubmit}
+                  >
+                    <Text style={styles.modalButtonText}>Submit</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <Text style={styles.modalTitle}>
+                    Thank you for your order!
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={handlePaymentSubmit}
+                  >
+                    <Text style={styles.modalButtonText}>Close</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
@@ -238,7 +246,6 @@ export default Payment;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "#fff",
   },
   header: {
     flexDirection: "row",

@@ -227,8 +227,9 @@ const styles = StyleSheet.create({
   welcome2Text: {
     textAlign: "center",
     fontSize: 12,
-    fontWeight: "semibold",
+    fontWeight: "bold",
     marginTop: 5,
+    color:"#fff"
   },
   inputContainer: {
     marginHorizontal: 16,
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
@@ -297,6 +298,7 @@ const styles = StyleSheet.create({
   redirectText: {
     fontSize: 18,
     fontWeight: "300",
+    color:"#fff"
   },
   signInText: {
     fontWeight: "400",

@@ -22,6 +22,7 @@ import {
   GestureHandlerRootView,
   Swipeable,
 } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
 
 type RouteParams = {
   selectedItems: string;
@@ -67,101 +68,110 @@ const Cart = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Basket Total</Text>
-          <View>
-            <Text style={styles.headerText}>BDT {totalPrice}</Text>
-            <Text style={styles.headerText}>for {items.length} items</Text>
+    <LinearGradient
+      colors={["#b521ff", "#691991", "#53007d"]}
+      style={{ flex: 1 }}
+    >
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ScrollView>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Basket Total</Text>
+            <View>
+              <Text style={styles.headerText}>BDT {totalPrice}</Text>
+              <Text style={styles.headerText}>for {items.length} items</Text>
+            </View>
           </View>
-        </View>
 
-        <Text style={styles.cartItemsText}>Cart Items</Text>
-        <View style={styles.cartItemsContainer}>
-          {items.map((item, index) => (
-            <Swipeable
-              key={index}
-              renderRightActions={(progress, dragX) =>
-                renderRightActions(progress, dragX, item.ItemName)
-              }
-            >
-              <View style={styles.cartItem}>
-                <Image
-                  style={styles.cartItemImage}
-                  source={require("@/assets/images/logo.png")}
-                />
-                <View style={styles.cartItemDetails}>
-                  <View style={styles.cartSingleItem}>
-                    <Text style={{ fontWeight: "bold" }}>{item.ItemName}</Text>
-                    {item.selectedServices.Iron > 0 && (
-                      <Text>Iron: {item.selectedServices.Iron}</Text>
-                    )}
-                    {item.selectedServices.WashIron > 0 && (
-                      <Text>Wash & Iron: {item.selectedServices.WashIron}</Text>
-                    )}
-                    {item.selectedServices.DryClean > 0 && (
-                      <Text>Dry Clean: {item.selectedServices.DryClean}</Text>
-                    )}
-                    <Text>Total Price: BDT {item.totalPrice}</Text>
+          <Text style={styles.cartItemsText}>Cart Items</Text>
+          <View style={styles.cartItemsContainer}>
+            {items.map((item, index) => (
+              <Swipeable
+                key={index}
+                renderRightActions={(progress, dragX) =>
+                  renderRightActions(progress, dragX, item.ItemName)
+                }
+              >
+                <View style={styles.cartItem}>
+                  <Image
+                    style={styles.cartItemImage}
+                    source={require("@/assets/images/logo.png")}
+                  />
+                  <View style={styles.cartItemDetails}>
+                    <View style={styles.cartSingleItem}>
+                      <Text style={{ fontWeight: "bold" }}>
+                        {item.ItemName}
+                      </Text>
+                      {item.selectedServices.Iron > 0 && (
+                        <Text>Iron: {item.selectedServices.Iron}</Text>
+                      )}
+                      {item.selectedServices.WashIron > 0 && (
+                        <Text>
+                          Wash & Iron: {item.selectedServices.WashIron}
+                        </Text>
+                      )}
+                      {item.selectedServices.DryClean > 0 && (
+                        <Text>Dry Clean: {item.selectedServices.DryClean}</Text>
+                      )}
+                      <Text>Total Price: BDT {item.totalPrice}</Text>
+                    </View>
+                    <Pressable
+                      style={styles.deleteIcon}
+                      onPress={() => handleDelete(item.ItemName)}
+                    >
+                      <MaterialCommunityIcons
+                        name="delete-circle"
+                        size={30}
+                        color="#ffac5e"
+                      />
+                    </Pressable>
                   </View>
-                  <Pressable
-                    style={styles.deleteIcon}
-                    onPress={() => handleDelete(item.ItemName)}
-                  >
-                    <MaterialCommunityIcons
-                      name="delete-circle"
-                      size={30}
-                      color="#ffac5e"
-                    />
-                  </Pressable>
                 </View>
-              </View>
-            </Swipeable>
-          ))}
-        </View>
+              </Swipeable>
+            ))}
+          </View>
 
-        {/* Buttons */}
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={[
-              styles.buttonContainer,
-              isCartEmpty && styles.buttonDisabled,
-            ]}
-            onPress={handleEmptyCart}
-            disabled={isCartEmpty}
-          >
-            <Text
+          {/* Buttons */}
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
               style={[
-                styles.buttonText2,
-                isCartEmpty && styles.buttonTextDisabled,
+                styles.buttonContainer,
+                isCartEmpty && styles.buttonDisabled,
               ]}
+              onPress={handleEmptyCart}
+              disabled={isCartEmpty}
             >
-              Empty Basket
-            </Text>
-            <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.buttonContainer,
-              isCartEmpty && styles.buttonDisabled,
-            ]}
-            onPress={() => router.push("/basket/payment")}
-            disabled={isCartEmpty}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.buttonText2,
+                  isCartEmpty && styles.buttonTextDisabled,
+                ]}
+              >
+                Empty Basket
+              </Text>
+              <FontAwesome5 name="cart-plus" size={24} color="#fff8e6" />
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[
-                styles.buttonText2,
-                isCartEmpty && styles.buttonTextDisabled,
+                styles.buttonContainer,
+                isCartEmpty && styles.buttonDisabled,
               ]}
+              onPress={() => router.push("/basket/payment")}
+              disabled={isCartEmpty}
             >
-              Payment
-            </Text>
-            <MaterialIcons name="payment" size={24} color="#fff8e6" />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </GestureHandlerRootView>
+              <Text
+                style={[
+                  styles.buttonText2,
+                  isCartEmpty && styles.buttonTextDisabled,
+                ]}
+              >
+                Payment
+              </Text>
+              <MaterialIcons name="payment" size={24} color="#fff8e6" />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </GestureHandlerRootView>
+    </LinearGradient>
   );
 };
 
@@ -174,6 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: 30,
   },
   headerText: {
     color: "white",

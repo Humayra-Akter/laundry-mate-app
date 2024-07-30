@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   futureDate: {
-    color: "green",
+    color: "#14ff5f",
     fontWeight: "bold",
     fontSize: 18,
   },
