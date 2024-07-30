@@ -158,14 +158,14 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   todayButton: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   todayText: {
     color: "#FFF",
     fontWeight: "bold",
   },
   selectedButton: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   disabledButton: {
     opacity: 0.5,

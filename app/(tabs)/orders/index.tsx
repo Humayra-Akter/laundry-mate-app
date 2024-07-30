@@ -50,7 +50,7 @@ const StarRating = ({ rating, setRating }: any) => {
           <Text
             style={[
               styles.star,
-              { color: index < rating ? "#FF725E" : "gray" },
+              { color: index < rating ? "#ffac5e" : "gray" },
             ]}
           >
             ★
@@ -167,7 +167,7 @@ export default function Index() {
   }
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={{ flex: 1 }}>
       <ScrollView>
         <View style={styles.headerContainer}>
           <View style={styles.headerTopRow}>
@@ -306,7 +306,7 @@ export default function Index() {
                       backgroundColor:
                         starCount === 0 || feedbackText === ""
                           ? "gray"
-                          : "#FF725E",
+                          : "#ffac5e",
                     },
                   ]}
                   onPress={handleFeedbackSubmit}
@@ -340,7 +340,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   headerContainer: {
     padding: 12,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   logoutButtonText: {
-    color: "#FF725E",
+    color: "#ffac5e",
     fontWeight: "bold",
   },
   title: {
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
   },
   orderDetailHeader: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     padding: 10,
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   buttonContainer: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   closeButtonText: {
-    color: "#FF725E",
+    color: "#ffac5e",
     fontWeight: "bold",
     fontSize: 16,
   },

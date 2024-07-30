@@ -68,7 +68,7 @@ export default function BasketScreen() {
   };
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={{ flex: 1 }}>
       <ScrollView>
         <View style={styles.headerContainer}>
           <Image
@@ -143,7 +143,7 @@ export default function BasketScreen() {
 const styles = StyleSheet.create({
   headerContainer: {
     padding: 12,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   container: {
     flex: 1,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   itemRow: {
     flexDirection: "row",
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttonContainer: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,

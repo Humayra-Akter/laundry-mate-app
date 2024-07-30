@@ -23,46 +23,46 @@ import { setUser } from "@/redux/UserReducer";
 import { useDispatch } from "react-redux";
 
 export default function LoginScreen() {
- const auth = FIREBASE_AUTH;
- const dispatch = useDispatch();
+  const auth = FIREBASE_AUTH;
+  const dispatch = useDispatch();
 
- const [isPasswordVisible, setIsPasswordVisible] = useState(false);
- const [required, setRequired] = useState("");
- const [buttonSpinner, setButtonSpinner] = useState(false);
- const [error, setError] = useState({ password: "" });
- const [userInfo, setUserInfo] = useState({
-   email: "",
-   password: "",
- });
- const [focusedInput, setFocusedInput] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [required, setRequired] = useState("");
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+  const [error, setError] = useState({ password: "" });
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [focusedInput, setFocusedInput] = useState("");
 
- const handleSignIn = async () => {
-   try {
-     setButtonSpinner(true);
-     const response = await fetch("http://192.168.1.170:5000/login", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify({
-         email: userInfo?.email,
-         password: userInfo?.password,
-       }),
-     });
-     const data = await response.json();
-     if (response.ok) {
-       dispatch(setUser({ email: userInfo.email }));
-       router.push("/home");
-     } else {
-       Alert.alert("Login Failed", data.message);
-     }
-   } finally {
-     setButtonSpinner(false);
-   }
- };
+  const handleSignIn = async () => {
+    try {
+      setButtonSpinner(true);
+      const response = await fetch("http://192.168.1.170:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userInfo?.email,
+          password: userInfo?.password,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(setUser({ email: userInfo.email }));
+        router.push("/home");
+      } else {
+        Alert.alert("Login Failed", data.message);
+      }
+    } finally {
+      setButtonSpinner(false);
+    }
+  };
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.gradient}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.gradient}>
       <ScrollView>
         <Image
           source={require("@/assets/signin/signin.png")}
@@ -202,13 +202,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   welcome2Text: {
     textAlign: "center",
     fontSize: 12,
-    fontWeight: "semibold",
+    fontWeight: "bold",
     marginTop: 5,
+    color: "#fff",
   },
   inputContainer: {
     marginHorizontal: 16,
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   inputFocused: {
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     color: "black",
   },
   icon: {
@@ -257,11 +258,12 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 16,
     marginTop: 8,
-    color: "#FF725E",
+    color: "#ffac5e",
+    fontWeight: "semibold",
   },
   buttonContainer: {
     width: "90%",
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     borderRadius: 8,
     elevation: 3,
@@ -274,7 +276,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "700",
@@ -289,12 +291,13 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: 18,
     fontWeight: "400",
+    color:"#fff"
   },
   registerText: {
     fontWeight: "400",
     fontSize: 18,
     marginLeft: 4,
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   errorContainer: {
     flexDirection: "row",

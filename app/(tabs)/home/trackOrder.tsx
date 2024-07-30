@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 const TrackOrder = () => {
   return (
     <LinearGradient
-      colors={["#fff", "#fafafa"]}
+      colors={["#9002d6", "#7200ab"]}
       style={{ flex: 1, paddingVertical: 16 }}
     >
       <View style={styles.header}>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dotActive: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   timelineText: {
     fontSize: 16,

@@ -22,13 +22,13 @@ function MainLayout() {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#FF725E" />
+        <ActivityIndicator size="large" color="#ffac5e" />
       </View>
     );
   }
 
   if (!user) {
-    return null; 
+    return null;
   }
 
   return (
@@ -41,7 +41,7 @@ function MainLayout() {
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <FontAwesome name="home" size={24} color="#FF725E" />
+              <FontAwesome name="home" size={24} color="#ffac5e" />
             ) : (
               <FontAwesome name="home" size={24} color="black" />
             ),
@@ -55,7 +55,7 @@ function MainLayout() {
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <FontAwesome5 name="shopping-basket" size={24} color="#FF725E" />
+              <FontAwesome5 name="shopping-basket" size={24} color="#ffac5e" />
             ) : (
               <FontAwesome5 name="shopping-basket" size={24} color="black" />
             ),
@@ -72,7 +72,7 @@ function MainLayout() {
               <MaterialCommunityIcons
                 name="account-details"
                 size={24}
-                color="#FF725E"
+                color="#ffac5e"
               />
             ) : (
               <MaterialCommunityIcons

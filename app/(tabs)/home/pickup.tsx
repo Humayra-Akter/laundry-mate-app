@@ -87,13 +87,13 @@ export default function Pickup() {
   };
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={{ flex: 1 }}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         {/* Top section */}
         <View
           style={[
             styles.header,
-            { backgroundColor: "#FF725E", height: 180, borderRadius: 20 },
+            { backgroundColor: "#ffac5e", height: 180, borderRadius: 20 },
           ]}
         >
           <Image
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
-    color: "#FF725E",
+    color: "#ffac5e",
     textAlign: "center",
     marginBottom: 10,
   },
@@ -216,13 +216,13 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff8e6",
   },
   selectedButton: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     color: "#000",
   },
   buttonText: {
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttonContainer: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,

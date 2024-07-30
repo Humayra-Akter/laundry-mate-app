@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   text: {
     fontSize: 16,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   buttonContainer: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   input: {
     borderWidth: 1,
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalButton: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,

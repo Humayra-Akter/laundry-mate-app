@@ -19,7 +19,7 @@ export default function Layout() {
             headerShown: false,
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <FontAwesome name="home" size={24} color="#FF725E" />
+                <FontAwesome name="home" size={24} color="#ffac5e" />
               ) : (
                 <FontAwesome name="home" size={24} color="black" />
               ),
@@ -36,7 +36,7 @@ export default function Layout() {
                 <FontAwesome5
                   name="shopping-basket"
                   size={24}
-                  color="#FF725E"
+                  color="#ffac5e"
                 />
               ) : (
                 <FontAwesome5 name="shopping-basket" size={24} color="black" />
@@ -54,7 +54,7 @@ export default function Layout() {
                 <MaterialCommunityIcons
                   name="account-details"
                   size={24}
-                  color="#FF725E"
+                  color="#ffac5e"
                 />
               ) : (
                 <MaterialCommunityIcons
@@ -69,4 +69,3 @@ export default function Layout() {
     </Provider>
   );
 }
-

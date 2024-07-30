@@ -77,7 +77,7 @@ export default function AddToCart() {
     selectedServices.DryClean === 0;
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
       <View style={styles.container}>
         <View style={styles.itemContainer}>
           <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 20,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 10,
@@ -244,11 +244,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 12,
     borderRadius: 8,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     marginVertical: 16,
   },
   disabledButton: {
-    backgroundColor: "#FF725E80",
+    backgroundColor: "#ffac5e80",
   },
   addButtonText: {
     fontSize: 18,

@@ -99,7 +99,7 @@ export default function Select() {
   };
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
       {/* Top section */}
       <View style={styles.header}>
         <Image
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 10,
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -260,20 +260,20 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   selectedServiceButton: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
   },
   selectedServiceButtonText: {
     color: "#FFF",
   },
   serviceButtonText: {
     fontSize: 16,
-    color: "#FF725E",
+    color: "#ffac5e",
     fontWeight: "bold",
   },
   serviceTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
     textAlign: "center",
     marginBottom: 20,
     marginTop: 10,
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderWidth: 1,
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     fontSize: 16,
-    color: "#FF725E",
+    color: "#ffac5e",
     fontWeight: "bold",
   },
 });

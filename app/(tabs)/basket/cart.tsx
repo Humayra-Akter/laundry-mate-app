@@ -112,7 +112,7 @@ const Cart = () => {
                     <MaterialCommunityIcons
                       name="delete-circle"
                       size={30}
-                      color="#FF725E"
+                      color="#ffac5e"
                     />
                   </Pressable>
                 </View>
@@ -169,7 +169,7 @@ export default Cart;
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     padding: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
   cartItemsText: {
     padding: 10,
-    color: "#FF725E",
+    color: "#ffac5e",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "700",
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 80,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     marginVertical: 2,
     borderRadius: 5,
   },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttonContainer: {
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 8,

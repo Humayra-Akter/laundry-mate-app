@@ -12,7 +12,7 @@ import { router } from "expo-router";
 
 export default function forgotPassword() {
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
       <Text style={styles.welcomeText}>Reset Email Password</Text>
 
       <TextInput
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
     marginBottom: 20,
   },
   input: {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "90%",
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     borderRadius: 8,
     elevation: 3,
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
     fontFamily: "Raleway_600SemiBold",
     fontSize: 18,
     marginLeft: 4,
-    color: "#FF725E",
+    color: "#ffac5e",
   },
 });

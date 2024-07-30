@@ -75,7 +75,7 @@ export default function SignupScreen() {
 
   return (
     <LinearGradient
-      colors={["#fff", "#fafafa"]}
+      colors={["#9002d6", "#7200ab"]}
       style={{ flex: 1, paddingHorizontal: 16, paddingTop: 20 }}
     >
       <ScrollView>
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   welcome2Text: {
     textAlign: "center",
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "90%",
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     paddingVertical: 10,
     borderRadius: 8,
     elevation: 3,
@@ -302,6 +302,6 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 18,
     marginLeft: 4,
-    color: "#FF725E",
+    color: "#ffac5e",
   },
 });

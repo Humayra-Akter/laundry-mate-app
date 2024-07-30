@@ -46,7 +46,7 @@ export default function index() {
 
   const renderServiceItem = ({ item }: any) => (
     <View style={styles.serviceItem}>
-      <MaterialCommunityIcons name={item.icon} size={24} color="#FF725E" />
+      <MaterialCommunityIcons name={item.icon} size={24} color="#ffac5e" />
       <Text style={styles.serviceName}>{item.name}</Text>
     </View>
   );
@@ -79,7 +79,7 @@ export default function index() {
   );
 
   return (
-    <LinearGradient colors={["#fff", "#fafafa"]} style={styles.container}>
+    <LinearGradient colors={["#9002d6", "#7200ab"]} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.header}>
           <Image
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   carouselTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   pickup: {
     textAlign: "center",
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     marginTop: 18,
-    borderColor: "#FF725E",
+    borderColor: "#ffac5e",
     borderWidth: 1,
     marginBottom: 10,
   },
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: "#FF725E",
+    backgroundColor: "#ffac5e",
     borderRadius: 10,
     paddingVertical: 5,
     paddingHorizontal: 15,
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
   specialOfferTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   specialOfferDescription: {
     fontSize: 14,
@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
   specialOfferDiscount: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FF725E",
+    color: "#ffac5e",
   },
   specialOfferValidity: {
     fontSize: 14,
