@@ -15,6 +15,7 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { clearCart } from "../../../redux/CartReducer";
 import { clearPickupDate } from "../../../redux/DateReducer";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 
 const Payment = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -126,8 +127,14 @@ const Payment = () => {
           }}
         >
           <View style={styles.header}>
-            <Image
+            {/* <Image
               source={require("@/assets/images/logo.png")}
+              style={styles.logo}
+            /> */}
+            <Ionicons
+              name="chevron-back-circle-sharp"
+              size={28}
+              color="black"
               style={styles.logo}
             />
           </View>
