@@ -82,12 +82,19 @@ const Cart = () => {
             }}
           >
             <View style={styles.header}>
-              <Text style={styles.headerText}>Basket Total</Text>
+              {/* <Text style={styles.headerText}>Basket Total</Text> */}
+              <MaterialIcons
+                onPress={() => router.push("/home/search")}
+                name="add-circle"
+                size={28}
+                color="black"
+              />
               <View>
                 <Text style={styles.headerText}>BDT {totalPrice}</Text>
                 <Text style={styles.headerText}>for {items.length} items</Text>
               </View>
             </View>
+
             <Text style={styles.cartItemsText}>Cart Items</Text>
           </View>
 

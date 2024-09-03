@@ -212,7 +212,7 @@ export default function Index() {
           </View>
         </View>
 
-        <View style={[styles.ordersContainer, {marginTop:-60}]}>
+        <View style={[styles.ordersContainer, { marginTop: -60 }]}>
           {orderDetails && orderDetails.length > 0 ? (
             orderDetails.map((order) => {
               const tentativeDeliveryDate = getTentativeDeliveryDate(

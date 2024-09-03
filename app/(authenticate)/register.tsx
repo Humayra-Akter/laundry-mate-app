@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     marginTop: 5,
-    color:"#fff"
+    color: "#fff",
   },
   inputContainer: {
     marginHorizontal: 16,
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   redirectText: {
     fontSize: 18,
     fontWeight: "300",
-    color:"#fff"
+    color: "#fff",
   },
   signInText: {
     fontWeight: "400",

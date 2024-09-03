@@ -134,7 +134,17 @@ const Payment = () => {
           <Text style={styles.mainSectionTitle}>Order Summary</Text>
         </View>
 
-        <View style={[styles.section,{marginTop:-50, backgroundColor:"#ddd", margin:20, borderRadius:20}]}>
+        <View
+          style={[
+            styles.section,
+            {
+              marginTop: -50,
+              backgroundColor: "#ddd",
+              margin: 20,
+              borderRadius: 20,
+            },
+          ]}
+        >
           <Text style={styles.text}>Total: BDT {totalPrice}</Text>
           <Text style={styles.text}>Total Items: {totalItems}</Text>
           {cart.map((item: any, index: number) => (
@@ -148,7 +158,10 @@ const Payment = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Pickup Details</Text>
           <Text
-            style={[styles.text, { fontWeight: "bold", textAlign: "center", color:"#fff" }]}
+            style={[
+              styles.text,
+              { fontWeight: "bold", textAlign: "center", color: "#fff" },
+            ]}
           >
             Selected Pickup Date:{" "}
             {selectedPickupDate
