@@ -136,6 +136,7 @@ const Payment = () => {
               size={28}
               color="black"
               style={styles.logo}
+              onPress={() => router.push("/basket/cart")}
             />
           </View>
           <Text style={styles.mainSectionTitle}>Order Summary</Text>
