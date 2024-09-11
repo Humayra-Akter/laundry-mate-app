@@ -219,6 +219,7 @@ export default function Index() {
                 order.pickupDate,
                 0
               );
+                const isDelivered = tentativeDeliveryDate <= new Date();
               return (
                 <Pressable key={order?._id} style={styles.orderDetailContainer}>
                   <View style={styles.orderDetailHeader}>
@@ -241,15 +242,30 @@ export default function Index() {
                     </Text>
                   </View>
 
+
+                  {/* feedback icon  */}
                   <Pressable
                     style={styles.feedbackIcon}
                     onPress={() => {
-                      setSelectedOrder(order);
-                      setFeedbackVisible(true);
+                      if (isDelivered) {
+                        setSelectedOrder(order);
+                        setFeedbackVisible(true);
+                      } else {
+                        Alert.alert(
+                          "Not Delivered",
+                          "You can only provide feedback after the order has been delivered."
+                        );
+                      }
                     }}
+                    disabled={!isDelivered}
                   >
-                    <FontAwesome name="folder-open-o" size={24} color="black" />
+                    <FontAwesome
+                      name="folder-open-o"
+                      size={24}
+                      color={isDelivered ? "black" : "gray"}
+                    />
                   </Pressable>
+                  
 
                   <View style={styles.orderDetailBody}>
                     {order.items.map((item, index) => (
@@ -290,6 +306,9 @@ export default function Index() {
             <Text style={styles.noOrdersText}>No orders till now.</Text>
           )}
         </View>
+
+
+        {/* modal  */}
         <Modal
           visible={feedbackVisible}
           transparent={true}

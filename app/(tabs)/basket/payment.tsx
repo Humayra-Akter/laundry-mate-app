@@ -8,6 +8,7 @@ import {
   Image,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "expo-router";
@@ -53,13 +54,30 @@ const Payment = () => {
 
   const handlePayment = (type: string) => {
     setPaymentType(type);
+    if (type === "cash") {
+      Alert.alert(
+        "Cash on Delivery",
+        "Cash on delivery will cost an additional 60 TK."
+      );
+    }
     setModalVisible(true);
   };
 
   const handlePaymentSubmit = async () => {
-    if (paymentType === "credit" && (!contactNumber || !pin)) {
-      setError("Please enter both contact number and PIN.");
-      return;
+    if (paymentType === "credit") {
+      if (
+        !contactNumber ||
+        contactNumber.length !== 11 ||
+        !/^\d+$/.test(contactNumber)
+      ) {
+        setError("Please enter a valid 11-digit phone number.");
+        return;
+      }
+
+      if (!pin || pin.length !== 5 || !/^\d+$/.test(pin)) {
+        setError("Please enter a valid 5-digit PIN.");
+        return;
+      }
     }
 
     const userEmail = user?.user?.email || null;
@@ -232,6 +250,7 @@ const Payment = () => {
                     value={contactNumber}
                     onChangeText={setContactNumber}
                     keyboardType="phone-pad"
+                    maxLength={11}
                   />
                   <TextInput
                     style={styles.input}
@@ -240,13 +259,22 @@ const Payment = () => {
                     onChangeText={setPin}
                     secureTextEntry
                     keyboardType="numeric"
+                    maxLength={5}
                   />
-                  <TouchableOpacity
-                    style={styles.modalButton}
-                    onPress={handlePaymentSubmit}
-                  >
-                    <Text style={styles.modalButtonText}>Submit</Text>
-                  </TouchableOpacity>
+                  <View style={styles.modalButtonContainer}>
+                    <TouchableOpacity
+                      style={styles.modalButtonCancel}
+                      onPress={handleCloseModal}
+                    >
+                      <Text style={styles.modalButtonText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.modalButton}
+                      onPress={handlePaymentSubmit}
+                    >
+                      <Text style={styles.modalButtonText}>Submit</Text>
+                    </TouchableOpacity>
+                  </View>
                 </>
               ) : (
                 <>
@@ -363,13 +391,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "#ffac5e",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
-    width: "100%",
-    marginBottom: 10,
+  modalButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
   },
   modalButton: {
     backgroundColor: "#ffac5e",
@@ -383,6 +408,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  modalButtonCancel: {
+    backgroundColor: "#ddd",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 10,
+    width: "100%",
+    marginBottom: 10,
+  },
+
   errorText: {
     color: "red",
     marginBottom: 10,
