@@ -33,6 +33,7 @@ export default function SignupScreen() {
   const [required, setRequired] = useState("");
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [error, setError] = useState({ password: "" });
+  const [focusedInput, setFocusedInput] = useState("");
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -93,13 +94,19 @@ export default function SignupScreen() {
               {/* name input  */}
               <View>
                 <TextInput
-                  style={styles.input}
+                  style={[
+                    styles.input,
+                    focusedInput === "name" && styles.inputFocused,
+                  ]}
                   keyboardType="default"
                   value={userInfo.name}
                   placeholder="your name"
+                  placeholderTextColor="#A1A1A1"
                   onChangeText={(value) => {
                     setUserInfo({ ...userInfo, name: value });
                   }}
+                  onFocus={() => setFocusedInput("name")}
+                  onBlur={() => setFocusedInput("")}
                 />
                 <AntDesign
                   style={{ position: "absolute", left: 36, top: 10 }}
@@ -116,13 +123,20 @@ export default function SignupScreen() {
               {/* email input  */}
               <View style={{ marginTop: 16 }}>
                 <TextInput
-                  style={styles.input}
+                  style={[
+                    styles.input,
+                    focusedInput === "email" && styles.inputFocused,
+                  ]}
                   keyboardType="email-address"
                   value={userInfo.email}
+                  placeholderTextColor="#A1A1A1"
                   placeholder="example@gmail.com"
+                  autoCapitalize="none"
                   onChangeText={(value) => {
                     setUserInfo({ ...userInfo, email: value });
                   }}
+                  onFocus={() => setFocusedInput("email")}
+                  onBlur={() => setFocusedInput("")}
                 />
                 <Fontisto
                   style={{ position: "absolute", left: 36, top: 10 }}
@@ -139,14 +153,20 @@ export default function SignupScreen() {
               {/* password input  */}
               <View style={{ marginTop: 16 }}>
                 <TextInput
-                  style={styles.input}
+                  style={[
+                    styles.input,
+                    focusedInput === "password" && styles.inputFocused,
+                  ]}
                   keyboardType="default"
-                  defaultValue=""
+                  value={userInfo.password}
                   placeholder="********"
+                  placeholderTextColor="#A1A1A1"
                   secureTextEntry={!isPasswordVisible}
                   onChangeText={(value) => {
                     setUserInfo({ ...userInfo, password: value });
                   }}
+                  onFocus={() => setFocusedInput("password")}
+                  onBlur={() => setFocusedInput("")}
                 />
                 <TouchableOpacity
                   style={styles.visibleIcon}
@@ -171,14 +191,6 @@ export default function SignupScreen() {
                   size={20}
                   color={"#A1A1A1"}
                 />
-                {error.password && (
-                  <View style={styles.errorContainer}>
-                    <Entypo name="cross" size={18} color={"red"} />
-                    <Text style={{ color: "red", fontSize: 12, marginTop: -1 }}>
-                      {error?.password}
-                    </Text>
-                  </View>
-                )}
               </View>
               {/* sign in button  */}
               <TouchableOpacity
@@ -217,6 +229,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  inputFocused: {
+    borderColor: "#ffac5e",
+    color: "black",
   },
   welcomeText: {
     textAlign: "center",
