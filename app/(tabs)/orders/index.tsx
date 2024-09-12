@@ -9,6 +9,7 @@ import {
   ScrollView,
   Modal,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import {
   Octicons,
@@ -186,12 +187,14 @@ export default function Index() {
             }}
           >
             <View style={styles.headerTopRow}>
-              <Image
-                style={styles.logo}
-                source={require("@/assets/images/logo.png")}
-              />
+              <TouchableOpacity onPress={() => router.push("/home")}>
+                <Image
+                  style={styles.logo}
+                  source={require("@/assets/images/logo.png")}
+                />
+              </TouchableOpacity>
               <Pressable onPress={() => setShowLogout(!showLogout)}>
-                <Octicons name="three-bars" size={24} color="white" />
+                <Octicons name="three-bars" size={24} color="black" />
               </Pressable>
             </View>
             {showLogout && (
@@ -406,7 +409,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   logoutButtonText: {
-    color: "#ffac5e",
+    color: "#000",
     fontWeight: "bold",
   },
   title: {

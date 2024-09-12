@@ -1,39 +1,122 @@
 import {
-  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
+  Modal,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 
-export default function forgotPassword() {
+export default function ForgotPassword() {
+  const [email, setEmail] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleResetPassword = () => {
+    if (!email) {
+      Alert.alert("Error", "Please enter an email address.");
+      return;
+    }
+    setShowModal(true);
+  };
+
+  const handleUpdatePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://192.168.1.170:5000/user/${email}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newPassword: newPassword,
+        }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text(); 
+        throw new Error(errorText);
+      }
+      const contentType = response.headers.get("Content-Type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        Alert.alert("Success", "Password updated successfully!");
+        setShowModal(false);
+        router.push("/login");
+      } else {
+        Alert.alert("Error", "Unexpected response format.");
+      }
+    } catch (error) {
+      console.error("Update Password Error:", error);
+      Alert.alert("Error", "Network request failed or invalid response.");
+    }
+  };
+
+
   return (
     <LinearGradient
       colors={["#b521ff", "#691991", "#53007d"]}
       style={styles.container}
     >
-      <Text style={styles.welcomeText}>Reset Email Password</Text>
+      <Text style={styles.welcomeText}>Reset Password</Text>
 
       <TextInput
         style={styles.input}
         placeholder="example@gmail.com"
         keyboardType="email-address"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
       />
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>Send</Text>
+
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={handleResetPassword}
+      >
+        <Text style={styles.buttonText}>Reset Password</Text>
       </TouchableOpacity>
 
-      {/* redirect button  */}
-      <View style={styles.signUpRedirect}>
-        <Text style={styles.redirectText}>Back to</Text>
-        <TouchableOpacity onPress={() => router.push("/login")}>
-          <Text style={styles.signInText}>Sign In</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Modal for new password and confirm password */}
+      <Modal visible={showModal} transparent={true} animationType="slide">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Enter New Password</Text>
+
+            <TextInput
+              style={styles.input}
+              placeholder="New Password"
+              secureTextEntry={true}
+              value={newPassword}
+              onChangeText={(text) => setNewPassword(text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Confirm Password"
+              secureTextEntry={true}
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
+            />
+
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={handleUpdatePassword}
+            >
+              <Text style={styles.buttonText}>Update Password</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setShowModal(false)}>
+              <Text style={styles.cancelText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </LinearGradient>
   );
 }
@@ -84,20 +167,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
   },
-  signUpRedirect: {
-    flexDirection: "row",
+  modalContainer: {
+    flex: 1,
     justifyContent: "center",
-    marginTop: 20,
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-  redirectText: {
+  modalContent: {
+    width: "90%",
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalTitle: {
     fontSize: 18,
-    fontWeight: "semibold",
-    color:"#fff"
-  },
-  signInText: {
     fontWeight: "bold",
-    fontSize: 18,
-    marginLeft: 4,
-    color: "#ffac5e",
+    marginBottom: 10,
+  },
+  cancelText: {
+    color: "red",
+    marginTop: 20,
   },
 });
