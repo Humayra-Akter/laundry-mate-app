@@ -197,10 +197,28 @@ export default function Index() {
                 <Octicons name="three-bars" size={24} color="black" />
               </Pressable>
             </View>
+
             {showLogout && (
-              <Pressable style={styles.logoutButton} onPress={handleLogout}>
-                <Text style={styles.logoutButtonText}>Logout</Text>
-              </Pressable>
+              <>
+                <Pressable
+                  style={[
+                    styles.logoutButton,
+                    { position: "absolute", top: 70, right: 16, width: 80 },
+                  ]}
+                  onPress={handleLogout}
+                >
+                  <Text style={styles.logoutButtonText}>Logout</Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    styles.logoutButton,
+                    { position: "absolute", top: 100, right: 16 },
+                  ]}
+                  onPress={() => router.push("/orders/feedback")}
+                >
+                  <Text style={styles.logoutButtonText}>Feedback</Text>
+                </Pressable>
+              </>
             )}
             <View
               style={{
@@ -208,6 +226,9 @@ export default function Index() {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 12,
+                position: "absolute",
+                top: 60,
+                left: 135,
               }}
             >
               <MaterialCommunityIcons
@@ -404,11 +425,12 @@ const styles = StyleSheet.create({
   logoutButton: {
     backgroundColor: "#fff",
     borderRadius: 5,
-    padding: 10,
-    marginTop: 10,
+    paddingVertical: 3,
+    paddingHorizontal:10,
     alignSelf: "flex-end",
   },
   logoutButtonText: {
+    textAlign: "center",
     color: "#000",
     fontWeight: "bold",
   },
