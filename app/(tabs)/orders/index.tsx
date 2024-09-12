@@ -72,7 +72,7 @@ const getTentativeDeliveryDate = (
 
 const getStatusColor = (deliveryDate: Date): string => {
   const today = new Date();
-  return deliveryDate > today ? "yellow" : "green";
+  return deliveryDate > today ? "blue" : "green";
 };
 
 export default function Index() {
@@ -179,7 +179,12 @@ export default function Index() {
             borderRadius: 20,
           }}
         >
-          <View>
+          <View
+            style={{
+              padding: 16,
+              marginTop: 10,
+            }}
+          >
             <View style={styles.headerTopRow}>
               <Image
                 style={styles.logo}
@@ -219,7 +224,7 @@ export default function Index() {
                 order.pickupDate,
                 0
               );
-                const isDelivered = tentativeDeliveryDate <= new Date();
+              const isDelivered = tentativeDeliveryDate <= new Date();
               return (
                 <Pressable key={order?._id} style={styles.orderDetailContainer}>
                   <View style={styles.orderDetailHeader}>
@@ -241,7 +246,6 @@ export default function Index() {
                       {tentativeDeliveryDate?.toLocaleDateString()}
                     </Text>
                   </View>
-
 
                   {/* feedback icon  */}
                   <Pressable
@@ -265,7 +269,6 @@ export default function Index() {
                       color={isDelivered ? "black" : "gray"}
                     />
                   </Pressable>
-                  
 
                   <View style={styles.orderDetailBody}>
                     {order.items.map((item, index) => (
@@ -306,7 +309,6 @@ export default function Index() {
             <Text style={styles.noOrdersText}>No orders till now.</Text>
           )}
         </View>
-
 
         {/* modal  */}
         <Modal
@@ -425,6 +427,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
+    padding: 1,
   },
   orderDetailHeader: {
     backgroundColor: "#ffac5e",

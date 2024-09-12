@@ -242,7 +242,7 @@ const Payment = () => {
             <View style={styles.modalContent}>
               {paymentType === "credit" ? (
                 <>
-                  <Text style={styles.modalTitle}>bkash</Text>
+                  <Text style={styles.modalTitle}>Online Payment</Text>
                   {error ? <Text style={styles.errorText}>{error}</Text> : null}
                   <TextInput
                     style={styles.input}

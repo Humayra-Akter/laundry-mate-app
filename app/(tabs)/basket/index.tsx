@@ -73,25 +73,43 @@ export default function BasketScreen() {
       style={{ flex: 1 }}
     >
       <ScrollView>
-        <View style={styles.headerContainer}>
-          <Image
-            style={styles.logo}
-            source={require("@/assets/images/logo.png")}
-          />
+        <View
+          style={{
+            backgroundColor: "#ffac5e",
+            height: 180,
+            borderRadius: 20,
+          }}
+        >
           <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 12,
-            }}
+            style={[
+              styles.headerContainer,
+              {
+                padding: 16,
+                marginTop: 16,
+              },
+            ]}
           >
-            <Ionicons name="basket" size={24} color="#000" />
-            <Text style={styles.title}>My Busket</Text>
+            <TouchableOpacity onPress={() => router.push("/home")}>
+              <Image
+                style={styles.logo}
+                source={require("@/assets/images/logo.png")}
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 12,
+              }}
+            >
+              <Ionicons name="basket" size={24} color="#000" />
+              <Text style={styles.title}>My Basket</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.container}>
+        <View style={[styles.container, { marginTop: -60 }]}>
           <View style={styles.container}>
             {selectedItems.map((item: any, index: any) => (
               <View key={index} style={styles.itemSection}>
