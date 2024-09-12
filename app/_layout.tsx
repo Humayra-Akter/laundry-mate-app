@@ -17,7 +17,7 @@ function MainLayout() {
     if (!loading && !user) {
       router.push("/(authenticate)/login");
     }
-  }, [loading, user]);
+  }, [loading, user,router]);
 
   if (loading) {
     return (

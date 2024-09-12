@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import {
   AntDesign,
@@ -44,33 +45,39 @@ export default function SignupScreen() {
   const dispatch = useDispatch();
 
   const handleSignUp = async () => {
-    try {
+     try {
       if (!userInfo.name || !userInfo.email || !userInfo.password) {
         setRequired("All fields are required");
         return;
       }
       setButtonSpinner(true);
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        userInfo?.email,
-        userInfo?.password
-      );
-      console.log(response);
-      await fetch("http://192.168.1.170:5000/user", {
+      // const response = await createUserWithEmailAndPassword(
+      //   auth,
+      //   userInfo?.email,
+      //   userInfo?.password
+      // );
+      const response = await fetch("http://192.168.1.170:5000/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(response),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(setUser({ email: userInfo.email }));
-          router.push("/home");
-        });
-    } catch (error: any) {
+        body: JSON.stringify({
+          name:userInfo?.name,
+          email: userInfo?.email,
+          password: userInfo?.password,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(setUser({ email: userInfo.email }));
+        router.push("/home");
+      } else {
+        Alert.alert("Register Failed", data.message);
+      }
+    }
+     catch (error: any) {
       console.log(error);
-      alert("Login failed " + error.message);
+      alert("Register failed " + error.message);
     }
   };
 
