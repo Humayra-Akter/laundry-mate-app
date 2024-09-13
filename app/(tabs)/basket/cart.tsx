@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
+  Entypo,
   FontAwesome5,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -82,20 +83,29 @@ const Cart = () => {
             }}
           >
             <View style={styles.header}>
-              {/* <Text style={styles.headerText}>Basket Total</Text> */}
               <MaterialIcons
                 onPress={() => router.push("/home/search")}
                 name="add-circle"
                 size={28}
-                color="black"
+                color="#752100"
+                style={{ marginTop: 16, marginLeft: 10 }}
               />
-              <View>
+              <View style={{ marginTop: 16, marginRight: 10 }}>
                 <Text style={styles.headerText}>BDT {totalPrice}</Text>
                 <Text style={styles.headerText}>for {items.length} items</Text>
               </View>
             </View>
-
-            <Text style={styles.cartItemsText}>Cart Items</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 12,
+              }}
+            >
+              <Entypo name="shopping-cart" size={24} color="#000" />
+              <Text style={styles.cartItemsText}>Cart Items</Text>
+            </View>
           </View>
 
           <View style={styles.cartItemsContainer}>
@@ -207,7 +217,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   cartItemsText: {
-    padding: 10,
     color: "#000",
     textAlign: "center",
     fontSize: 20,

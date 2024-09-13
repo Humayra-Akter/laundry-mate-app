@@ -348,6 +348,7 @@ const styles = StyleSheet.create({
   },
   generalServiceName: {
     fontSize: 16,
+    fontWeight: "bold",
     color: "#752100",
   },
   priceListCard: {

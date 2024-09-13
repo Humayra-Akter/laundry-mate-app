@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     height: 40,
     resizeMode: "cover",
     marginTop: 30,
-    marginLeft:20
+    marginLeft: 20,
   },
   section: {
     marginBottom: 20,
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#ffac5e",
+    color: "#752100",
   },
   modalButtonContainer: {
     flexDirection: "row",
