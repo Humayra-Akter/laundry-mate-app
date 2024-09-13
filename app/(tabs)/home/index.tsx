@@ -46,7 +46,7 @@ export default function index() {
 
   const renderServiceItem = ({ item }: any) => (
     <View style={styles.serviceItem}>
-      <MaterialCommunityIcons name={item.icon} size={24} color="#ffac5e" />
+      <MaterialCommunityIcons name={item.icon} size={24} color="#752100" />
       <Text style={styles.serviceName}>{item.name}</Text>
     </View>
   );
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 30,
   },
   logo: {
     width: 60,
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#ffac5e",
+    color: "#fff",
   },
   carousel: {
     marginBottom: 16,
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
   carouselTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ffac5e",
+    color: "#752100",
   },
   pickup: {
     textAlign: "center",
@@ -407,7 +408,7 @@ const styles = StyleSheet.create({
   specialOfferTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ffac5e",
+    color: "#752100",
   },
   specialOfferDescription: {
     fontSize: 14,
@@ -421,7 +422,7 @@ const styles = StyleSheet.create({
   specialOfferDiscount: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#ffac5e",
+    color: "#752100",
   },
   specialOfferValidity: {
     fontSize: 14,
@@ -433,11 +434,11 @@ const styles = StyleSheet.create({
   faqQuestion: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#ddd",
+    color: "#fff",
   },
   faqAnswer: {
     fontSize: 14,
-    color: "#000",
+    color: "#ddd",
     marginTop: 4,
   },
   pickupContainer: {
