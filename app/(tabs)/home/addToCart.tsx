@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/CartReducer";
 import { LinearGradient } from "expo-linear-gradient";
 import { CartItem, SelectedServices } from "../../../redux/types";
+import { Ionicons } from "@expo/vector-icons";
 
 interface PricingItem {
   ItemName: string;
@@ -82,6 +83,14 @@ export default function AddToCart() {
       style={styles.container}
     >
       <View style={styles.container}>
+        <Ionicons
+          name="chevron-back-circle-sharp"
+          size={28}
+          color="#fff"
+          style={styles.logo}
+          onPress={() => router.push("/home/search")}
+        />
+
         <View style={styles.itemContainer}>
           <Text style={styles.itemName}>{parsedItem.ItemName}</Text>
         </View>
@@ -182,6 +191,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     paddingHorizontal: 20,
+  },
+  logo: {
+    position:"absolute",
+    top: 40,
+    left:10
   },
   itemContainer: {
     alignItems: "center",

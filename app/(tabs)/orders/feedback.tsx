@@ -9,7 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Octicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Octicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
@@ -110,11 +110,7 @@ export default function Feedback() {
           </View>
 
           <View style={styles.titleContainer}>
-            <MaterialCommunityIcons
-              name="order-bool-descending-variant"
-              size={24}
-              color="#000"
-            />
+            <MaterialIcons name="feedback" size={24} color="black" />
             <Text style={styles.title}>My Feedbacks</Text>
           </View>
         </View>
@@ -175,7 +171,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    
   },
   logo: {
     width: 40,
@@ -207,12 +202,13 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
     padding: 10,
     margin: 16,
-    marginTop:-40
+    marginTop: -40,
   },
   feedbackRating: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#000",
+  
   },
   feedbackText: {
     fontSize: 14,

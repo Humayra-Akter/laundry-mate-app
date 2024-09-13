@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 30,
   },
   logo: {
     width: 60,
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   pgTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#752100",
+    color: "#fff",
   },
   searchBarContainer: {
     flexDirection: "row",
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   },
   serviceButtonText: {
     fontSize: 16,
-    color: "#ffac5e",
+    color: "#000",
     fontWeight: "bold",
   },
   serviceTitle: {
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     color: "#ffac5e",
     textAlign: "center",
     marginBottom: 20,
-    marginTop: 10,
+    marginTop: 40,
   },
   tableHeader: {
     flexDirection: "row",
@@ -308,12 +308,12 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
-    color: "#000",
+    color: "#fff",
     width: "40%",
   },
   priceText: {
     fontSize: 16,
-    color: "#000",
+    color: "#ddd",
     width: "20%",
     textAlign: "center",
   },
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     fontSize: 16,
-    color: "#ffac5e",
+    color: "#752100",
     fontWeight: "bold",
   },
 });

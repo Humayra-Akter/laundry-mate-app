@@ -440,6 +440,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#ddd",
     marginTop: 4,
+    marginBottom: 4,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
   },
   pickupContainer: {
     flexDirection: "row",

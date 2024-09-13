@@ -145,14 +145,10 @@ const Payment = () => {
           }}
         >
           <View style={styles.header}>
-            {/* <Image
-              source={require("@/assets/images/logo.png")}
-              style={styles.logo}
-            /> */}
             <Ionicons
               name="chevron-back-circle-sharp"
               size={28}
-              color="black"
+              color="#752100"
               style={styles.logo}
               onPress={() => router.push("/basket/cart")}
             />
@@ -301,13 +297,14 @@ export default Payment;
 
 const styles = StyleSheet.create({
   header: {
-    marginBottom: 10,
+    marginTop: 10,
   },
   logo: {
     width: 40,
     height: 40,
     resizeMode: "cover",
     marginTop: 30,
+    marginLeft:20
   },
   section: {
     marginBottom: 20,
