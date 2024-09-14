@@ -44,37 +44,6 @@ export default function SignupScreen() {
   const auth = FIREBASE_AUTH;
   const dispatch = useDispatch();
 
-  // const handleSignUp = async () => {
-  //   try {
-  //     if (!userInfo.name || !userInfo.email || !userInfo.password) {
-  //       setRequired("All fields are required");
-  //       return;
-  //     }
-  //     setButtonSpinner(true);
-  //     const response = await createUserWithEmailAndPassword(
-  //       auth,
-  //       userInfo?.email,
-  //       userInfo?.password
-  //     );
-  //     console.log(response);
-  //     await fetch("http://192.168.1.170:5000/user", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(response),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         dispatch(setUser({ email: userInfo?.email }));
-  //         router.push("/home");
-  //       });
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     alert("Login failed " + error.message);
-  //   }
-  // };
-
   const handleSignUp = async () => {
     try {
       if (!userInfo.name || !userInfo.email || !userInfo.password) {
@@ -93,20 +62,12 @@ export default function SignupScreen() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: userInfo?.name,
-          email: userInfo?.email,
-          password: userInfo?.password,
-        }),
+        body: JSON.stringify(response),
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data) {
-            dispatch(setUser({ email: userInfo.email }));
-            router.push("/home");
-          } else {
-            Alert.alert("Login Failed", data.message);
-          }
+          dispatch(setUser({ email: userInfo?.email }));
+          router.push("/home");
         });
     } catch (error: any) {
       console.log(error);
