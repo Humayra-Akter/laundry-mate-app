@@ -1,4 +1,4 @@
-//app/basket/_layout.tsx
+//app/(tabs)/basket/_layout.tsx
 
 import { Stack } from "expo-router";
 

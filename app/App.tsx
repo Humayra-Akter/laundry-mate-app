@@ -1,3 +1,5 @@
+//app/App.tsx
+
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
