@@ -4,11 +4,11 @@
     "slug": "laundry",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "laundry-mate",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -37,6 +37,12 @@
       "eas": {
         "projectId": "2cccb6f5-86a2-42ed-a87a-54a1a85cb9a1"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2cccb6f5-86a2-42ed-a87a-54a1a85cb9a1"
     }
   }
 }
