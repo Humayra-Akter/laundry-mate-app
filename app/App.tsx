@@ -16,3 +16,29 @@ export default function App() {
 }
 
 registerRootComponent(App);
+
+// {
+//   "cli": {
+//     "version": ">= 12.4.1",
+//     "appVersionSource": "remote"
+//   },
+//   "build": {
+//     "development": {
+//       "developmentClient": true,
+//       "distribution": "internal"
+//     },
+//     "preview": {
+//       "android": {
+//         "buildType": "apk"
+//       },
+//       "distribution": "internal",
+//       "channel":"preview"
+//     },
+//     "production": {
+//       "autoIncrement": true
+//     }
+//   },
+//   "submit": {
+//     "production": {}
+//   }
+// }
