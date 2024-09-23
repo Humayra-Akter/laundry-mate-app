@@ -97,13 +97,16 @@ const Payment = () => {
     console.log("Order Details:", orderDetails);
 
     try {
-      const response = await fetch("http://192.168.1.170:5000/orderedItems", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderDetails),
-      });
+      const response = await fetch(
+        "https://laundry-mate-server.onrender.com/orderedItems",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderDetails),
+        }
+      );
 
       const responseData = await response.json();
 

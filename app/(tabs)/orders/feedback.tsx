@@ -9,7 +9,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Octicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Octicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
@@ -50,12 +54,12 @@ export default function Feedback() {
     const fetchFeedbackAndOrderedItems = async () => {
       try {
         const feedbackResponse = await fetch(
-          "http://192.168.1.170:5000/feedback"
+          "https://laundry-mate-server.onrender.com/feedback"
         );
         const feedbackData: Feedback[] = await feedbackResponse.json();
 
         const orderedItemsResponse = await fetch(
-          "http://192.168.1.170:5000/orderedItems"
+          "https://laundry-mate-server.onrender.com/orderedItems"
         );
         const orderedItemsData: OrderedItem[] =
           await orderedItemsResponse.json();
@@ -208,7 +212,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#000",
-  
   },
   feedbackText: {
     fontSize: 14,

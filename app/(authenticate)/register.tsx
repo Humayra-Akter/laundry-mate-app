@@ -57,7 +57,7 @@ export default function SignupScreen() {
         userInfo?.password
       );
       console.log(response);
-      await fetch("http://192.168.1.170:5000/user", {
+      await fetch("https://laundry-mate-server.onrender.com/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

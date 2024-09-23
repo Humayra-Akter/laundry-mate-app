@@ -39,16 +39,19 @@ export default function LoginScreen() {
   const handleSignIn = async () => {
     try {
       setButtonSpinner(true);
-      const response = await fetch("http://192.168.1.170:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userInfo?.email,
-          password: userInfo?.password,
-        }),
-      });
+      const response = await fetch(
+        "https://laundry-mate-server.onrender.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userInfo?.email,
+            password: userInfo?.password,
+          }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         dispatch(setUser({ email: userInfo.email }));

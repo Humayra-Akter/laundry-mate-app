@@ -32,17 +32,20 @@ export default function ForgotPassword() {
     }
 
     try {
-      const response = await fetch(`http://192.168.1.170:5000/user/${email}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newPassword: newPassword,
-        }),
-      });
+      const response = await fetch(
+        `https://laundry-mate-server.onrender.com/user/${email}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            newPassword: newPassword,
+          }),
+        }
+      );
       if (!response.ok) {
-        const errorText = await response.text(); 
+        const errorText = await response.text();
         throw new Error(errorText);
       }
       const contentType = response.headers.get("Content-Type");
@@ -59,7 +62,6 @@ export default function ForgotPassword() {
       Alert.alert("Error", "Network request failed or invalid response.");
     }
   };
-
 
   return (
     <LinearGradient

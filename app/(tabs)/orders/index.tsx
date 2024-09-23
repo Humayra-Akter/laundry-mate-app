@@ -113,7 +113,9 @@ export default function Index() {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await fetch("http://192.168.1.170:5000/orderedItems");
+        const response = await fetch(
+          "https://laundry-mate-server.onrender.com/orderedItems"
+        );
         const data: OrderDetails[] = await response.json();
 
         const userEmail = user?.user?.email;
@@ -141,13 +143,16 @@ export default function Index() {
     };
 
     try {
-      const response = await fetch("http://192.168.1.170:5000/feedback", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(feedback),
-      });
+      const response = await fetch(
+        "https://laundry-mate-server.onrender.com/feedback",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(feedback),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to submit feedback");
@@ -426,7 +431,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     paddingVertical: 3,
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     alignSelf: "flex-end",
   },
   logoutButtonText: {
